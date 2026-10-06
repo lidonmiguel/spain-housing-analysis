@@ -353,7 +353,7 @@ def run_analysis(root, preview_dir=None, vector=False):
     for s, label, color in [
         (p, "Compraventa (IPV)", BUY),
         (r, "Alquiler (IPVA)", RENT),
-        (cpi, "Inflación (IPC general)", "#7c8993"),
+        (cpi, "Precios generales (IPC)", "#7c8993"),
     ]:
         ax.plot(common, s.loc[common] / s.loc[first] * 100, "o-", label=label, color=color, lw=2.5)
     ax.legend(frameon=False)
@@ -362,7 +362,7 @@ def run_analysis(root, preview_dir=None, vector=False):
     save(
         fig,
         "03_indexed_comparison",
-        "Compra, alquiler e inflación: comparación en las mismas fechas",
+        "Compra y alquiler frente a los precios generales",
     )
 
     fig, axes = plt.subplots(2, 1, figsize=(13, 7))
