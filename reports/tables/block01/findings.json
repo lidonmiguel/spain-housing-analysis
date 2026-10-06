@@ -1,20 +1,44 @@
 {
-  "common_window": [
-    2021,
-    2024
+  "scope": "purchase_only",
+  "main_measure": "free_housing_valuation_eur_m2",
+  "national_window": [
+    2000,
+    2025
   ],
-  "purchase_nominal_change_pct": 21.023151478374103,
-  "rent_nominal_change_pct": 9.074129944806298,
-  "cpi_change_pct": 15.332487223438406,
-  "purchase_real_change_pct": 4.934138153034828,
-  "rent_real_change_pct": -5.426361148795422,
-  "purchase_2007_2025_change_pct": 20.25771227741049,
-  "purchase_trough_year": 2013,
-  "valuation_2024_eur_m2": 1913.625,
-  "new_contract_rent_change_pct": 19.299910334200977,
-  "existing_contract_rent_change_pct": 7.4918247511784,
-  "regional_rental_coverage": 19,
-  "rental_municipalities_2024": 2555,
-  "selected_municipalities": 30,
-  "mandate_comparisons_with_two_years": 43
+  "cpi_comparison_window": [
+    2002,
+    2025
+  ],
+  "municipal_window": [
+    2005,
+    2025
+  ],
+  "national_first_eur_m2": 880.225,
+  "national_last_eur_m2": 2127.575,
+  "purchase_nominal_pct": 141.70808600073843,
+  "purchase_cpi_window_pct": 90.11482441247432,
+  "general_prices_pct": 66.56578065926308,
+  "purchase_real_pct": 14.13798420059913,
+  "cycle": {
+    "code": "00",
+    "name": "España",
+    "first_year": 2000,
+    "last_year": 2025,
+    "observed_years": 26,
+    "missing_years": 0,
+    "first_value": 880.225,
+    "last_value": 2127.575,
+    "nominal_change_pct": 141.70808600073843,
+    "real_first_year": 2002,
+    "real_last_year": 2025,
+    "real_change_pct": 14.13798420059913,
+    "precrisis_peak_year": 2008,
+    "precrisis_peak_value": 2071.075,
+    "postcrisis_trough_year": 2014,
+    "postcrisis_trough_value": 1459.4,
+    "peak_to_trough_pct": -29.53417910988254,
+    "trough_to_latest_pct": 45.78422639440865,
+    "peak_to_latest_pct": 2.728051857127345
+  },
+  "figure_count": 13
 }

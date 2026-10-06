@@ -6,18 +6,18 @@ Study housing in Spain through six connected empirical blocks. The full scope is
 research backlog, not a claim that every dataset is obtainable. Begin with a
 province-level annual panel where possible and targeted local cases where needed.
 
-## Prices and political context — first narrative block
+## Purchase prices and political context — first narrative block
 
-Follow [the eight-part block specification](block_01_prices.md):
+Follow [the purchase-only block specification](block_01_prices.md):
 
-1. National purchase/rent evolution and base-100 comparison.
+1. National free-housing valuation in EUR/m², 2000–2025.
 2. National government mandates over the same time series.
-3. Nominal and inflation-adjusted prices.
-4. Large-city/periphery and coastal/inland profiles.
+3. Purchase valuation versus general consumer prices, common base 2002–2025.
+4. Fixed municipal samples: large-city/periphery and coastal/inland profiles, 2005–2025.
 5. Autonomous-community price and growth maps.
 6. Regional mandate panels and comparable annualised changes.
 7. Provincial and municipal maps and predefined local cases.
-8. Evidence-led political reading, explicitly separated from policy causality.
+8. Descriptive political context with dates and coverage, without party rankings or causal attribution.
 
 The specification includes formulas, coalition handling, transition-year rules,
 data contracts and a chart catalogue. New/used segments, source differences and
@@ -72,7 +72,7 @@ identification requirements and is not equivalent to predictive modelling.
 
 - [ ] M0: source feasibility audit, coverage matrix and confirmed definitions.
 - [ ] M1: reproducible ingestion for prices, rent, income, population, households and completions.
-- [x] M2: block 01 completed with 16 figures, numerical tables and an executed notebook (2026-10-06).
+- [x] M2: purchase-only block 01 completed with 13 figures, numerical tables and two executed notebooks (2026-10-06).
 - [ ] M2b: demographics and households-versus-construction figures (C02, C04).
 - [ ] M3: tenure, affordability and selected local tourism/vacancy cases.
 - [ ] M4: ownership feasibility decision; analyse only supported categories and scales.

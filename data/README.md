@@ -4,7 +4,11 @@
 por Git. `snapshots/block01/` contiene las extracciones reales necesarias para
 reproducir el informe sin acceso a internet. No contiene microdatos personales.
 
-## Corte del bloque 01: 6 de octubre de 2026
+## Corte de fuentes: 6 de octubre de 2026
+
+El bloque 1 utiliza tasación de compra desde 2000, IPC desde 2002 y municipios
+desde 2005. Los archivos de alquiler y otros indicadores se conservan como
+fuentes recuperadas; no intervienen en el análisis actual del bloque 1.
 
 | Snapshot | Concepto y cobertura |
 | --- | --- |
@@ -35,10 +39,11 @@ usan la base indicada en cada publicación. El análisis los rebasa cuando los c
 `python scripts/build_block01_data.py` descarga fuentes faltantes, verifica códigos
 del geocodificador, extrae tablas y rechaza observaciones ambiguas. Los originales
 se conservan en caché: no se reemplazan por una publicación nueva automáticamente.
-`python scripts/run_block01.py` reproduce la ventana inicial;
-`python scripts/run_price_history.py` genera el histórico ampliado. Ambos usan snapshots.
+`python scripts/run_block01.py` y `python scripts/run_price_history.py`
+reproducen el mismo bloque de compra desde los snapshots.
 
 Metadatos: `source_register.csv` incluye fuentes candidatas para todos los bloques;
 `dataset_manifest.csv` registra los originales reales del bloque 01;
 `government_register.csv` distingue presidencia, gabinete y apoyos desconocidos.
 El registro legal permanece pendiente para el bloque de evaluación de políticas.
+
