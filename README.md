@@ -15,7 +15,7 @@ housing supply, ownership and regulation relate to differences between territori
 
 | Block | Focus |
 | --- | --- |
-| 1. Prices | Purchase and rent prices, inflation, distributions and housing characteristics |
+| 1. Prices and political context | National evolution, government mandates, inflation and territorial price/growth maps |
 | 2. Demographics | Total population, population aged 18+, households, migration and emancipation |
 | 3. Supply and tenure | Ownership/renting, construction, vacancy, tourism and social housing |
 | 4. Ownership | Owner categories, concentration and buyer composition |
@@ -70,6 +70,18 @@ Open `notebooks/00_data_audit.ipynb` first. Select the Python interpreter from
 | `reports/tables/` | Selected summary tables |
 | `scripts/` | Repository validation and notebook checks |
 | `tests/` | Checks for indicator calculations |
+
+## First narrative block
+
+[Housing prices in Spain: territory and political context](docs/block_01_prices.md)
+is organised in eight parts: national prices, national governments, inflation,
+territorial profiles, autonomous communities, regional governments, local differences
+and political interpretation. Follow `notebooks/01_prices.ipynb` after the data audit.
+
+See the [block-specific figures](docs/block_01_chart_catalogue.csv) and
+[Spanish narrative draft](reports/block_01_prices.md). Government, price, CPI and
+classification tables currently contain schemas only; source verification and
+empirical charts are still pending. Mandate timelines provide context, not causal attribution.
 
 ## First working milestone
 

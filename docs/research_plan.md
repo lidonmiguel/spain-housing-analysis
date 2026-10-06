@@ -6,12 +6,22 @@ Study housing in Spain through six connected empirical blocks. The full scope is
 research backlog, not a claim that every dataset is obtainable. Begin with a
 province-level annual panel where possible and targeted local cases where needed.
 
-## Prices
+## Prices and political context — first narrative block
 
-- Purchase and rent levels per dwelling and per m²; annual and cumulative changes.
-- Nominal and constant-euro values; geography and city/periphery/coast/interior comparisons.
-- Medians and quantiles; new/used housing; advertised/contracted/appraised prices.
-- Composition changes in surface area, location and condition.
+Follow [the eight-part block specification](block_01_prices.md):
+
+1. National purchase/rent evolution and base-100 comparison.
+2. National government mandates over the same time series.
+3. Nominal and inflation-adjusted prices.
+4. Large-city/periphery and coastal/inland profiles.
+5. Autonomous-community price and growth maps.
+6. Regional mandate panels and comparable annualised changes.
+7. Provincial and municipal maps and predefined local cases.
+8. Evidence-led political reading, explicitly separated from policy causality.
+
+The specification includes formulas, coalition handling, transition-year rules,
+data contracts and a chart catalogue. New/used segments, source differences and
+composition diagnostics remain supporting checks when data permits.
 
 ## Population and households
 
@@ -62,7 +72,8 @@ identification requirements and is not equivalent to predictive modelling.
 
 - [ ] M0: source feasibility audit, coverage matrix and confirmed definitions.
 - [ ] M1: reproducible ingestion for prices, rent, income, population, households and completions.
-- [ ] M2: harmonised descriptive panel and first three figures (C01, C02, C04).
+- [ ] M2: complete block 01 national narrative (B01-01–03), then regional/local extensions (B01-04–08).
+- [ ] M2b: demographics and households-versus-construction figures (C02, C04).
 - [ ] M3: tenure, affordability and selected local tourism/vacancy cases.
 - [ ] M4: ownership feasibility decision; analyse only supported categories and scales.
 - [ ] M5: verified policy timeline and feasibility assessment for comparative evaluation.

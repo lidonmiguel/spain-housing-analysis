@@ -39,6 +39,14 @@ using one documented CPI series and base period. Examine listing composition.
 - Households versus completions is a pressure indicator, not a complete housing
   deficit: existing stock, location, demolitions and changes of use also matter.
 
+## Government context in block 01
+
+Use the mandate and transition rules in [the block specification](block_01_prices.md).
+Exact timeline bands do not turn whole-year averages into party-specific prices.
+Report observed-window duration, missingness and incomplete mandates when comparing
+changes. Coalition cabinet membership and external parliamentary support are separate.
+The descriptive timeline is independent of the measure-level policy register in block 06.
+
 ## Ownership
 
 Separate legal personality, entity subtype, enterprise size and portfolio size.

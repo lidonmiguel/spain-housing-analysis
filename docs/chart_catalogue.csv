@@ -1,6 +1,6 @@
 chart_id,block,title,visual,purpose,required_inputs
 C00,00,Coverage matrix,Variables × geography × year,Source gaps and comparable windows,Data audit
-C01,01,Prices and income over time,Base-100 indices and constant euros,Relative growth and inflation,Comparable price/rent/income/CPI series
+C01,01,National purchase and rent evolution,Base-100 indices and constant euros,First narrative block; inflation and government context,Price/rent/CPI panels and verified government register
 C02,02,Population and households,Aligned time-series panels,Total population versus adults and households,Population by age and household series
 C03,02,Dwellings per 1000,Maps and time series,Stock relative to inhabitants/adults/households,Stock and denominators
 C04,02/03,Households versus completions,Annual flows and cumulative territorial differences,Supply response to household formation,Household changes and completions
@@ -25,3 +25,11 @@ C22,06,Risk and legal procedures,Rates and court-duration distributions,Arrears/
 C23,08,Sensitivity comparisons,Estimates across sources/windows/specifications,Robustness of conclusions,Comparable alternative inputs
 C24,07,Model diagnostics,Baseline errors/residuals/cluster profiles,Prediction quality and cluster stability,Validated modelling dataset
 C25,02,Emancipation,Age/territory time series,Adult population versus independent living,Comparable emancipation/cohabitation data
+B01-01,01,National price evolution,Separate purchase and rent panels in EUR/m² and EUR/dwelling where supported. Base-100 comparison over a shared window.,Political narrative: descriptive comparison,National price/rent series with exact definitions and units.
+B01-02,01,National governments,The national series with dated mandate bands; annual-change bars with transition years identified.,Political narrative: descriptive comparison,Verified national mandates and the same national price/rent series.
+B01-03,01,Inflation and real growth,"Purchase and rent panels comparing nominal and constant-euro prices, retaining government bands.",Political narrative: descriptive comparison,Documented annual CPI series and common base year.
+B01-04,01,Territorial profiles,Price-level panels and base-100 trends by explicitly defined territorial groups.,Political narrative: descriptive comparison,Municipal observations and verified geography classification/aggregation weights.
+B01-05,01,Autonomous communities,Separate maps of levels and percentage changes for purchase and rent; annual-change heatmap.,Political narrative: descriptive comparison,"Comparable community series, harmonised geography codes and licensed boundaries."
+B01-06,01,Regional governments,Small multiples with mandate bands; descriptive mandate table and annualised-growth comparison.,Political narrative: descriptive comparison,"Verified regional mandates, coalition composition and comparable price observations."
+B01-07,01,Provinces and municipalities,Provincial/municipal price and growth maps plus preselected local time-series cases.,Political narrative: descriptive comparison,"Local prices, coverage thresholds and boundaries compatible with observation vintages."
+B01-08,01,Political reading of the evidence,"Evidence table by geography and mandate: nominal/real changes, annualised rates, coverage and sources.",Political narrative: descriptive comparison,Completed previous sections and traceable calculations.

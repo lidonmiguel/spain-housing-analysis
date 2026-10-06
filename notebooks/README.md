@@ -16,3 +16,10 @@ Check notebook structure and execute the current templates with:
 ```bash
 python scripts/check_notebooks.py
 ```
+
+## Block 01: narrative workflow
+
+`01_prices.ipynb` follows the eight sections in `docs/block_01_prices.md`.
+It reads the price/CPI schemas and government/classification registers to show
+readiness. Missing inputs are reported explicitly; no political values are invented.
+Use `reports/block_01_prices.md` to write the Spanish narrative after analysis.
