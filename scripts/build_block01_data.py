@@ -12,6 +12,8 @@ import pandas as pd
 from fetch_block01_context import fetch_cities, fetch_governments
 from shapely.geometry import mapping, shape
 
+from spain_housing.municipal_data import municipal_quarters
+
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data/raw/block01"
 OUT = ROOT / "data/snapshots/block01"
@@ -266,25 +268,7 @@ def build():
         for name in aliases.get(city["muniCode"], [city["muni"]]):
             names[normalise(name)] = city["muniCode"]
     book = pd.ExcelFile(RAW / "municipal_purchase.xls")
-    municipal = []
-    for sheet in book.sheet_names:
-        match = re.match(r"T([1-4])A(\d{4})", sheet)
-        if not match:
-            continue
-        q, year = map(int, match.groups())
-        if not 2005 <= year <= 2025:
-            continue
-        frame = pd.read_excel(book, sheet, header=None)
-        for _, row in frame.iterrows():
-            if len(row) < 6:
-                continue
-            code = names.get(normalise(row.iloc[2]))
-            value = pd.to_numeric(row.iloc[5], errors="coerce")
-            if code and pd.notna(value) and value > 0:
-                municipal.append({"code": code, "year": year, "quarter": q, "value": value})
-    municipal = pd.DataFrame(municipal)
-    if municipal.duplicated(["code", "year", "quarter"]).any():
-        raise ValueError("Ambiguous municipal purchase match")
+    municipal = municipal_quarters(book, names)
     write(annual_complete(municipal, ["code", "year"]), "municipal_purchase.csv")
     write(pd.DataFrame(cities).drop(columns=["error"], errors="ignore"), "selected_cities.csv")
 
