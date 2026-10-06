@@ -25,8 +25,8 @@ Se conservan intervalos históricos del Senado; pueden existir interinidades bre
 
 ![Vivienda frente a los precios generales](figures/history/03_common_nominal_real.svg)
 
-La gráfica compara la evolución de los precios de compra y alquiler con la de los precios
-generales, medida por el IPC. Todas las series parten de 2011 = 100: un valor de 120
+Comparamos cuánto han subido la compra y el alquiler respecto a los precios generales,
+medidos por el IPC. Todas las series parten de 2011 = 100: un valor de 120
 representa una subida acumulada del 20 %, no un precio en euros.
 
 Entre 2011 y 2024, la compra aumentó un **27.91%**, el alquiler un **17.33%**
