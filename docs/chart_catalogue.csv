@@ -1,6 +1,6 @@
 chart_id,block,title,visual,purpose,required_inputs
 C00,00,Coverage matrix,Variables × geography × year,Source gaps and comparable windows,Data audit
-C01,01,National purchase and rent evolution,Base-100 indices and constant euros,First narrative block; inflation and government context,Price/rent/CPI panels and verified government register
+C01,01,Purchase prices from 2000,Valuation EUR/m2 and comparison with general prices from 2002,Purchase history and government context,MIVAU valuation and INE CPI and verified governments
 C02,02,Population and households,Aligned time-series panels,Total population versus adults and households,Population by age and household series
 C03,02,Dwellings per 1000,Maps and time series,Stock relative to inhabitants/adults/households,Stock and denominators
 C04,02/03,Households versus completions,Annual flows and cumulative territorial differences,Supply response to household formation,Household changes and completions
@@ -33,3 +33,4 @@ B01-05,01,Autonomous communities,Separate maps of levels and percentage changes 
 B01-06,01,Regional governments,Small multiples with mandate bands; descriptive mandate table and annualised-growth comparison.,Political narrative: descriptive comparison,"Verified regional mandates, coalition composition and comparable price observations."
 B01-07,01,Provinces and municipalities,Provincial/municipal price and growth maps plus preselected local time-series cases.,Political narrative: descriptive comparison,"Local prices, coverage thresholds and boundaries compatible with observation vintages."
 B01-08,01,Political reading of the evidence,"Evidence table by geography and mandate: nominal/real changes, annualised rates, coverage and sources.",Political narrative: descriptive comparison,Completed previous sections and traceable calculations.
+

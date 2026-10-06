@@ -231,16 +231,35 @@ def load_rental_snapshot(snapshot):
     )
 
 
+def load_purchase_data(root):
+    """Load observed purchase prices from 2000; preserve each series' definition."""
+    snapshot = Path(root) / "data/snapshots/block01"
+    values = pd.read_csv(snapshot / "valuations.csv", dtype={"code": str})
+    values = values[values.year >= 2000].copy()
+    municipal = pd.read_csv(snapshot / "municipal_purchase.csv", dtype={"code": str})
+    cities = pd.read_csv(snapshot / "selected_cities.csv", dtype={"muniCode": str})
+    municipal = municipal.merge(cities, left_on="code", right_on="muniCode", validate="many_to_one")
+    municipal = municipal.rename(columns={"muni": "name"})
+    cpi = series_for(pd.read_csv(snapshot / "cpi.csv", dtype={"code": str}))
+    gov = pd.read_csv(snapshot / "governments.csv", dtype={"code": str})
+    for frame, keys in [(values, ["level", "code", "year"]), (municipal, ["code", "year"])]:
+        if frame.duplicated(keys).any() or not (frame.value > 0).all():
+            raise ValueError("Purchase observations must be unique and positive")
+    return values, municipal, cpi, gov
+
+
 def run_analysis(root, preview_dir=None, vector=False):
+    """Generate purchase-only block 1, with nominal history from 2000."""
+    from spain_housing.price_history import government_history, history_summary, real_series
+
     root = Path(root)
-    if preview_dir is not None:
-        preview_dir = Path(preview_dir)
-        preview_dir.mkdir(parents=True, exist_ok=True)
-    snapshot = root / "data/snapshots/block01"
     figures = root / "reports/figures/block01"
     tables = root / "reports/tables/block01"
     figures.mkdir(parents=True, exist_ok=True)
     tables.mkdir(parents=True, exist_ok=True)
+    if preview_dir is not None:
+        preview_dir = Path(preview_dir)
+        preview_dir.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
@@ -252,54 +271,47 @@ def run_analysis(root, preview_dir=None, vector=False):
             "svg.hashsalt": "spain-housing-block01",
         }
     )
-    frames = {}
-    for name in [
-        "purchase_index",
-        "rent_index",
-        "cpi",
-        "valuations",
-        "governments",
-        "municipal_purchase",
-        "selected_cities",
-        "purchase_transaction_total",
-    ]:
-        frames[name] = pd.read_csv(snapshot / f"{name}.csv", dtype={"code": str, "muniCode": str})
-    # Keep the original report's municipal comparison window explicit.
-    # The extended histories are generated separately by price_history.py.
-    frames["municipal_purchase"] = (
-        frames["municipal_purchase"]
-        .loc[frames["municipal_purchase"].year.between(2011, 2024)]
-        .copy()
+    values, municipal, cpi, gov = load_purchase_data(root)
+    national = values[values.level == "national"]
+    p = series_for(national)
+    first, last = int(p.index.min()), int(p.index.max())
+    shared = sorted(set(p.index) & set(cpi.index))
+    base, end = int(shared[0]), int(shared[-1])
+    comparison = pd.DataFrame(
+        {
+            "purchase_valuation_index": p.loc[shared] / p.loc[base] * 100,
+            "general_prices_cpi_index": cpi.loc[shared] / cpi.loc[base] * 100,
+        }
     )
-    frames["governments"] = (
-        frames["governments"]
-        .loc[
-            (frames["governments"].start <= "2024-12-31")
-            & (frames["governments"].end.isna() | (frames["governments"].end >= "2011-01-01"))
-        ]
-        .copy()
+    comparison.index.name = "year"
+    comparison.to_csv(tables / "national_comparison.csv", float_format="%.8f")
+    national_levels = pd.DataFrame({"valuation_eur_m2": p, "annual_change_pct": annual_changes(p)})
+    national_levels.index.name = "year"
+    national_levels.to_csv(tables / "national_levels.csv", float_format="%.8f")
+    summaries = {}
+    for level in ["national", "region", "province"]:
+        summaries[level] = history_summary(values[values.level == level], cpi, ["code", "name"])
+        summaries[level].to_csv(tables / f"{level}_purchase_history.csv", index=False)
+    history_summary(municipal, cpi, ["code", "name"]).to_csv(
+        tables / "municipal_purchase_history.csv", index=False
     )
-    rentals = load_rental_snapshot(snapshot)
-    buy = frames["purchase_index"]
-    rent = frames["rent_index"]
-    values = frames["valuations"]
-    gov = frames["governments"]
-    cpi = series_for(frames["cpi"])
-    p = series_for(buy)
-    r = series_for(rent, contract="Total")
-    valuation = series_for(values, level="national")
-    regional_rent = rentals.query('level == "region" and unit == "EUR/m2/month"').copy()
-    regional_value = values.query('level == "region"').copy()
-    region_names = dict(buy[["code", "name"]].drop_duplicates().itertuples(index=False, name=None))
-    region_codes = sorted(code for code in region_names if "01" <= code <= "17")
+    mandates = pd.concat(
+        [
+            government_history(values[values.level == level], gov, cpi, level, "purchase_valuation")
+            for level in ["national", "region"]
+        ],
+        ignore_index=True,
+    )
+    mandates = mandates[mandates.observed_complete_years > 0].copy()
+    mandates.to_csv(tables / "government_history.csv", index=False)
     files = []
 
-    def save(fig, name, subtitle):
-        fig.suptitle(subtitle, fontsize=14, fontweight="bold", x=0.03, ha="left")
+    def save(fig, name, title):
+        fig.suptitle(title, fontsize=14, fontweight="bold", x=0.03, ha="left")
         fig.text(
             0.03,
-            0.01,
-            "Fuentes: INE / MIVAU · datos observados · contexto político descriptivo",
+            0.008,
+            "Fuentes: MIVAU / INE · años completos · gobiernos: contexto descriptivo",
             fontsize=8,
             color="#64727d",
         )
@@ -307,675 +319,332 @@ def run_analysis(root, preview_dir=None, vector=False):
         path = figures / f"{name}.png"
         fig.savefig(path, dpi=100, bbox_inches="tight")
         if vector:
-            fig.savefig(figures / f"{name}.svg", metadata={"Date": None}, bbox_inches="tight")
+            with plt.rc_context({"svg.fonttype": "none"}):
+                fig.savefig(figures / f"{name}.svg", metadata={"Date": None})
         if preview_dir is not None:
             shutil.copyfile(path, preview_dir / path.name)
         plt.close(fig)
         files.append(path)
 
-    fig, axes = plt.subplots(1, 3, figsize=(17, 5))
-    axes[0].plot(valuation.index, valuation, color=BUY, linewidth=2.5)
-    style(axes[0], "Valor tasado: media de 4 trimestres", "€/m² · vivienda libre")
-    trans = frames["purchase_transaction_total"]
-    axes[1].plot(trans.year + (trans.quarter - 1) / 4, trans.value, color=BUY, linewidth=2)
-    style(axes[1], "Compraventa: valor medio trimestral", "€/vivienda · libre de segunda mano")
-    axes[2].plot(r.index, r, "o-", color=RENT, linewidth=2.5)
-    style(axes[2], "Alquiler: índice nacional IPVA", "Índice INE · 2015 = 100")
-    axes[2].set_xticks(r.index)
-    save(fig, "01_national_levels", "1. Evolución nacional: medidas distintas, unidades explícitas")
-
-    fig, axes = plt.subplots(2, 1, figsize=(13, 8))
-    for ax, s, title, color in [
-        (axes[0], p, "Compraventa · IPV", BUY),
-        (axes[1], r, "Alquiler · IPVA", RENT),
-    ]:
-        gov_bands(ax, gov, "national", "00", s.index.min(), s.index.max() + 0.8, labels=True)
-        ax.plot(s.index + 0.5, s, "o-", color=color, linewidth=2.5)
-        style(ax, title, "Índice de la fuente · media anual")
-    save(fig, "02_national_governments", "2. Los precios y el calendario de gobiernos nacionales")
-
-    common = sorted(set(p.index) & set(r.index) & set(cpi.index))
-    first, last = common[0], common[-1]
-    comparison = pd.DataFrame(
-        {
-            "year": common,
-            "purchase_nominal_index": p.loc[common].to_numpy() / p.loc[first] * 100,
-            "rent_nominal_index": r.loc[common].to_numpy() / r.loc[first] * 100,
-            "cpi_index": cpi.loc[common].to_numpy() / cpi.loc[first] * 100,
-        }
-    )
-    comparison["purchase_real_index"] = (
-        comparison.purchase_nominal_index / comparison.cpi_index * 100
-    )
-    comparison["rent_real_index"] = comparison.rent_nominal_index / comparison.cpi_index * 100
-    comparison.to_csv(tables / "national_comparison.csv", index=False)
-    # Use the full general rental history for this comparison only.
-    chart_rent = series_for(
-        pd.read_csv(snapshot / "rent_general_history.csv", dtype={"code": str})
-    )
-    chart_years = sorted(set(p.index) & set(chart_rent.index) & set(cpi.index))
-    chart_first, chart_last = chart_years[0], chart_years[-1]
     fig, ax = plt.subplots(figsize=(12, 5))
-    for s, label, color in [
-        (p, "Compraventa (IPV)", BUY),
-        (chart_rent, "Alquiler (IPVA)", RENT),
-        (cpi, "Precios generales (IPC)", "#7c8993"),
-    ]:
-        index = s.loc[chart_years] / s.loc[chart_first] * 100
-        ax.plot(chart_years, index, "o-", label=label, color=color, lw=2.5)
-    ax.legend(frameon=False)
-    ax.set_xticks([chart_first, 2014, 2017, 2020, chart_last])
-    style(ax, f"Ventana común {chart_first}–{chart_last}", f"{chart_first} = 100")
+    ax.plot(p.index, p, color=BUY, lw=2.5)
+    style(ax, f"Tasación nacional de vivienda libre, {first}–{last}", "€/m²")
+    save(fig, "01_national_levels", "Precio de compra de vivienda en España desde 2000")
+
+    fig, ax = plt.subplots(figsize=(13, 5))
+    gov_bands(ax, gov, "national", "00", first, last + 1, labels=True)
+    ax.plot(p.index + 0.5, p, color=BUY, lw=2.5)
+    style(ax, "Presidencias nacionales y evolución de la tasación", "€/m²")
     save(
         fig,
-        "03_indexed_comparison",
-        "Compra y alquiler frente a los precios generales",
+        "02_national_governments",
+        "Compra y gobiernos: coincidencia temporal, sin atribución causal",
     )
 
-    fig, axes = plt.subplots(2, 1, figsize=(13, 7))
-    for ax, s, label, color in [
-        (axes[0], p, "Compraventa (IPV)", BUY),
-        (axes[1], r, "Alquiler (IPVA)", RENT),
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.plot(shared, comparison.purchase_valuation_index, label="Compra: tasación €/m²", color=BUY)
+    ax.plot(
+        shared,
+        comparison.general_prices_cpi_index,
+        label="Precios generales (IPC)",
+        color="#7c8993",
+        ls="--",
+    )
+    ax.axhline(100, color="#888", lw=0.7)
+    style(ax, f"Mismos años y base: {base}–{end}", f"{base} = 100")
+    ax.legend()
+    save(fig, "03_indexed_comparison", "Compra de vivienda frente a los precios generales")
+
+    fig, ax = plt.subplots(figsize=(12, 5))
+    rates = annual_changes(p)
+    ax.bar(rates.index, rates, color=[BUY if v >= 0 else "#8f9ba5" for v in rates])
+    ax.axhline(0, color="#555", lw=0.8)
+    style(ax, "Variación entre años consecutivos, desde 2001", "% interanual · tasación")
+    save(fig, "04_annual_changes", "Subidas y caídas anuales del precio de compra")
+
+    cycle = summaries["national"].iloc[0]
+    peak, trough = int(cycle.precrisis_peak_year), int(cycle.postcrisis_trough_year)
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.plot(p.index, p, color=BUY, lw=2.5)
+    for year, name in [
+        (peak, "Máximo 2000–2008"),
+        (trough, "Mínimo 2009–2015"),
+        (last, "Último año"),
     ]:
-        growth = annual_changes(s)
-        ax.bar(growth.index, growth, color=[color if v >= 0 else "#8f9ba5" for v in growth])
-        ax.axhline(0, color="#495965", lw=0.7)
-        style(ax, label, "Variación anual (%)")
-    save(
-        fig,
-        "04_annual_changes",
-        "Subidas y bajadas: la trayectoria no es una línea continua de crecimiento",
-    )
-
-    fig, axes = plt.subplots(2, 1, figsize=(13, 8))
-    for ax, s, label, color in [(axes[0], p, "Compraventa", BUY), (axes[1], r, "Alquiler", RENT)]:
-        years = sorted(set(s.index) & set(cpi.index))
-        base = years[0]
-        nominal = s.loc[years] / s.loc[base] * 100
-        real = nominal / (cpi.loc[years] / cpi.loc[base])
-        gov_bands(ax, gov, "national", "00", base, years[-1] + 0.8)
-        ax.plot(np.array(years) + 0.5, nominal, label="Nominal", color=color, lw=2.3)
-        ax.plot(
-            np.array(years) + 0.5,
-            real,
-            label="Ajustado por IPC nacional",
-            color=color,
-            ls="--",
-            lw=2.3,
+        ax.scatter(year, p.loc[year], color=BUY)
+        ax.annotate(
+            f"{name}: {year}",
+            (year, p.loc[year]),
+            xytext=(0, 15),
+            textcoords="offset points",
+            ha="center",
+            fontsize=9,
         )
-        style(ax, label, f"{base} = 100 · nominal y real")
-        ax.legend(frameon=False)
-    save(fig, "05_inflation", "3. Descontar la inflación cambia la lectura de las subidas")
+    style(ax, "Extremos dentro de ventanas explícitas", "Tasación €/m²")
+    save(fig, "05_purchase_cycle", "Auge, caída y recuperación del precio de compra")
 
-    cities = frames["selected_cities"].rename(columns={"muniCode": "code", "muni": "name"})
-    city_buy = frames["municipal_purchase"].merge(cities, on="code", validate="many_to_one")
-    city_rent = rentals.query('level == "municipality" and unit == "EUR/m2/month"').merge(
-        cities.drop(columns="name"), on="code", validate="many_to_one"
-    )
-    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
-    groups = [
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    samples = []
+    for ax, category, groups in [
         (
+            axes[0],
             "urban_category",
-            ["large_city", "periphery"],
-            ["Ciudades seleccionadas", "Periferias seleccionadas"],
+            [("large_city", "Grandes ciudades"), ("periphery", "Periferias")],
         ),
-        (
-            "coastal_category",
-            ["coastal", "inland"],
-            ["Costa seleccionada", "Interior seleccionado"],
-        ),
-    ]
-    sample_counts = []
-    for row, (frame, label) in enumerate([(city_buy, "Tasación"), (city_rent, "Alquiler")]):
-        for col, (attribute, cats, labels) in enumerate(groups):
-            for category, title in zip(cats, labels):
-                subset = frame[frame[attribute] == category].copy()
-                valid = [
-                    code
-                    for code, g in subset.groupby("code")
-                    if set(range(2011, 2025)) <= set(g.year)
-                ]
-                subset = subset[subset.code.isin(valid)]
-                baselines = subset[subset.year == 2011].set_index("code").value
-                subset["indexed"] = subset.value / subset.code.map(baselines) * 100
-                s = subset.groupby("year").indexed.mean()
-                axes[row, col].plot(s.index, s, lw=2.3, label=f"{title} (n={len(valid)})")
-                sample_counts.append(
-                    {
-                        "market": label,
-                        "group": title,
-                        "municipalities": len(valid),
-                        "change_2011_2024_pct": s.get(2024, np.nan) - 100,
-                    }
-                )
-            style(axes[row, col], label, "2011 = 100 · media municipal sin ponderar")
-            axes[row, col].legend(frameon=False, fontsize=8)
-    pd.DataFrame(sample_counts).to_csv(tables / "territorial_profiles.csv", index=False)
-    save(
-        fig,
-        "06_territorial_profiles",
-        "4. Perfiles territoriales: muestra fija y explícita de 30 municipios",
-    )
-
-    region_purchase = endpoint_table(regional_value)
-    region_rental = endpoint_table(regional_rent)
-    province_purchase = endpoint_table(values.query('level == "province"'))
-    province_rental = endpoint_table(
-        rentals.query('level == "province" and unit == "EUR/m2/month"')
-    )
-    for prefix, a, b in [
-        ("regional", region_purchase, region_rental),
-        ("provincial", province_purchase, province_rental),
+        (axes[1], "coastal_category", [("coastal", "Costa"), ("inland", "Interior")]),
     ]:
-        combined = a.merge(b, on="code", how="outer", suffixes=("_purchase", "_rent"))
-        combined.to_csv(tables / f"{prefix}_levels_and_growth.csv", index=False)
-        boundary = json.loads(
-            (
-                snapshot / ("communities.geojson" if prefix == "regional" else "provinces.geojson")
-            ).read_text()
-        )
-        fig, axes = plt.subplots(2, 2, figsize=(15, 11))
-        for ax, table, field, title, unit, diverging in [
-            (axes[0, 0], a, "last_value", "Tasación · 2024", "€/m²", False),
-            (
-                axes[0, 1],
-                b,
-                "last_value",
-                "Alquiler mediano · 2024",
-                "€/m²/mes · vivienda colectiva",
-                False,
-            ),
-            (axes[1, 0], a, "change_pct", "Cambio de tasación · 2011–2024", "% nominal", True),
-            (axes[1, 1], b, "change_pct", "Cambio de alquiler · 2011–2024", "% nominal", True),
-        ]:
-            map_panel(
-                ax, boundary, table.set_index("code")[field].to_dict(), title, unit, diverging
+        for group, label in groups:
+            wide = municipal[municipal[category] == group].pivot(
+                index="year", columns="code", values="value"
             )
-        save(
-            fig,
-            "07_regional_maps" if prefix == "regional" else "12_provincial_maps",
-            "5. Comunidades: nivel y crecimiento"
-            if prefix == "regional"
-            else "7. Provincias: diferencias dentro del país",
+            start, stop = int(municipal.year.min()), int(municipal.year.max())
+            wide = wide.reindex(range(start, stop + 1)).dropna(axis=1)
+            if wide.shape[1]:
+                index = (wide / wide.loc[start] * 100).mean(axis=1)
+                ax.plot(index.index, index, label=f"{label} (n={wide.shape[1]})", lw=2)
+                samples.extend(
+                    dict(
+                        category=category, group=group, code=code, first_year=start, last_year=stop
+                    )
+                    for code in wide.columns
+                )
+        style(
+            ax, f"Muestra fija de municipios, {start}–{stop}", f"{start} = 100 · media no ponderada"
         )
+        ax.legend()
+    pd.DataFrame(samples).to_csv(tables / "profile_fixed_samples.csv", index=False)
+    save(fig, "06_territorial_profiles", "Compra: grandes ciudades, periferias, costa e interior")
 
-    fig, axes = plt.subplots(1, 2, figsize=(16, 9))
-    for ax, frame, title in [
-        (axes[0], buy[buy.code.isin(region_codes)], "Compraventa · IPV"),
-        (axes[1], regional_rent, "Alquiler · mediana SERPAVI"),
+    for level, boundary_name, filename in [
+        ("region", "communities.geojson", "07_regional_maps"),
+        ("province", "provinces.geojson", "12_provincial_maps"),
     ]:
-        matrix = frame.pivot(index="code", columns="year", values="value").reindex(region_codes)
-        matrix = matrix.reindex(columns=range(2011, 2025))
-        growth = matrix.pct_change(axis=1, fill_method=None).iloc[:, 1:] * 100
-        limit = max(np.nanmax(np.abs(growth.to_numpy())), 1)
-        image = ax.imshow(growth, aspect="auto", cmap="RdBu_r", vmin=-limit, vmax=limit)
-        ax.set_yticks(range(len(region_codes)), [region_names[c] for c in region_codes])
-        ax.set_xticks(range(len(growth.columns)), growth.columns, rotation=90)
-        ax.set_title(title, loc="left")
-        plt.colorbar(image, ax=ax, shrink=0.7, label="Variación anual (%)")
-    save(fig, "08_regional_heatmap", "Ritmos anuales: distintas trayectorias territoriales")
+        boundary = json.loads((root / "data/snapshots/block01" / boundary_name).read_text())
+        frame = values[values.level == level]
+        current, growth = {}, {}
+        for code in frame.code.unique():
+            s = series_for(frame, code)
+            current[code] = s.get(last, np.nan)
+            growth[code] = change(s, first, last)
+        fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+        map_panel(axes[0], boundary, current, f"Tasación {last}", "€/m²")
+        map_panel(axes[1], boundary, growth, f"Cambio {first}–{last}", "%", diverging=True)
+        save(fig, filename, "Precio de compra: nivel y cambio en el mismo periodo")
 
-    for label, frame, color in [("purchase", buy, BUY), ("rent", regional_rent, RENT)]:
-        fig, axes = plt.subplots(6, 3, figsize=(17, 20))
-        for ax, code in zip(axes.flat, region_codes):
-            s = series_for(frame, code).reindex(range(2011, 2025))
-            gov_bands(ax, gov, "region", code, 2011, 2025)
-            if s.notna().any():
-                base = s.dropna().iloc[0]
-                ax.plot(s.index + 0.5, s / base * 100, color=color, lw=2)
-            else:
-                ax.text(0.5, 0.5, "Sin datos de alquiler", transform=ax.transAxes, ha="center")
-            base_year = int(s.first_valid_index()) if s.notna().any() else 2011
-            style(ax, region_names[code], f"{base_year} = 100")
-            ax.set_xticks([2011, 2015, 2019, 2023])
-        axes.flat[-1].set_axis_off()
-        handles = [
-            Patch(color=color, alpha=0.4, label=party)
-            for party, color in COLORS.items()
-            if party in set(gov.query('level == "region"').party)
-        ]
-        axes.flat[-1].legend(handles=handles, loc="center", ncol=2, fontsize=9, frameon=False)
-        save(
-            fig,
-            f"09_regional_governments_{label}",
-            "6. Presidencias autonómicas y precios · partido de presidencia, no coalición completa",
-        )
+    regions = values[(values.level == "region") & ~values.code.isin(["18", "19"])]
+    wide = regions.pivot(index="year", columns="name", values="value")
+    heat = wide.pct_change(fill_method=None).iloc[1:].T
+    fig, ax = plt.subplots(figsize=(15, 7))
+    limit = max(abs(heat.min().min()), abs(heat.max().max()))
+    im = ax.imshow(heat, aspect="auto", cmap="RdBu_r", vmin=-limit, vmax=limit)
+    ax.set_yticks(range(len(heat.index)), heat.index)
+    ax.set_xticks(range(len(heat.columns)), heat.columns, rotation=90)
+    fig.colorbar(im, ax=ax, label="Variación anual de tasación (%)")
+    save(fig, "08_regional_heatmap", "Cuándo subió o bajó el precio de compra en cada comunidad")
 
-    mandates = mandate_table(buy, regional_rent, gov, cpi)
-    mandates.to_csv(tables / "regional_mandate_changes.csv", index=False)
-    eligible = mandates.dropna(subset=["purchase_annualised_pct", "rent_annualised_pct"])
-    fig, ax = plt.subplots(figsize=(12, 7))
-    for party, group in eligible.groupby("party"):
+    fig, axes = plt.subplots(6, 3, figsize=(16, 19))
+    for ax, (code, data) in zip(axes.flat, regions.groupby("code"), strict=False):
+        s = series_for(data, code)
+        gov_bands(ax, gov, "region", code, first, last + 1)
+        ax.plot(s.index + 0.5, s, color=BUY, lw=1.8)
+        style(ax, data.name.iloc[0], "Tasación €/m²")
+        ax.set_xticks([2000, 2005, 2010, 2015, 2020, last])
+        ax.tick_params(axis="x", labelsize=7)
+    axes.flat[-1].axis("off")
+    parties = sorted(set(gov[gov.level == "region"].party))
+    fig.legend(
+        handles=[Patch(color=COLORS.get(x, "#aaa"), label=x, alpha=0.4) for x in parties],
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.96),
+        ncol=8,
+        fontsize=7,
+    )
+    save(fig, "09_regional_governments_purchase", "Compra y presidencias autonómicas desde 2000")
+
+    observed = mandates[(mandates.metric == "purchase_valuation") & (mandates.code != "00")]
+    observed = observed.dropna(subset=["annualised_pct"])
+    fig, ax = plt.subplots(figsize=(13, 6))
+    for party, data in observed.groupby("party"):
         ax.scatter(
-            group.purchase_annualised_pct,
-            group.rent_annualised_pct,
-            c=COLORS.get(party, "#666"),
+            (data.first_year + data.last_year) / 2,
+            data.annualised_pct,
             label=party,
+            color=COLORS.get(party, "#888"),
             alpha=0.8,
-            s=65,
-            edgecolors="white",
         )
-    ax.axhline(0, color="#666", lw=0.7)
-    ax.axvline(0, color="#666", lw=0.7)
+    ax.axhline(0, color="#555", lw=0.8)
     style(
         ax,
-        "Cada punto: un periodo observado dentro de un mandato",
-        "Alquiler: cambio anualizado (%)",
+        "Cada punto: años completos observados dentro de una presidencia",
+        "Cambio anualizado de tasación (%)",
     )
-    ax.set_xlabel("Compraventa (IPV): cambio anualizado (%)")
-    ax.legend(frameon=False, ncol=3)
+    ax.set_xlabel("Año central del periodo observado · fechas exactas en la tabla")
+    ax.legend(ncol=6, fontsize=8)
     save(
         fig,
         "10_mandate_comparison",
-        "Comparación descriptiva: años completos comunes, sin atribución causal",
+        "Cambios de compra por periodo: contexto temporal, sin ranking de partidos",
     )
 
-    fig, axes = plt.subplots(2, 2, figsize=(15, 11))
-    municipal_tables = []
-    boundary = json.loads((snapshot / "communities.geojson").read_text())
-    for row, (frame, label) in enumerate([(city_buy, "Tasación"), (city_rent, "Alquiler")]):
-        endpoint = endpoint_table(frame).merge(
-            cities[["code", "lat", "lng"]], on="code", validate="one_to_one"
+    start, stop = int(municipal.year.min()), int(municipal.year.max())
+    selected = municipal[municipal.year == stop].copy()
+    selected["growth_pct"] = [
+        change(series_for(municipal, code), start, stop) for code in selected.code
+    ]
+    selected[
+        ["code", "name", "year", "value", "growth_pct", "urban_category", "coastal_category"]
+    ].to_csv(tables / "selected_municipalities.csv", index=False)
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+    boundary = json.loads((root / "data/snapshots/block01/provinces.geojson").read_text())
+    for ax, col, title, unit in [
+        (axes[0], "value", f"Tasación {stop}", "€/m²"),
+        (axes[1], "growth_pct", f"Cambio {start}–{stop}", "%"),
+    ]:
+        for feature in boundary["features"]:
+            geom = feature["geometry"]
+            polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+            for polygon in polys:
+                pts = np.asarray(polygon[0])
+                if pts[:, 0].mean() < -12:
+                    pts = pts + [8.5, 8.2]
+                ax.add_patch(Polygon(pts, facecolor="#eee", edgecolor="white", linewidth=0.4))
+        coords = selected[["lng", "lat"]].to_numpy().copy()
+        coords[coords[:, 0] < -12] += [8.5, 8.2]
+        plot = ax.scatter(
+            coords[:, 0], coords[:, 1], c=selected[col], cmap="YlOrRd", s=55, edgecolor="#333"
         )
-        endpoint["market"] = label
-        municipal_tables.append(endpoint)
-        for col, (field, title) in enumerate(
-            [("last_value", f"{label} · 2024"), ("change_pct", f"{label} · cambio 2011–2024")]
-        ):
-            ax = axes[row, col]
-            for feature in boundary["features"]:
-                geom = feature["geometry"]
-                polygons = (
-                    geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
-                )
-                for polygon in polygons:
-                    pts = np.array(polygon[0])
-                    if pts[:, 0].mean() < -12:
-                        continue
-                    ax.add_patch(Polygon(pts, facecolor="#e5eaee", edgecolor="white", lw=0.5))
-            observed = endpoint.dropna(subset=[field, "lat", "lng"])
-            cmap = "YlOrRd" if col == 0 else "RdBu_r"
-            vmax = max(abs(observed[field].min()), abs(observed[field].max()), 1)
-            norm = (
-                Normalize(observed[field].min(), observed[field].max())
-                if col == 0
-                else TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
-            )
-            dots = ax.scatter(
-                observed.lng,
-                observed.lat,
-                c=observed[field],
-                cmap=cmap,
-                norm=norm,
-                s=60,
-                edgecolors="white",
-                lw=0.5,
-                zorder=3,
-            )
-            ax.set_xlim(-10, 4.5)
-            ax.set_ylim(35.0, 44.2)
-            ax.set_aspect(1 / np.cos(np.deg2rad(40)))
-            ax.set_axis_off()
-            ax.set_title(title, loc="left", fontweight="bold")
-            plt.colorbar(
-                dots,
-                ax=ax,
-                shrink=0.7,
-                label=("€/m²" if row == 0 else "€/m²/mes") if col == 0 else "% nominal",
-            )
-    municipal = pd.concat(municipal_tables, ignore_index=True)
-    municipal.to_csv(tables / "selected_municipalities.csv", index=False)
+        ax.set(xlim=(-10, 4.5), ylim=(35, 44.2), title=title)
+        ax.set_aspect(1 / np.cos(np.deg2rad(40)))
+        ax.set_axis_off()
+        ax.text(
+            0.01,
+            0.01,
+            "Canarias reubicadas · solo 30 municipios seleccionados",
+            transform=ax.transAxes,
+            fontsize=7,
+        )
+        fig.colorbar(plot, ax=ax, shrink=0.7, label=unit)
     save(
         fig,
         "13_municipal_maps",
-        "Municipios: puntos geolocalizados de una muestra explícita de 30 ciudades",
+        "Compra en 30 municipios: selección de casos, no mapa nacional exhaustivo",
     )
 
-    selected_totals = rentals.query(
-        'level == "municipality" and unit == "EUR/dwelling/month" and year == 2024'
-    )
-    selected_totals = selected_totals[selected_totals.code.isin(cities.code)].sort_values("value")
-    fig, ax = plt.subplots(figsize=(12, 10))
-    ax.barh(selected_totals.name, selected_totals.value, color=RENT)
-    style(ax, "Mediana mensual por vivienda colectiva · 2024", "Municipio")
-    ax.set_xlabel("€/vivienda/mes · alquiler declarado, no oferta anunciada")
-    selected_totals.to_csv(tables / "municipal_rent_per_dwelling_2024.csv", index=False)
-    save(
-        fig,
-        "14_municipal_rent_totals",
-        "El coste por vivienda: diferencias dentro de la muestra municipal",
-    )
+    cases = ["Barcelona", "Madrid", "València", "Málaga", "Badalona", "L'Hospitalet de Llobregat"]
+    names = [name for name in cases if name in set(municipal.name)]
+    names += [name for name in municipal.name.unique() if name not in names][: 6 - len(names)]
+    fig, axes = plt.subplots(2, 3, figsize=(14, 8))
+    for ax, name in zip(axes.flat, names, strict=True):
+        data = municipal[municipal.name == name].sort_values("year")
+        ax.plot(data.year, data.value, color=BUY, lw=2)
+        style(ax, name, "Tasación €/m²")
+    save(fig, "15_municipal_cases", f"Casos municipales de compra, {start}–{stop}")
 
-    fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-    for ax, frame, title in [
-        (axes[0], city_buy, "Tasación · €/m²"),
-        (axes[1], city_rent, "Alquiler · €/m²/mes"),
-    ]:
-        for code in ["08019", "08015", "28079", "28065", "46250", "50297"]:
-            s = series_for(frame, code)
-            name = cities.set_index("code").loc[code, "name"]
-            ax.plot(s.index, s, label=name, lw=2)
-        style(ax, title, title.split("·")[1].strip())
-        ax.legend(frameon=False, fontsize=8)
-    save(
-        fig,
-        "15_municipal_cases",
-        "Casos definidos: Barcelona/Badalona, Madrid/Getafe, Valencia y Zaragoza",
-    )
-
-    fig, ax = plt.subplots(figsize=(12, 5))
-    for contract in ["Total", "Nuevo contrato", "Contrato existente"]:
-        s = series_for(rent, contract=contract)
-        ax.plot(s.index, s / s.loc[2021] * 100, "o-", label=contract, lw=2.3)
-    ax.set_xticks([2021, 2022, 2023, 2024])
-    style(ax, "IPVA nacional según antigüedad del contrato", "2021 = 100")
-    ax.legend(frameon=False)
-    save(
-        fig,
-        "16_rent_contracts",
-        "Un mismo mercado, ritmos distintos: contratos nuevos y existentes",
-    )
-
-    buy_change, rent_change, inflation = (
-        change(p, first, last),
-        change(r, first, last),
-        change(cpi, first, last),
-    )
-    national_rows = []
-    for leader, party, start, end in [
-        ("Zapatero", "PSOE", "2004-04-17", "2011-12-21"),
-        ("Rajoy", "PP", "2011-12-21", "2018-06-02"),
-        ("Sánchez", "PSOE; coaliciones desde 2020", "2018-06-02", "2026-01-01"),
-    ]:
-        record = {"president": leader, "political_context": party}
-        for market, observed in [("purchase", p), ("rent", r)]:
-            years = [
-                y
-                for y in observed.index
-                if pd.Timestamp(f"{y}-01-01") >= pd.Timestamp(start)
-                and pd.Timestamp(f"{y + 1}-01-01") <= pd.Timestamp(end)
-            ]
-            record[f"{market}_window"] = (
-                f"{min(years)}–{max(years)}" if len(years) >= 2 else "Insuficiente"
-            )
-            record[f"{market}_change_pct"] = (
-                change(observed, min(years), max(years)) if len(years) >= 2 else np.nan
-            )
-        national_rows.append(record)
-    national_periods = pd.DataFrame(national_rows)
-    national_periods.to_csv(tables / "national_presidential_periods.csv", index=False)
-    party_rows = []
-    for party, group in eligible.groupby("party"):
-        party_rows.append(
-            {
-                "party_of_presidency": party,
-                "observed_intervals": len(group),
-                "purchase_rising": int((group.purchase_change_pct > 0).sum()),
-                "purchase_falling": int((group.purchase_change_pct < 0).sum()),
-                "rent_rising": int((group.rent_change_pct > 0).sum()),
-                "rent_falling": int((group.rent_change_pct < 0).sum()),
-            }
-        )
-    party_patterns = pd.DataFrame(party_rows)
-    party_patterns.to_csv(tables / "party_observed_patterns.csv", index=False)
     findings = {
-        "common_window": [first, last],
-        "purchase_nominal_change_pct": buy_change,
-        "rent_nominal_change_pct": rent_change,
-        "cpi_change_pct": inflation,
-        "purchase_real_change_pct": 100 * ((1 + buy_change / 100) / (1 + inflation / 100) - 1),
-        "rent_real_change_pct": 100 * ((1 + rent_change / 100) / (1 + inflation / 100) - 1),
-        "purchase_2007_2025_change_pct": change(p, 2007, 2025),
-        "purchase_trough_year": int(p.idxmin()),
-        "valuation_2024_eur_m2": valuation.loc[2024],
-        "new_contract_rent_change_pct": change(
-            series_for(rent, contract="Nuevo contrato"), first, last
-        ),
-        "existing_contract_rent_change_pct": change(
-            series_for(rent, contract="Contrato existente"), first, last
-        ),
-        "regional_rental_coverage": len(regional_rent.code.unique()),
-        "rental_municipalities_2024": int(
-            rentals.query('level == "municipality" and year == 2024').code.nunique()
-        ),
-        "selected_municipalities": len(cities),
-        "mandate_comparisons_with_two_years": len(eligible),
+        "scope": "purchase_only",
+        "main_measure": "free_housing_valuation_eur_m2",
+        "national_window": [first, last],
+        "cpi_comparison_window": [base, end],
+        "municipal_window": [start, stop],
+        "national_first_eur_m2": float(p.loc[first]),
+        "national_last_eur_m2": float(p.loc[last]),
+        "purchase_nominal_pct": change(p, first, last),
+        "purchase_cpi_window_pct": change(p, base, end),
+        "general_prices_pct": change(cpi, base, end),
+        "purchase_real_pct": change(real_series(p, cpi, end).dropna(), base, end),
+        "cycle": cycle.to_dict(),
+        "figure_count": len(files),
     }
     (tables / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2))
-    source_urls = json.loads((snapshot / "source_manifest.json").read_text())
-    top_rent = region_rental.sort_values("last_value", ascending=False).head(5)
-    top_growth = region_rental.sort_values("change_pct", ascending=False).head(5)
-    falling = (eligible.purchase_change_pct < 0).sum()
-    rising = (eligible.purchase_change_pct > 0).sum()
-    profiles_md = markdown_table(
-        pd.DataFrame(sample_counts),
-        ["market", "group", "municipalities", "change_2011_2024_pct"],
-        ["Medida", "Grupo de muestra", "Municipios", "Cambio 2011–2024 (%)"],
-    )
-    rent_md = markdown_table(
-        top_rent,
-        ["name", "last_value", "change_pct"],
-        ["Territorio", "€/m²/mes", "Cambio 2011–2024 (%)"],
-    )
-    national_md = markdown_table(
-        national_periods,
-        [
-            "president",
-            "political_context",
-            "purchase_window",
-            "purchase_change_pct",
-            "rent_window",
-            "rent_change_pct",
-        ],
-        ["Presidencia", "Contexto", "Compra: años", "IPV (%)", "Alquiler: años", "IPVA (%)"],
-    )
-    patterns_md = markdown_table(
-        party_patterns,
-        [
-            "party_of_presidency",
-            "observed_intervals",
-            "purchase_rising",
-            "purchase_falling",
-            "rent_rising",
-            "rent_falling",
-        ],
-        [
-            "Presidencia",
-            "Intervalos",
-            "Compra sube",
-            "Compra baja",
-            "Alquiler sube",
-            "Alquiler baja",
-        ],
-    )
-    report = f"""# Evolución de la vivienda en España: precios, territorio y contexto político
+    report = f"""# Bloque 1 · Precio de compra de vivienda en España
 
-**Perspectiva histórica ampliada:**
-[Compra desde 1995 y alquiler desde 2011](block_01_price_history.md).
-Este informe conserva las ventanas iniciales y la comparación reciente.
+## Alcance y medida principal
 
-**Análisis ejecutado con datos reales.** Publicaciones recuperadas el 6 de octubre de 2026.
-Las series anuales de compraventa llegan a 2025; alquileres fiscales e IPVA, a 2024.
-Los trimestres de 2026 se muestran únicamente en la serie trimestral de valor por vivienda.
+Analizamos la **tasación media de vivienda libre en €/m²**, desde **{first} hasta {last}**.
+Es una medida de valoración, no el precio anunciado ni el precio efectivo de cada compraventa.
+Todas las figuras de este bloque usan esta misma medida. Los importes por vivienda y el IPV
+se conservan como fuentes originales, pero no se mezclan con la tasación.
+Se utilizan medias de años completos; los trimestres de 2026 quedan fuera.
 
-## 1. Evolución nacional
+## 1. Evolución nacional desde 2000
 
-En la ventana común **{first}–{last}**, el índice de compraventa (IPV) aumentó
-**{buy_change:.2f}%** y el índice de alquiler (IPVA), **{rent_change:.2f}%**.
-Desde 2007 hasta 2025, el IPV cambió **{findings["purchase_2007_2025_change_pct"]:.2f}%**;
-su mínimo anual dentro de esa serie aparece en **{findings["purchase_trough_year"]}**.
-La trayectoria incluye caídas y recuperación: elegir únicamente un tramo ascendente
-ocultaría parte de la historia. El valor tasado medio de 2024, calculado como media
-simple de los cuatro trimestres, es **{valuation.loc[2024]:,.2f} €/m²**.
+La tasación pasó de **{p.loc[first]:.2f} €/m²** en {first} a **{p.loc[last]:.2f} €/m²** en {last}:
+un cambio acumulado del **{findings["purchase_nominal_pct"]:+.2f}%**.
 
-![Niveles nacionales](figures/block01/01_national_levels.png)
-![Comparación común](figures/block01/03_indexed_comparison.png)
-
-La comparación con los precios generales abarca **2011–2024**, el periodo completo
-con datos disponibles de compra, alquiler general e IPC; base **2011 = 100**.
-
+![Evolución nacional](figures/block01/01_national_levels.png)
 ![Cambios anuales](figures/block01/04_annual_changes.png)
+![Ciclo de compra](figures/block01/05_purchase_cycle.png)
 
-El valor de transacciones por vivienda corresponde a vivienda libre de segunda mano;
-la tasación por m² y el IPV no miden exactamente el mismo universo. El IPVA es un
-índice de alquileres, no euros por vivienda. No se ha fabricado una mediana nacional
-en euros a partir de medianas regionales.
+El máximo dentro de 2000–2008 corresponde a **{peak}** y el mínimo dentro de 2009–2015 a
+**{trough}**. La caída entre ambos fue del **{cycle.peak_to_trough_pct:.2f}%** y la variación
+desde el mínimo hasta {last}, del **{cycle.trough_to_latest_pct:+.2f}%**.
+Elegir el inicio o el final de un ciclo cambia la lectura del crecimiento acumulado.
 
-## 2. Gobiernos nacionales
+## 2. Compra frente a los precios generales
 
-Las franjas distinguen presidencias del PSOE y PP y las etapas de coalición nacional
-PSOE–UP y PSOE–Sumar. Los puntos anuales se sitúan a mitad de año: representan medias
-anuales, no una medición precisa el día del cambio de gobierno. Las caídas posteriores
-a 2007 y la recuperación atraviesan distintas etapas políticas; el gráfico permite
-localizar esas etapas, pero no identifica responsabilidad causal.
+![Comparación con precios generales](figures/block01/03_indexed_comparison.png)
 
-![Gobiernos nacionales](figures/block01/02_national_governments.png)
+Comparamos cuánto ha subido el precio de compra respecto a los precios generales, medidos
+por el IPC. La ventana común es **{base}–{end}**, con **{base} = 100**: un valor de 120
+representa una subida acumulada del 20 %, no un precio en euros.
+La tasación aumentó **{findings["purchase_cpi_window_pct"]:+.2f}%** y los precios generales,
+**{findings["general_prices_pct"]:+.2f}%**. El IPC disponible empieza en 2002.
+El IPC no indica si los ingresos han crecido al mismo ritmo: esta comparación no mide
+la accesibilidad económica de comprar una vivienda.
 
-**Cambios entre años completos disponibles dentro de cada presidencia:**
+## 3. Comunidades y provincias
 
-{national_md}
+![Comunidades](figures/block01/07_regional_maps.png)
+![Cambios anuales por comunidad](figures/block01/08_regional_heatmap.png)
+![Provincias](figures/block01/12_provincial_maps.png)
 
-Los periodos tienen distinta duración y parten de momentos diferentes del ciclo.
-Se agrupan las coaliciones de Sánchez bajo su presidencia en esta tabla, mientras
-el gráfico conserva sus etapas. El alquiler no tiene observaciones comparables
-para Zapatero o Rajoy en el IPVA recuperado: «insuficiente» no significa estabilidad.
+Los mapas muestran el nivel de {last} y el cambio con extremos fijos **{first}–{last}**.
+Las tablas incluyen cobertura, años ausentes y extremos del ciclo de cada territorio.
+El gris representa falta de datos; Canarias se reubica por legibilidad. Los contornos
+son ilustrativos y conservan la atribución de las geometrías originales.
 
-## 3. Inflación y crecimiento real
+## 4. Municipios y perfiles territoriales
 
-Entre {first} y {last}, el IPC general aumentó **{inflation:.2f}%**. Al descontarlo,
-el cambio del IPV es **{findings["purchase_real_change_pct"]:.2f}%**, frente a
-**{findings["rent_real_change_pct"]:.2f}%** para el IPVA. Estos cambios reales no miden
-el esfuerzo de cada hogar: para eso se necesitan ingresos y gasto individuales.
-
-![Inflación](figures/block01/05_inflation.png)
-
-## 4. Grandes ciudades, periferias, costa e interior
-
-Se comparan **30 municipios seleccionados de forma explícita**, usando una muestra
-fija con observaciones en los 14 años 2011–2024. Cada municipio se rebasa a 2011=100
-y recibe el mismo peso. Los grupos son descriptivos de esta muestra y **no son
-estimaciones representativas de toda la costa o todas las periferias españolas**.
-La categoría urbana y la costera son dimensiones separadas.
-
-![Perfiles territoriales](figures/block01/06_territorial_profiles.png)
-
-{profiles_md}
-
-## 5. Comunidades autónomas
-
-Los mapas separan el precio de 2024 y el crecimiento 2011–2024. La cobertura del
-alquiler fiscal de 2024 comprende las 17 comunidades más Ceuta y Melilla. **Navarra
-solo aporta datos desde 2021 y País Vasco desde 2024**: aparecen en el mapa de niveles,
-pero su crecimiento 2011–2024 queda en gris. No se extrapola la cobertura ausente.
-Una región puede tener precios altos y crecimiento moderado, o precios inicialmente
-bajos y una subida intensa: niveles y variaciones responden a preguntas distintas.
-
-![Mapas autonómicos](figures/block01/07_regional_maps.png)
-![Variaciones anuales](figures/block01/08_regional_heatmap.png)
-
-**Mayores medianas regionales de alquiler de la cobertura observada, 2024:**
-
-{rent_md}
-
-**Mayores crecimientos nominales de la mediana regional de alquiler:**
-
-{markdown_table(top_growth, ["name", "change_pct"], ["Territorio", "Cambio 2011–2024 (%)"])}
-
-## 6. Gobiernos autonómicos
-
-Se han incorporado presidencias de las **17 comunidades**, extraídas de los dosieres
-del Senado y sus referencias a nombramientos oficiales. Las franjas regionales
-muestran **la adscripción de la presidencia**, no la composición completa del gabinete.
-Esto evita convertir un gobierno de coalición en un gobierno monocolor por omisión.
-Cataluña identifica el periodo del artículo 155 y el intervalo de funciones posterior
-a la inhabilitación de Torra. Las fechas se basan en nombramiento por real decreto;
-pueden diferir unos días de la toma de posesión. Interinidades menores no quedan
-completamente representadas por la lista de nombramientos y deben leerse con esa limitación.
-
-![Presidencias y compra](figures/block01/09_regional_governments_purchase.png)
-![Presidencias y alquiler](figures/block01/09_regional_governments_rent.png)
-
-La tabla compara exclusivamente **años completos comunes dentro de cada intervalo**,
-con al menos dos observaciones. De {len(mandates)} intervalos regionales registrados,
-**{len(eligible)}** permiten comparar ambas medidas. En ellos hay **{rising}** periodos
-con subida del IPV y **{falling}** con bajada. Los intervalos sin años suficientes
-quedan registrados como insuficientes; no reciben un crecimiento de cero.
-Los cambios se refieren al periodo observado entre medias anuales, no al mandato completo.
-El ajuste real de esta tabla utiliza el IPC nacional, no el IPC de cada comunidad.
-
-![Comparación de intervalos](figures/block01/10_mandate_comparison.png)
-
-[Tabla completa de periodos y cambios](tables/block01/regional_mandate_changes.csv).
-No se agregan comunidades y etapas en un ranking causal de partidos. Para establecer
-si una política causó un cambio harán falta medidas concretas y un diseño comparativo.
-
-## 7. Provincias y municipios
-
-La fuente fiscal incluye **{findings["rental_municipalities_2024"]} municipios con datos
-de alquiler en 2024**. Los mapas provinciales utilizan todas las observaciones
-comparables disponibles. Los mapas municipales geolocalizan los 30 casos seleccionados
-con CartoCiudad, verificando que el código INE devuelto coincide con el previsto.
-Las tasaciones municipales se obtienen de la tabla del ministerio para municipios
-mayores de 25.000 habitantes; no se repite un valor provincial como si fuera municipal.
-
-![Mapas provinciales](figures/block01/12_provincial_maps.png)
-![Mapas municipales](figures/block01/13_municipal_maps.png)
-![Alquiler por vivienda](figures/block01/14_municipal_rent_totals.png)
+![Perfiles](figures/block01/06_territorial_profiles.png)
+![Municipios](figures/block01/13_municipal_maps.png)
 ![Casos municipales](figures/block01/15_municipal_cases.png)
 
-Los importes por vivienda son medianas de alquiler declarado de vivienda colectiva.
-Una mediana por vivienda depende de la superficie y composición del parque: no basta
-para concluir que el precio por m² es mayor en el mismo grado.
+Los datos municipales empiezan en **{start}** y llegan hasta **{stop}**. La selección
+contiene 30 municipios y no representa todos los municipios de España. Los perfiles
+comparan muestras fijas con todos los años observados: media no ponderada de índices
+locales, base {start} = 100. La composición está en `profile_fixed_samples.csv`.
 
-## 8. Lectura política de los resultados
+## 5. Gobiernos como contexto temporal
 
-Este bloque establece **cuándo, cuánto y dónde** cambian los precios. No contrasta aún
-causas como turismo, falta de construcción, concentración de propiedad o efectos de
-leyes. Ninguno de esos mecanismos queda probado únicamente por coincidir con un gobierno.
+![Gobiernos nacionales](figures/block01/02_national_governments.png)
+![Presidencias autonómicas](figures/block01/09_regional_governments_purchase.png)
+![Periodos observados](figures/block01/10_mandate_comparison.png)
 
-**Dirección observada del cambio por partido de la presidencia autonómica:**
+Las franjas identifican presidencias nacionales y el partido de la presidencia autonómica,
+no todos los socios del gabinete. Los puntos de precio se sitúan a mitad de año porque
+representan medias anuales. La tabla de mandatos utiliza solo años completos dentro
+de cada presidencia, excluye años de transición y muestra fechas, cobertura y tasas
+anualizadas. Los periodos sin dos años observados no tienen tasa de cambio.
+El gráfico de mandatos sitúa cada periodo por su año central, para que el contexto
+temporal sea visible. No clasifica partidos ni atribuye los cambios a sus políticas.
 
-{patterns_md}
+## Fuentes y reproducción
 
-Se cuentan intervalos de territorios, no viviendas, votantes ni mandatos completos.
-La cobertura y duración son desiguales: esta tabla permite revisar afirmaciones
-absolutas como «solo sube bajo un partido», pero no mide qué partido lo hace mejor.
-La adscripción de la presidencia tampoco identifica qué socios aprobaron una medida.
+- [Notebook principal con código y resultados](../notebooks/01_prices.ipynb).
+- [Notebook de cobertura y mandatos](../notebooks/01b_price_history.ipynb).
+- [Tablas descargables](tables/block01/).
+- [Código del análisis](../src/spain_housing/prices_analysis.py).
+- [Fuentes y huellas SHA-256](../data/snapshots/block01/source_manifest.json).
 
-El alquiler de contratos nuevos crece **{findings["new_contract_rent_change_pct"]:.2f}%**
-en {first}–{last}, frente a **{findings["existing_contract_rent_change_pct"]:.2f}%** en
-contratos existentes. Es una diferencia importante para interpretar discursos que
-mezclan la situación de quien busca vivienda con la de quien conserva un contrato.
-
-![Antigüedad del contrato](figures/block01/16_rent_contracts.png)
-
-## Fuentes, reproducción y límites
-
-- INE: IPV (tabla 79563), IPVA (59004) e IPC general (50913).
-- MIVAU: valor tasado libre por m²; SERPAVI 2011–2024, vivienda colectiva, medianas;
-  transacciones de segunda mano por vivienda y tasaciones municipales.
-- Senado: dosieres históricos de presidentes autonómicos; BOE y Moncloa para contexto nacional.
-- CartoCiudad (IGN): posiciones de los municipios seleccionados.
-- Code for Germany / Click That 'Hood: límites de comunidades y provincias, simplificados
-  para ilustración; geometrías fechadas en 2014. Se unen por códigos oficiales, no
-  por el atributo autonómico del fichero provincial, cuya codificación es diferente.
-
-Los promedios anuales de tasación son medias simples de cuatro trimestres; no están
-ponderados por número de tasaciones. Las medianas fiscales cambian con la composición
-del parque declarado y no son índices de precio constante ni anuncios de nuevos alquileres.
-Los precios están separados por concepto. Se eliminan duplicados exactos del fichero
-original de tasaciones de Navarra antes
-de comprobar que hay cuatro trimestres distintos; se rechazan valores contradictorios.
-No se extrapolan 2026 parcial ni cobertura
-fiscal ausente. Los gráficos políticos son descriptivos, sin controles ni estimación causal.
-
-Ejecutar desde la raíz: `python scripts/run_block01.py`. El notebook también reproduce
-las figuras con los snapshots versionados, sin descargar 71 MB durante cada ejecución.
-Para reconstruir desde las publicaciones originales: `python scripts/build_block01_data.py`
-El script recupera también los registros políticos y la selección geográfica documentados.
-Las URL y SHA-256 de los ficheros se conservan en el manifiesto.
-
+Ejecutar `python scripts/run_block01.py`. No necesita descargar datos.
 """
-    report += "\n".join(f"- [{item['source_file']}]({item['url']})" for item in source_urls)
-    (root / "reports/block_01_prices.md").write_text(report + "\n", encoding="utf-8")
+    (root / "reports/block_01_prices.md").write_text(report, encoding="utf-8")
+    (root / "reports/block_01_price_history.md").write_text(
+        "# Bloque 1 · Historia del precio de compra desde 2000\n\n"
+        "El histórico forma parte del [informe completo de compra](block_01_prices.md).\n\n"
+        "Serie principal: tasación de vivienda libre en €/m², 2000–2025. "
+        "Comparación con IPC: 2002–2025. Municipios seleccionados: 2005–2025.\n\n"
+        "[Notebook de cobertura, ciclos y mandatos](../notebooks/01b_price_history.ipynb).\n",
+        encoding="utf-8",
+    )
     return files, findings

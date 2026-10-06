@@ -1,9 +1,14 @@
 figure_id,section,title,visual,inputs,status
-B01-01,1.1,National price evolution,Separate purchase and rent panels in EUR/m² and EUR/dwelling where supported. Base-100 comparison over a shared window.,National price/rent series with exact definitions and units.,executed_2026-10-06
-B01-02,1.2,National governments,The national series with dated mandate bands; annual-change bars with transition years identified.,Verified national mandates and the same national price/rent series.,executed_2026-10-06
-B01-03,1.3,Inflation and real growth,Common-window nominal and real purchase/rent indices deflated by national CPI.,Documented annual CPI series and common base year.,executed_2026-10-06
-B01-04,1.4,Territorial profiles,Price-level panels and base-100 trends by explicitly defined territorial groups.,"Explicit fixed sample of 30 municipalities, exact municipal prices and equal municipality weights.",executed_2026-10-06
-B01-05,1.5,Autonomous communities,Separate maps of levels and percentage changes for purchase and rent; annual-change heatmap.,"Comparable community series, harmonised geography codes and licensed boundaries.",executed_2026-10-06
-B01-06,1.6,Regional governments,Small multiples with mandate bands; descriptive mandate table and annualised-growth comparison.,Senate presidency appointment dates and party; full cabinet composition not identified.,executed_2026-10-06
-B01-07,1.7,Provinces and municipalities,Provincial/municipal price and growth maps plus preselected local time-series cases.,"Local prices, coverage thresholds and boundaries compatible with observation vintages.",executed_2026-10-06
-B01-08,1.8,Political reading of the evidence,"Evidence table by geography and mandate: nominal/real changes, annualised rates, coverage and sources.",Completed previous sections and traceable calculations.,executed_2026-10-06
+B01-01,purchase,01_national_levels,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-02,purchase,02_national_governments,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-03,purchase,03_indexed_comparison,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-04,purchase,04_annual_changes,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-05,purchase,05_purchase_cycle,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-06,purchase,06_territorial_profiles,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-07,purchase,07_regional_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-08,purchase,08_regional_heatmap,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-09,purchase,09_regional_governments_purchase,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-10,purchase,10_mandate_comparison,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-11,purchase,12_provincial_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-12,purchase,13_municipal_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-13,purchase,15_municipal_cases,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
