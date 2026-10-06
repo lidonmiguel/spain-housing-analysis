@@ -1,0 +1,29 @@
+{
+  "period": [
+    2001,
+    2025
+  ],
+  "changes_pct": {
+    "price": 120.01809720785931,
+    "population": 20.86279630028518,
+    "adults": 23.928225630857458,
+    "dwellings": 28.838387850692794
+  },
+  "recent_period": [
+    2021,
+    2025
+  ],
+  "recent_completions": 466469.0,
+  "recent_net_household_formation": 1222836.0,
+  "recent_formation_minus_completions": 756367.0,
+  "latest_birthplace_year": 2025,
+  "latest_change_born_spain": -104599.0,
+  "latest_change_born_abroad": 572678.0,
+  "latest_components_year": 2024,
+  "latest_components_per_1000": {
+    "natural_per_1000": -2.37,
+    "migration_per_1000": 12.81,
+    "growth_per_1000": 10.41,
+    "residual_per_1000": -0.02999999999999936
+  }
+}
