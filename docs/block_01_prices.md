@@ -7,9 +7,12 @@ accounts of housing prices. Start with national purchase/rent evolution, add the
 political timeline, adjust for inflation, then examine territorial differences and
 regional governments. This block is descriptive; policy effects belong to block 06.
 
-**Status:** narrative, figure specifications and metadata contracts are organised.
-Price, CPI, boundary and government datasets still require source verification and
-ingestion. No charts or political findings have been produced from real data yet.
+**Status:** executed with primary-source snapshots retrieved on 2026-10-06.
+[Read the numerical findings and 16 figures](../reports/block_01_prices.md) or
+[open the executed notebook](../notebooks/01_prices.ipynb).
+Regional bands identify the party of the presidency, not complete cabinets.
+The municipal profile is a disclosed 30-municipality sample. Rental coverage starts
+in 2021 for Navarra and 2024 for País Vasco. These series have no 2011–2024 rental growth.
 
 ## Reading order
 
@@ -118,7 +121,7 @@ ingestion. No charts or political findings have been produced from real data yet
   aggregation. Do not compare CPI series with incompatible rebasing.
 - Base-100 comparisons require a shared observed baseline. Missing years remain
   missing; do not invent observations or let annual lines bridge gaps silently.
-- Keep each government's exact start/end dates and coalition. Use half-open
+- Keep each presidency's exact appointment dates and party. Cabinet composition remains unverified; do not infer a complete coalition. Use half-open
   intervals [start, end). An ongoing term has an empty end, not an invented date.
 - Annual averages cover a whole year: do not assign a transition year entirely to
   one party. Show the transition on the timeline; mark such years in summaries.
@@ -144,7 +147,7 @@ ingestion. No charts or political findings have been produced from real data yet
 - `data/metadata/territory_classification.csv`: urban/coastal classification provenance.
 - `data/metadata/price_panel_template.csv`: long-form price observation contract.
 - `data/metadata/cpi_panel_template.csv`: deflator observation contract.
-- `reports/block_01_prices.md`: Spanish narrative/evidence draft, to fill with findings.
+- `reports/block_01_prices.md`: Executed Spanish narrative, numerical findings and figures.
 
 ## Implementation sequence
 

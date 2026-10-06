@@ -1,110 +1,111 @@
 # Spain Housing Analysis
 
-A reproducible Data Science project investigating housing prices, affordability,
-demographics, ownership concentration and housing policy in Spain.
+Proyecto de ciencia de datos sobre la vivienda en España, con fuentes oficiales,
+análisis reproducible y una lectura crítica de los discursos políticos.
 
-**Status: project foundation. No datasets have been ingested and no empirical
-results or policy effects have been established yet.**
+**Primer bloque realizado:** 16 figuras, tablas de resultados e informe en español.
+Datos recuperados el **6 de octubre de 2026**. Los demás bloques son trabajo pendiente.
 
-## Research question
+## Empieza aquí
 
-How has access to housing changed in Spain, and how do demographic change,
-housing supply, ownership and regulation relate to differences between territories?
+- [Informe: precios, territorio y contexto político](reports/block_01_prices.md).
+- [Notebook ejecutado con las gráficas y resultados](notebooks/01_prices.ipynb).
+- [Figuras publicadas](reports/figures/block01/) y [tablas descargables](reports/tables/block01/).
+- [Fuentes y huellas SHA-256](data/snapshots/block01/source_manifest.json).
 
-## Scope
+### Algunos resultados: 2021–2024
 
-| Block | Focus |
+| Medida nacional | Cambio nominal | Cambio ajustado por IPC |
+| --- | ---: | ---: |
+| Compra: índice IPV | +21,02% | +4,93% |
+| Alquiler: índice IPVA | +9,07% | −5,43% |
+
+El IPC subió un 15,33%. El IPVA de contratos nuevos creció un 19,30%, frente al
+7,49% de contratos existentes. Las series fiscales y los índices de alquiler
+no equivalen al precio anunciado para quien busca una vivienda hoy.
+
+![Compra, alquiler e inflación en una ventana común](reports/figures/block01/03_indexed_comparison.png)
+
+## Qué contiene el bloque de precios
+
+| Parte | Gráficas y resultados |
 | --- | --- |
-| 1. Prices and political context | National evolution, government mandates, inflation and territorial price/growth maps |
-| 2. Demographics | Total population, population aged 18+, households, migration and emancipation |
-| 3. Supply and tenure | Ownership/renting, construction, vacancy, tourism and social housing |
-| 4. Ownership | Owner categories, concentration and buyer composition |
-| 5. Affordability | Income groups, housing expenditure, mortgage costs and entry savings |
-| 6. Policy | Measure-level timelines and comparisons of prices, supply and access |
+| Evolución nacional | Tasación €/m², transacciones €/vivienda, alquiler IPVA, cambios anuales y acumulados |
+| Gobierno nacional | Franjas políticas y cambios entre años completos dentro de cada presidencia |
+| Inflación | Compra y alquiler nominales y reales en una ventana común |
+| Perfiles territoriales | Muestra fija de 30 grandes ciudades, periferias y casos de costa e interior |
+| Comunidades | Mapas de nivel 2024 y crecimiento 2011–2024; mapa de calor anual |
+| Presidencias autonómicas | Paneles de las 17 comunidades y tabla de cambios por intervalo |
+| Provincias y municipios | Mapas de precio y crecimiento, alquiler por vivienda y casos locales |
+| Lectura política | Resultados observados por presidencia; contratos nuevos frente a existentes |
 
-Start with province-level annual descriptive analysis. Add regional series and
-municipal or neighbourhood case studies only where definitions and coverage match.
-The historical window will be chosen after auditing the sources; annual, quarterly
-and census observations will retain their original frequency.
+Los datos proceden de **INE, MIVAU, Senado y CartoCiudad**. Se conservan sus
+conceptos originales: transacciones, tasaciones y medianas fiscales se distinguen.
+Las franjas autonómicas identifican el partido de la presidencia, **no todos los
+socios del gabinete**. Coincidir con un gobierno no demuestra el efecto de sus políticas.
 
-## Quick start
+Navarra tiene alquiler fiscal desde 2021 y País Vasco desde 2024 en esta publicación.
+Los mapas municipales y perfiles describen una selección explícita de 30 casos,
+sin presentarla como representativa de todos los municipios españoles.
 
-Requires Python 3.11 or newer. Run from the repository root.
+## Reproducir el análisis
+
+Python 3.11 o posterior. Desde la raíz del repositorio:
 
 ```bash
 python -m venv .venv
-```
-
-Activate the environment:
-
-```bash
-# macOS / Linux
+# macOS/Linux
 source .venv/bin/activate
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-```
-
-```bash
-python -m pip install --upgrade pip
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e ".[dev]"
-python scripts/check_project.py
-python -m unittest discover -s tests -v
+python scripts/run_block01.py
 jupyter lab
 ```
 
-Open `notebooks/00_data_audit.ipynb` first. Select the Python interpreter from
-`.venv` in VS Code, or choose that environment's kernel in JupyterLab.
+Abrir `notebooks/01_prices.ipynb`. Los snapshots están versionados: no se necesita
+acceso a internet para generar figuras y resultados. El notebook incluye salidas
+ya ejecutadas; genera también imágenes temporales para mostrarlas al volver a ejecutarlo.
 
-## Repository layout
+Para reconstruir las extracciones desde las publicaciones originales, con internet:
 
-| Path | Purpose |
+```bash
+python scripts/build_block01_data.py
+python scripts/run_block01.py
+```
+
+La descarga fiscal original ocupa aproximadamente 71 MB. Los originales se almacenan
+en `data/raw/` y se reutilizan si ya existen; una publicación futura puede cambiar
+las URL o el formato. Los snapshots preservan el corte utilizado en este informe.
+
+Validación:
+
+```bash
+ruff check src scripts tests
+python scripts/check_project.py
+python -m unittest discover -s tests -v
+python scripts/check_notebooks.py
+```
+
+## Organización y próximos bloques
+
+| Carpeta | Contenido |
 | --- | --- |
-| `notebooks/` | Ordered analysis notebooks with questions, inputs and figure plans |
-| `src/spain_housing/` | Reusable Python code and explicit indicator formulas |
-| `data/raw/` | Unmodified downloaded inputs; ignored by Git |
-| `data/interim/` | Cleaning and harmonisation outputs; ignored by Git |
-| `data/processed/` | Analysis-ready datasets; ignored by Git |
-| `data/metadata/` | Source register, dataset manifest, variables and policy records |
-| `docs/` | Research plan, methodology, hypothesis register and chart catalogue |
-| `reports/figures/` | Selected figures for publication |
-| `reports/tables/` | Selected summary tables |
-| `scripts/` | Repository validation and notebook checks |
-| `tests/` | Checks for indicator calculations |
+| `notebooks/` | Análisis ordenados; bloque 01 ejecutado, demás bloques preparados |
+| `src/spain_housing/` | Indicadores y análisis reutilizable |
+| `scripts/` | Descarga, extracción, generación de resultados y validación |
+| `data/snapshots/block01/` | Tablas extraídas y geometrías del corte utilizado |
+| `data/metadata/` | Registro de fuentes, archivos y presidencias |
+| `docs/` | Metodología, alcance, catálogo de figuras e hipótesis |
+| `reports/` | Informe, figuras y tablas publicadas |
+| `tests/` | Pruebas de fórmulas, cobertura y límites temporales |
 
-## First narrative block
+Pendientes: población y hogares; oferta y tenencia; propiedad y concentración;
+accesibilidad económica; evaluación de medidas legales; modelado y síntesis.
+Véanse [plan de investigación](docs/research_plan.md), [metodología](docs/methodology.md)
+y [especificación del primer bloque](docs/block_01_prices.md).
 
-[Housing prices in Spain: territory and political context](docs/block_01_prices.md)
-is organised in eight parts: national prices, national governments, inflation,
-territorial profiles, autonomous communities, regional governments, local differences
-and political interpretation. Follow `notebooks/01_prices.ipynb` after the data audit.
+## Licencias y atribución
 
-See the [block-specific figures](docs/block_01_chart_catalogue.csv) and
-[Spanish narrative draft](reports/block_01_prices.md). Government, price, CPI and
-classification tables currently contain schemas only; source verification and
-empirical charts are still pending. Mandate timelines provide context, not causal attribution.
-
-## First working milestone
-
-1. Audit price, rent, income, population, household and housing-completion sources.
-2. Verify download access, definitions, territorial coverage, years and reuse terms.
-3. Register each downloaded file with its source, retrieval date and SHA-256.
-4. Harmonise geography and time while retaining original units and provenance.
-5. Produce coverage, price/income evolution and households-versus-construction figures.
-
-The complete scope and staged backlog are in [the research plan](docs/research_plan.md).
-See also [methodology](docs/methodology.md), [sources](docs/sources.md),
-[the chart catalogue](docs/chart_catalogue.csv) and [hypotheses](docs/hypotheses.csv).
-
-## Interpretation
-
-Distinguish advertised, contracted and appraised prices; housing stock, listings and
-transactions; households and inhabitants; foreign nationality and non-residence.
-Policy measures will be classified by mechanism, not only by political labels.
-Correlation will not be presented as a causal policy effect. Missing ownership data
-will remain explicitly unknown rather than being filled with unsupported estimates.
-
-## License
-
-Code is covered by the existing [MIT License](LICENSE). External data, geographic
-boundaries and published figures derived from restricted inputs remain subject to
-their own terms. Record those terms before redistributing any dataset.
+Código: [MIT](LICENSE). Las fuentes externas conservan sus términos propios.
+Las geometrías proceden de Click That 'Hood; véanse las
+[atribuciones y licencia de terceros](data/snapshots/block01/THIRD_PARTY_NOTICES.md).

@@ -1,0 +1,31 @@
+level,code,name,year,unit,value,dwellings
+municipality,24089,León,2024,EUR/dwelling/month,491.34246575,10183.0
+municipality,12040,Castellón de la Plana/Castelló de la Plana,2024,EUR/dwelling/month,500.0,11679.0
+municipality,33044,Oviedo,2024,EUR/dwelling/month,500.0,18172.0
+municipality,21041,Huelva,2024,EUR/dwelling/month,508.0,5175.0
+municipality,33024,Gijón,2024,EUR/dwelling/month,509.42702911,19552.0
+municipality,37274,Salamanca,2024,EUR/dwelling/month,515.0,13798.0
+municipality,09059,Burgos,2024,EUR/dwelling/month,525.01750175,10969.0
+municipality,30030,Murcia,2024,EUR/dwelling/month,525.3,19675.0
+municipality,47186,Valladolid,2024,EUR/dwelling/month,530.83333333,21101.0
+municipality,15030,"Coruña, A",2024,EUR/dwelling/month,537.76388889,24978.0
+municipality,14021,Córdoba,2024,EUR/dwelling/month,540.0,12836.0
+municipality,50297,Zaragoza,2024,EUR/dwelling/month,550.0,53437.0
+municipality,45168,Toledo,2024,EUR/dwelling/month,582.41346241,5916.0
+municipality,18087,Granada,2024,EUR/dwelling/month,584.16666667,17627.0
+municipality,39075,Santander,2024,EUR/dwelling/month,595.0,12703.0
+municipality,03014,Alicante/Alacant,2024,EUR/dwelling/month,607.5,19641.0
+municipality,11012,Cádiz,2024,EUR/dwelling/month,650.0,5066.0
+municipality,08279,Terrassa,2024,EUR/dwelling/month,650.25,13107.0
+municipality,41091,Sevilla,2024,EUR/dwelling/month,668.33333333,34668.0
+municipality,46250,Valencia,2024,EUR/dwelling/month,680.83333333,65742.0
+municipality,28074,Leganés,2024,EUR/dwelling/month,690.0,10663.0
+municipality,08187,Sabadell,2024,EUR/dwelling/month,700.0,11570.0
+municipality,28065,Getafe,2024,EUR/dwelling/month,700.0,12120.0
+municipality,29067,Málaga,2024,EUR/dwelling/month,718.33333333,25741.0
+municipality,08101,"Hospitalet de Llobregat, L'",2024,EUR/dwelling/month,725.845,20675.0
+municipality,08015,Badalona,2024,EUR/dwelling/month,727.6475,11538.0
+municipality,07040,Palma,2024,EUR/dwelling/month,800.0,31529.0
+municipality,28006,Alcobendas,2024,EUR/dwelling/month,834.0,6933.0
+municipality,28079,Madrid,2024,EUR/dwelling/month,868.75,300447.0
+municipality,08019,Barcelona,2024,EUR/dwelling/month,900.0,140872.0

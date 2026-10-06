@@ -72,7 +72,7 @@ identification requirements and is not equivalent to predictive modelling.
 
 - [ ] M0: source feasibility audit, coverage matrix and confirmed definitions.
 - [ ] M1: reproducible ingestion for prices, rent, income, population, households and completions.
-- [ ] M2: complete block 01 national narrative (B01-01–03), then regional/local extensions (B01-04–08).
+- [x] M2: block 01 completed with 16 figures, numerical tables and an executed notebook (2026-10-06).
 - [ ] M2b: demographics and households-versus-construction figures (C02, C04).
 - [ ] M3: tenure, affordability and selected local tourism/vacancy cases.
 - [ ] M4: ownership feasibility decision; analyse only supported categories and scales.
@@ -86,3 +86,6 @@ Every finding identifies geography, years, definitions and limitations. Every
 published figure has a source and units. Missing-data and source sensitivity are
 reported. Unsupported questions are marked insufficient evidence. The README is
 updated with actual findings only when results exist.
+
+Block 01 ingestion and coverage are complete for the documented series. Full M0/M1
+remain open because income, demography and completions belong to subsequent blocks.

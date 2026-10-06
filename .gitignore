@@ -22,3 +22,8 @@ Thumbs.db
 !/reports/figures/.gitkeep
 /reports/tables/*
 !/reports/tables/.gitkeep
+
+!/reports/figures/block01/
+!/reports/tables/block01/
+
+/reports/figures/block01/*.svg

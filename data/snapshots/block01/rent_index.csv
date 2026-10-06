@@ -1,0 +1,217 @@
+code,name,year,contract,value
+00,España,2024,Total,122.92000000
+00,España,2023,Total,118.72700000
+00,España,2022,Total,115.68400000
+00,España,2021,Total,112.69400000
+00,España,2024,Nuevo contrato,137.04100000
+00,España,2023,Nuevo contrato,125.95900000
+00,España,2022,Nuevo contrato,120.95800000
+00,España,2021,Nuevo contrato,114.87100000
+00,España,2024,Contrato existente,120.63700000
+00,España,2023,Contrato existente,117.36100000
+00,España,2022,Contrato existente,114.63900000
+00,España,2021,Contrato existente,112.22900000
+01,Andalucía,2024,Total,123.02900000
+01,Andalucía,2023,Total,118.53000000
+01,Andalucía,2022,Total,115.57000000
+01,Andalucía,2021,Total,112.47100000
+01,Andalucía,2024,Nuevo contrato,136.00900000
+01,Andalucía,2023,Nuevo contrato,125.40000000
+01,Andalucía,2022,Nuevo contrato,120.97600000
+01,Andalucía,2021,Nuevo contrato,114.93900000
+01,Andalucía,2024,Contrato existente,120.00100000
+01,Andalucía,2023,Contrato existente,116.65600000
+01,Andalucía,2022,Contrato existente,114.04300000
+01,Andalucía,2021,Contrato existente,111.72900000
+02,Aragón,2024,Total,119.90700000
+02,Aragón,2023,Total,116.21200000
+02,Aragón,2022,Total,113.56600000
+02,Aragón,2021,Total,110.74200000
+02,Aragón,2024,Nuevo contrato,134.14100000
+02,Aragón,2023,Nuevo contrato,124.33900000
+02,Aragón,2022,Nuevo contrato,120.30900000
+02,Aragón,2021,Nuevo contrato,114.28400000
+02,Aragón,2024,Contrato existente,117.74500000
+02,Aragón,2023,Contrato existente,114.86300000
+02,Aragón,2022,Contrato existente,112.43200000
+02,Aragón,2021,Contrato existente,110.12700000
+03,Asturias,2024,Total,114.91900000
+03,Asturias,2023,Total,111.92100000
+03,Asturias,2022,Total,109.90900000
+03,Asturias,2021,Total,107.99800000
+03,Asturias,2024,Nuevo contrato,128.63800000
+03,Asturias,2023,Nuevo contrato,119.06900000
+03,Asturias,2022,Nuevo contrato,115.59900000
+03,Asturias,2021,Nuevo contrato,110.92600000
+03,Asturias,2024,Contrato existente,112.66800000
+03,Asturias,2023,Contrato existente,110.59000000
+03,Asturias,2022,Contrato existente,108.83400000
+03,Asturias,2021,Contrato existente,107.43400000
+04,Illes Balears,2024,Total,128.80800000
+04,Illes Balears,2023,Total,123.90600000
+04,Illes Balears,2022,Total,120.00700000
+04,Illes Balears,2021,Total,115.74500000
+04,Illes Balears,2024,Nuevo contrato,147.84600000
+04,Illes Balears,2023,Nuevo contrato,134.45200000
+04,Illes Balears,2022,Nuevo contrato,127.23100000
+04,Illes Balears,2021,Nuevo contrato,118.67800000
+04,Illes Balears,2024,Contrato existente,125.71100000
+04,Illes Balears,2023,Contrato existente,121.89100000
+04,Illes Balears,2022,Contrato existente,118.51900000
+04,Illes Balears,2021,Contrato existente,115.06600000
+05,Canarias,2024,Total,124.01400000
+05,Canarias,2023,Total,119.54000000
+05,Canarias,2022,Total,116.32700000
+05,Canarias,2021,Total,112.97900000
+05,Canarias,2024,Nuevo contrato,138.86000000
+05,Canarias,2023,Nuevo contrato,127.52100000
+05,Canarias,2022,Nuevo contrato,121.92100000
+05,Canarias,2021,Nuevo contrato,115.38600000
+05,Canarias,2024,Contrato existente,121.17800000
+05,Canarias,2023,Contrato existente,117.71600000
+05,Canarias,2022,Contrato existente,114.96300000
+05,Canarias,2021,Contrato existente,112.33500000
+06,Cantabria,2024,Total,118.98100000
+06,Cantabria,2023,Total,115.12600000
+06,Cantabria,2022,Total,112.42900000
+06,Cantabria,2021,Total,109.83000000
+06,Cantabria,2024,Nuevo contrato,136.18500000
+06,Cantabria,2023,Nuevo contrato,124.47400000
+06,Cantabria,2022,Nuevo contrato,119.55100000
+06,Cantabria,2021,Nuevo contrato,113.35700000
+06,Cantabria,2024,Contrato existente,115.93800000
+06,Cantabria,2023,Contrato existente,113.21800000
+06,Cantabria,2022,Contrato existente,110.93800000
+06,Cantabria,2021,Contrato existente,109.07600000
+07,Castilla y León,2024,Total,116.65500000
+07,Castilla y León,2023,Total,113.23100000
+07,Castilla y León,2022,Total,111.03800000
+07,Castilla y León,2021,Total,108.86200000
+07,Castilla y León,2024,Nuevo contrato,128.24500000
+07,Castilla y León,2023,Nuevo contrato,119.61500000
+07,Castilla y León,2022,Nuevo contrato,116.26400000
+07,Castilla y León,2021,Nuevo contrato,111.67200000
+07,Castilla y León,2024,Contrato existente,114.37300000
+07,Castilla y León,2023,Contrato existente,111.85300000
+07,Castilla y León,2022,Contrato existente,109.89800000
+07,Castilla y León,2021,Contrato existente,108.24700000
+08,Castilla-La Mancha,2024,Total,123.07100000
+08,Castilla-La Mancha,2023,Total,118.78400000
+08,Castilla-La Mancha,2022,Total,115.73600000
+08,Castilla-La Mancha,2021,Total,112.72800000
+08,Castilla-La Mancha,2024,Nuevo contrato,137.32800000
+08,Castilla-La Mancha,2023,Nuevo contrato,126.64300000
+08,Castilla-La Mancha,2022,Nuevo contrato,122.28200000
+08,Castilla-La Mancha,2021,Nuevo contrato,115.90400000
+08,Castilla-La Mancha,2024,Contrato existente,120.01900000
+08,Castilla-La Mancha,2023,Contrato existente,116.89800000
+08,Castilla-La Mancha,2022,Contrato existente,114.14400000
+08,Castilla-La Mancha,2021,Contrato existente,111.95800000
+09,Cataluña,2024,Total,123.56100000
+09,Cataluña,2023,Total,119.85400000
+09,Cataluña,2022,Total,116.79100000
+09,Cataluña,2021,Total,113.87600000
+09,Cataluña,2024,Nuevo contrato,135.14200000
+09,Cataluña,2023,Nuevo contrato,125.68100000
+09,Cataluña,2022,Nuevo contrato,120.79300000
+09,Cataluña,2021,Nuevo contrato,115.32500000
+09,Cataluña,2024,Contrato existente,122.20000000
+09,Cataluña,2023,Contrato existente,119.05700000
+09,Cataluña,2022,Contrato existente,116.21300000
+09,Cataluña,2021,Contrato existente,113.64200000
+10,Comunitat Valenciana,2024,Total,129.19600000
+10,Comunitat Valenciana,2023,Total,123.02100000
+10,Comunitat Valenciana,2022,Total,118.71600000
+10,Comunitat Valenciana,2021,Total,114.67900000
+10,Comunitat Valenciana,2024,Nuevo contrato,148.93800000
+10,Comunitat Valenciana,2023,Nuevo contrato,133.63100000
+10,Comunitat Valenciana,2022,Nuevo contrato,126.57600000
+10,Comunitat Valenciana,2021,Nuevo contrato,118.30500000
+10,Comunitat Valenciana,2024,Contrato existente,125.29500000
+10,Comunitat Valenciana,2023,Contrato existente,120.63400000
+10,Comunitat Valenciana,2022,Contrato existente,116.87800000
+10,Comunitat Valenciana,2021,Contrato existente,113.78300000
+11,Extremadura,2024,Total,117.84900000
+11,Extremadura,2023,Total,114.08700000
+11,Extremadura,2022,Total,111.71600000
+11,Extremadura,2021,Total,109.23500000
+11,Extremadura,2024,Nuevo contrato,128.39700000
+11,Extremadura,2023,Nuevo contrato,119.83300000
+11,Extremadura,2022,Nuevo contrato,116.43300000
+11,Extremadura,2021,Nuevo contrato,111.50400000
+11,Extremadura,2024,Contrato existente,114.91500000
+11,Extremadura,2023,Contrato existente,112.29500000
+11,Extremadura,2022,Contrato existente,110.22000000
+11,Extremadura,2021,Contrato existente,108.51200000
+12,Galicia,2024,Total,118.20600000
+12,Galicia,2023,Total,114.30300000
+12,Galicia,2022,Total,111.65400000
+12,Galicia,2021,Total,108.88500000
+12,Galicia,2024,Nuevo contrato,134.47600000
+12,Galicia,2023,Nuevo contrato,123.36700000
+12,Galicia,2022,Nuevo contrato,118.43300000
+12,Galicia,2021,Nuevo contrato,112.15700000
+12,Galicia,2024,Contrato existente,115.59300000
+12,Galicia,2023,Contrato existente,112.68500000
+12,Galicia,2022,Contrato existente,110.41200000
+12,Galicia,2021,Contrato existente,108.26900000
+13,Comunidad de Madrid,2024,Total,122.24600000
+13,Comunidad de Madrid,2023,Total,118.17800000
+13,Comunidad de Madrid,2022,Total,115.29400000
+13,Comunidad de Madrid,2021,Total,112.53900000
+13,Comunidad de Madrid,2024,Nuevo contrato,135.75300000
+13,Comunidad de Madrid,2023,Nuevo contrato,124.31900000
+13,Comunidad de Madrid,2022,Nuevo contrato,119.32700000
+13,Comunidad de Madrid,2021,Nuevo contrato,113.66100000
+13,Comunidad de Madrid,2024,Contrato existente,120.32300000
+13,Comunidad de Madrid,2023,Contrato existente,117.10600000
+13,Comunidad de Madrid,2022,Contrato existente,114.53100000
+13,Comunidad de Madrid,2021,Contrato existente,112.29800000
+14,Región de Murcia,2024,Total,121.61300000
+14,Región de Murcia,2023,Total,117.65700000
+14,Región de Murcia,2022,Total,114.90400000
+14,Región de Murcia,2021,Total,111.97800000
+14,Región de Murcia,2024,Nuevo contrato,134.97900000
+14,Región de Murcia,2023,Nuevo contrato,125.34500000
+14,Región de Murcia,2022,Nuevo contrato,121.44300000
+14,Región de Murcia,2021,Nuevo contrato,115.35100000
+14,Región de Murcia,2024,Contrato existente,118.64000000
+14,Región de Murcia,2023,Contrato existente,115.72900000
+14,Región de Murcia,2022,Contrato existente,113.24400000
+14,Región de Murcia,2021,Contrato existente,111.09100000
+17,La Rioja,2024,Total,119.62000000
+17,La Rioja,2023,Total,115.99800000
+17,La Rioja,2022,Total,113.42000000
+17,La Rioja,2021,Total,110.65100000
+17,La Rioja,2024,Nuevo contrato,132.31500000
+17,La Rioja,2023,Nuevo contrato,122.80800000
+17,La Rioja,2022,Nuevo contrato,119.23700000
+17,La Rioja,2021,Nuevo contrato,113.55800000
+17,La Rioja,2024,Contrato existente,117.34300000
+17,La Rioja,2023,Contrato existente,114.64600000
+17,La Rioja,2022,Contrato existente,112.25200000
+17,La Rioja,2021,Contrato existente,110.07000000
+18,Ceuta,2024,Total,110.19100000
+18,Ceuta,2023,Total,108.54200000
+18,Ceuta,2022,Total,107.67900000
+18,Ceuta,2021,Total,106.88400000
+18,Ceuta,2024,Nuevo contrato,117.08300000
+18,Ceuta,2023,Nuevo contrato,112.88400000
+18,Ceuta,2022,Nuevo contrato,110.77200000
+18,Ceuta,2021,Nuevo contrato,108.98600000
+18,Ceuta,2024,Contrato existente,108.34900000
+18,Ceuta,2023,Contrato existente,107.19300000
+18,Ceuta,2022,Contrato existente,106.69300000
+18,Ceuta,2021,Contrato existente,106.20500000
+19,Melilla,2024,Total,108.77100000
+19,Melilla,2023,Total,107.42800000
+19,Melilla,2022,Total,107.01100000
+19,Melilla,2021,Total,105.80400000
+19,Melilla,2024,Nuevo contrato,114.40200000
+19,Melilla,2023,Nuevo contrato,109.86200000
+19,Melilla,2022,Nuevo contrato,110.75100000
+19,Melilla,2021,Nuevo contrato,107.97000000
+19,Melilla,2024,Contrato existente,107.63300000
+19,Melilla,2023,Contrato existente,106.87900000
+19,Melilla,2022,Contrato existente,106.19300000
+19,Melilla,2021,Contrato existente,105.35500000

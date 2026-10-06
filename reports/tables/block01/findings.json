@@ -1,0 +1,20 @@
+{
+  "common_window": [
+    2021,
+    2024
+  ],
+  "purchase_nominal_change_pct": 21.023151478374103,
+  "rent_nominal_change_pct": 9.074129944806298,
+  "cpi_change_pct": 15.332487223438406,
+  "purchase_real_change_pct": 4.934138153034828,
+  "rent_real_change_pct": -5.426361148795422,
+  "purchase_2007_2025_change_pct": 20.25771227741049,
+  "purchase_trough_year": 2013,
+  "valuation_2024_eur_m2": 1913.625,
+  "new_contract_rent_change_pct": 19.299910334200977,
+  "existing_contract_rent_change_pct": 7.4918247511784,
+  "regional_rental_coverage": 19,
+  "rental_municipalities_2024": 2555,
+  "selected_municipalities": 30,
+  "mandate_comparisons_with_two_years": 43
+}
