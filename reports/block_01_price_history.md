@@ -34,6 +34,9 @@ La ventana reciente 2021–2024 y el desglose por antigüedad de contrato se con
 [informe inicial](block_01_prices.md). No se comparan porcentajes
 de ventanas distintas.
 
+Ambos paneles usan exactamente la misma escala vertical (70–135), marcas y periodo.
+La línea de 100 representa 2011; las etiquetas indican variaciones acumuladas desde ese año.
+
 ![Nominal y real](figures/history/03_common_nominal_real.svg)
 ![Ciclo e inflación](figures/history/04_cycles_inflation_rates.svg)
 

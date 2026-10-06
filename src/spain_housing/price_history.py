@@ -240,7 +240,7 @@ def run_history(root):
         style(ax, title, unit)
     save(fig, "02_national_governments.svg")
 
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharey=True)
     for label, color in [("purchase", BUY), ("rent", RENT)]:
         title = "Compra (IPV)" if label == "purchase" else "Alquiler (IPVA)"
         axes[0].plot(compare.index, compare[label + "_nominal"], label=title, color=color, lw=2.4)
@@ -250,7 +250,42 @@ def run_history(root):
         axes, ["Precios nominales", "Precios ajustados por IPC nacional"], strict=True
     ):
         style(ax, f"{title}, {a}–{b}", f"{a} = 100")
-        ax.legend()
+        # Identical geometry: ten index points occupy the same height in both panels.
+        ax.set_ylim(70, 135)
+        ax.set_yticks(np.arange(70, 136, 10))
+        ax.tick_params(axis="y", labelleft=True)
+        ax.set_xlim(a, b + 3)
+        ax.set_xticks([a, 2014, 2017, 2020, b])
+        ax.axhline(100, color="#555", lw=1, ls=":")
+        ax.legend(loc="lower right")
+    for ax, suffix in zip(axes, ["nominal", "real"], strict=True):
+        for label, color, name, offset in [
+            ("purchase", BUY, "Compra", 10),
+            ("rent", RENT, "Alquiler", 0),
+        ]:
+            value = compare.loc[b, label + "_" + suffix]
+            pct = f"{value - 100:+.2f}%".replace(".", ",")
+            ax.annotate(
+                f"{name}: {pct}",
+                (b, value),
+                xytext=(8, offset),
+                textcoords="offset points",
+                color=color,
+                fontsize=9,
+                va="center",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
+            )
+    inflation_pct = f"{compare.loc[b, 'cpi'] - 100:+.2f}%".replace(".", ",")
+    axes[0].annotate(
+        f"IPC: {inflation_pct}",
+        (b, compare.loc[b, "cpi"]),
+        xytext=(8, -13),
+        textcoords="offset points",
+        color="#666",
+        fontsize=9,
+        va="center",
+        bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
+    )
     save(fig, "03_common_nominal_real.svg")
 
     fig, axes = plt.subplots(2, 1, figsize=(12, 9))
@@ -415,6 +450,9 @@ el mismo año inicial y final.
 La ventana reciente 2021–2024 y el desglose por antigüedad de contrato se conservan en el
 [informe inicial](block_01_prices.md). No se comparan porcentajes
 de ventanas distintas.
+
+Ambos paneles usan exactamente la misma escala vertical (70–135), marcas y periodo.
+La línea de 100 representa 2011; las etiquetas indican variaciones acumuladas desde ese año.
 
 ![Nominal y real](figures/history/03_common_nominal_real.svg)
 ![Ciclo e inflación](figures/history/04_cycles_inflation_rates.svg)
