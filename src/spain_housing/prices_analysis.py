@@ -349,16 +349,23 @@ def run_analysis(root, preview_dir=None, vector=False):
     )
     comparison["rent_real_index"] = comparison.rent_nominal_index / comparison.cpi_index * 100
     comparison.to_csv(tables / "national_comparison.csv", index=False)
+    # Use the full general rental history for this comparison only.
+    chart_rent = series_for(
+        pd.read_csv(snapshot / "rent_general_history.csv", dtype={"code": str})
+    )
+    chart_years = sorted(set(p.index) & set(chart_rent.index) & set(cpi.index))
+    chart_first, chart_last = chart_years[0], chart_years[-1]
     fig, ax = plt.subplots(figsize=(12, 5))
     for s, label, color in [
         (p, "Compraventa (IPV)", BUY),
-        (r, "Alquiler (IPVA)", RENT),
+        (chart_rent, "Alquiler (IPVA)", RENT),
         (cpi, "Precios generales (IPC)", "#7c8993"),
     ]:
-        ax.plot(common, s.loc[common] / s.loc[first] * 100, "o-", label=label, color=color, lw=2.5)
+        index = s.loc[chart_years] / s.loc[chart_first] * 100
+        ax.plot(chart_years, index, "o-", label=label, color=color, lw=2.5)
     ax.legend(frameon=False)
-    ax.set_xticks(common)
-    style(ax, f"Ventana común {first}–{last}", f"{first} = 100")
+    ax.set_xticks([chart_first, 2014, 2017, 2020, chart_last])
+    style(ax, f"Ventana común {chart_first}–{chart_last}", f"{chart_first} = 100")
     save(
         fig,
         "03_indexed_comparison",
@@ -803,6 +810,10 @@ simple de los cuatro trimestres, es **{valuation.loc[2024]:,.2f} €/m²**.
 
 ![Niveles nacionales](figures/block01/01_national_levels.png)
 ![Comparación común](figures/block01/03_indexed_comparison.png)
+
+La comparación con los precios generales abarca **2011–2024**, el periodo completo
+con datos disponibles de compra, alquiler general e IPC; base **2011 = 100**.
+
 ![Cambios anuales](figures/block01/04_annual_changes.png)
 
 El valor de transacciones por vivienda corresponde a vivienda libre de segunda mano;

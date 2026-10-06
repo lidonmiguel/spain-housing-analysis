@@ -19,6 +19,10 @@ simple de los cuatro trimestres, es **1,913.62 €/m²**.
 
 ![Niveles nacionales](figures/block01/01_national_levels.png)
 ![Comparación común](figures/block01/03_indexed_comparison.png)
+
+La comparación con los precios generales abarca **2011–2024**, el periodo completo
+con datos disponibles de compra, alquiler general e IPC; base **2011 = 100**.
+
 ![Cambios anuales](figures/block01/04_annual_changes.png)
 
 El valor de transacciones por vivienda corresponde a vivienda libre de segunda mano;
