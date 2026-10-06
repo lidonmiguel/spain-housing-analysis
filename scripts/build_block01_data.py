@@ -20,6 +20,7 @@ URLS = {
     "valuations.csv": "https://cdn.mivau.gob.es/portal-web-mivau/Datos_MIVAU/CSV/VDP006_01.csv",
     "rent.xlsx": "https://cdn.mivau.gob.es/portal-web-mivau/vivienda/serpavi/2026-03_09_bd_SERPAVI_2011-2024%20-%20DEFINITIVO%20WEB_v2.xlsx",
     "ipv_quarterly.csv": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/79563.csv",
+    "ine_59056.csv": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/59056.csv",
     "ipva.csv": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/59004.csv",
     "cpi.csv": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50913.csv",
     "municipal_purchase.xls": "https://apps.fomento.gob.es/BoletinOnline2/sedal/35103500.XLS",
@@ -113,6 +114,20 @@ def build():
     data = data.rename(columns={"Antigüedad del contrato de arrendamiento": "contract"})
     data["name"] = data.code.map(REGIONS)
     write(data[["code", "name", "year", "contract", "value"]], "rent_index.csv")
+
+    # Long general IPVA; do not fabricate older contract-specific observations.
+    history = pd.read_csv(RAW / "ine_59056.csv", sep=";", dtype=str)
+    history = history[
+        (history["Tipo de dato"] == "Índice") & (history["Tipo de edificación"] == "Total")
+    ].copy()
+    history["code"] = history["Comunidades y Ciudades Autónomas"].str[:2].fillna("00")
+    history["year"] = history.Periodo.astype(int)
+    history["value"] = numbers(history.Total)
+    history["name"] = history.code.map(REGIONS)
+    write(
+        history[["code", "name", "year", "value"]].dropna(subset=["value"]),
+        "rent_general_history.csv",
+    )
 
     data = pd.read_csv(RAW / "cpi.csv", sep=";", dtype=str)
     data = data[
@@ -257,7 +272,7 @@ def build():
         if not match:
             continue
         q, year = map(int, match.groups())
-        if not 2011 <= year <= 2024:
+        if not 2005 <= year <= 2025:
             continue
         frame = pd.read_excel(book, sheet, header=None)
         for _, row in frame.iterrows():
@@ -343,7 +358,7 @@ def build():
         rows = sorted(rows, key=lambda r: r["start"])
         for i, row in enumerate(rows):
             row["end"] = rows[i + 1]["start"] if i + 1 < len(rows) else ""
-            if row["start"] <= "2024-12-31" and (not row["end"] or row["end"] >= "2011-01-01"):
+            if row["start"] <= "2025-12-31" and (not row["end"] or row["end"] >= "1995-01-01"):
                 governments.append(row)
     gov = pd.DataFrame(governments)
     # Expose constitutional intervention and interim period rather than mislabelling Torra.
@@ -360,6 +375,8 @@ def build():
     )
     gov = pd.concat([gov, pd.DataFrame([interim])], ignore_index=True)
     national = [
+        ("1993-07-09", "1996-05-04", "PSOE", "Felipe González"),
+        ("1996-05-04", "2004-04-17", "PP", "José María Aznar"),
         ("2004-04-17", "2011-12-21", "PSOE", "José Luis Rodríguez Zapatero"),
         ("2011-12-21", "2018-06-02", "PP", "Mariano Rajoy"),
         ("2018-06-02", "2020-01-13", "PSOE", "Pedro Sánchez"),
@@ -381,7 +398,13 @@ def build():
                             start=start,
                             end=end,
                             date_basis="president_or_cabinet_inauguration",
-                            source_url="https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx",
+                            source_url={
+                                "1993-07-09": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-1993-18045",
+                                "1996-05-04": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-1996-9942",
+                            }.get(
+                                start,
+                                "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx",
+                            ),
                         )
                     ]
                 ),

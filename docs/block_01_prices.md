@@ -161,3 +161,25 @@ in 2021 for Navarra and 2024 for País Vasco. These series have no 2011–2024 r
 
 Do not substitute the CPI rent component for a market rent-level series without
 identifying it as a distinct measure. Do not present plans or missing inputs as results.
+
+
+## Ampliación histórica (6 de octubre de 2026)
+
+El análisis histórico principal está en `notebooks/01b_price_history.ipynb` y
+`reports/block_01_price_history.md`. Mantiene el informe inicial como ventana reciente.
+
+| Medida | Serie histórica | Ventana comparable |
+| --- | --- | --- |
+| Tasación libre nacional, CCAA y provincias | 1995–2025 | Mismos extremos en mapas |
+| Importe de transacciones, segunda mano libre | 2004–2025 | No mezclar con tasación |
+| IPV de compraventa | 2007–2025 | 2011–2024 al comparar con IPVA |
+| IPVA general (INE 59056) | 2011–2024 | Misma definición en toda la serie |
+| Tasación de 30 municipios | 2005–2025 | Panel fijo en perfiles |
+| Alquiler fiscal, m² y vivienda | 2011–2024 según territorio | Cobertura explícita |
+| IPC nacional | 2002–2025 | No deflactar antes de 2002 |
+
+Máximo precrisis: máximo observado en 1995–2008; mínimo postcrisis: mínimo en
+2009–2015. No se calcula un máximo precrisis para alquileres que empiezan en 2011.
+Las tablas conservan años inicial/final nominales y reales separados, años observados
+y huecos. Los cambios por presidencia usan años completos dentro del intervalo,
+excluyen años de transición y ofrecen variación acumulada y anualizada.

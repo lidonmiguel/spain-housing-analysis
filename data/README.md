@@ -9,14 +9,15 @@ reproducir el informe sin acceso a internet. No contiene microdatos personales.
 | Snapshot | Concepto y cobertura |
 | --- | --- |
 | `purchase_index.csv` | IPV, compra efectiva, medias anuales de cuatro trimestres, 2007–2025 |
+| `rent_general_history.csv` | IPVA general, nacional y comunidades, 2011–2024 (INE 59056) |
 | `rent_index.csv` | IPVA, total/nuevos/existentes, 2021–2024 |
 | `cpi.csv` | IPC general, medias de doce meses, 2002–2025 |
 | `valuations.csv` | Tasación libre €/m², cuatro trimestres por año, 1995–2025 |
 | `rental_medians_2011_2017.csv.gz`, `rental_medians_2018_2024.csv.gz` | SERPAVI, medianas vivienda colectiva, 2011–2024 según territorio |
-| `municipal_purchase.csv` | Tasación de 30 municipios seleccionados, 2011–2024 |
+| `municipal_purchase.csv` | Tasación de 30 municipios seleccionados, 2005–2025 |
 | `purchase_transaction_total.csv` | Valor medio por transacción de segunda mano libre, trimestral 2004–2026T2 |
 | `selected_cities.csv` | Selección, grupos descriptivos y coordenadas oficiales verificadas |
-| `governments.csv` | Presidencias autonómicas y etapas del gobierno nacional |
+| `governments.csv` | Presidencias autonómicas y etapas del gobierno nacional desde 1995 |
 | `communities.geojson`, `provinces.geojson` | Geometrías ilustrativas simplificadas, vintage 2014 |
 
 Navarra: alquiler desde 2021; País Vasco: desde 2024. La cobertura municipal depende
@@ -34,7 +35,8 @@ usan la base indicada en cada publicación. El análisis los rebasa cuando los c
 `python scripts/build_block01_data.py` descarga fuentes faltantes, verifica códigos
 del geocodificador, extrae tablas y rechaza observaciones ambiguas. Los originales
 se conservan en caché: no se reemplazan por una publicación nueva automáticamente.
-`python scripts/run_block01.py` utiliza exclusivamente los snapshots versionados.
+`python scripts/run_block01.py` reproduce la ventana inicial;
+`python scripts/run_price_history.py` genera el histórico ampliado. Ambos usan snapshots.
 
 Metadatos: `source_register.csv` incluye fuentes candidatas para todos los bloques;
 `dataset_manifest.csv` registra los originales reales del bloque 01;

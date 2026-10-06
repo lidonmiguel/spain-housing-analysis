@@ -390,5 +390,12 @@
     "sha256": "4ff5c4562bb31055d648ef368093f304c9009ea7ce1c03208617b609dfbca475",
     "hash_scope": "original_api_response",
     "retrieved_at_utc": "2026-10-06T09:50:37.775936+00:00"
+  },
+  {
+    "source_file": "ine_59056.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/59056.csv",
+    "sha256": "c6cec7cac3534b188f0c895993162db8e5108fabc1954a7c143bc3df961f14b0",
+    "bytes": 106312,
+    "retrieved_at_utc": "2026-10-06T12:01:13.445736+00:00"
   }
 ]

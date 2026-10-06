@@ -1,5 +1,8 @@
 # Evolución de la vivienda en España: precios, territorio y contexto político
 
+**Perspectiva histórica ampliada:** [compra desde 1995 y alquiler desde 2011](block_01_price_history.md).
+Este informe conserva las ventanas iniciales y la comparación reciente.
+
 **Análisis ejecutado con datos reales.** Publicaciones recuperadas el 6 de octubre de 2026.
 Las series anuales de compraventa llegan a 2025; alquileres fiscales e IPVA, a 2024.
 Los trimestres de 2026 se muestran únicamente en la serie trimestral de valor por vivienda.

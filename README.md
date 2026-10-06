@@ -3,17 +3,34 @@
 Proyecto de ciencia de datos sobre la vivienda en España, con fuentes oficiales,
 análisis reproducible y una lectura crítica de los discursos políticos.
 
-**Primer bloque realizado:** 16 figuras, tablas de resultados e informe en español.
+**Primer bloque realizado:** 24 figuras, tablas de resultados e informes en español.
+Histórico ampliado: compra desde 1995, alquiler desde 2011 y municipios desde 2005.
 Datos recuperados el **6 de octubre de 2026**. Los demás bloques son trabajo pendiente.
 
 ## Empieza aquí
 
+- [**Empieza por el histórico ampliado:** ciclos, inflación y gobiernos](reports/block_01_price_history.md).
+- [**Notebook histórico con cálculos visibles y gráficas**](notebooks/01b_price_history.ipynb).
+- [Gráficas históricas](reports/figures/history/) y [tablas históricas](reports/tables/history/).
 - [Informe: precios, territorio y contexto político](reports/block_01_prices.md).
 - [Notebook ejecutado con las gráficas y resultados](notebooks/01_prices.ipynb).
 - [Figuras publicadas](reports/figures/block01/) y [tablas descargables](reports/tables/block01/).
 - [Fuentes y huellas SHA-256](data/snapshots/block01/source_manifest.json).
 
-### Algunos resultados: 2021–2024
+### Perspectiva histórica: 2011–2024
+
+| Medida nacional | Cambio nominal | Cambio ajustado por IPC |
+| --- | ---: | ---: |
+| Compra: índice IPV | +27,91% | +0,37% |
+| Alquiler: índice IPVA general | +17,33% | −7,93% |
+
+La tasación media nacional cayó un 29,53% entre el máximo anual de 2008 y el
+mínimo de 2014, y subió un 45,78% entre 2014 y 2025. Las tablas territoriales
+incluyen fechas, extremos del ciclo y cobertura real. El ajuste por IPC empieza en 2002.
+
+![Perspectiva histórica nacional](reports/figures/history/01_national_long_history.svg)
+
+### Ventana reciente complementaria: 2021–2024
 
 | Medida nacional | Cambio nominal | Cambio ajustado por IPC |
 | --- | ---: | ---: |
@@ -59,10 +76,12 @@ source .venv/bin/activate
 # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e ".[dev]"
 python scripts/run_block01.py
+python scripts/run_price_history.py
 jupyter lab
 ```
 
-Abrir `notebooks/01_prices.ipynb`. Los snapshots están versionados: no se necesita
+Abrir primero `notebooks/01b_price_history.ipynb`; el análisis reciente está en
+`notebooks/01_prices.ipynb`. Los snapshots están versionados: no se necesita
 acceso a internet para generar figuras y resultados. El notebook incluye salidas
 ya ejecutadas; genera también imágenes temporales para mostrarlas al volver a ejecutarlo.
 

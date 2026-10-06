@@ -264,6 +264,21 @@ def run_analysis(root, preview_dir=None, vector=False):
         "purchase_transaction_total",
     ]:
         frames[name] = pd.read_csv(snapshot / f"{name}.csv", dtype={"code": str, "muniCode": str})
+    # Keep the original report's municipal comparison window explicit.
+    # The extended histories are generated separately by price_history.py.
+    frames["municipal_purchase"] = (
+        frames["municipal_purchase"]
+        .loc[frames["municipal_purchase"].year.between(2011, 2024)]
+        .copy()
+    )
+    frames["governments"] = (
+        frames["governments"]
+        .loc[
+            (frames["governments"].start <= "2024-12-31")
+            & (frames["governments"].end.isna() | (frames["governments"].end >= "2011-01-01"))
+        ]
+        .copy()
+    )
     rentals = load_rental_snapshot(snapshot)
     buy = frames["purchase_index"]
     rent = frames["rent_index"]
@@ -767,6 +782,10 @@ def run_analysis(root, preview_dir=None, vector=False):
         ],
     )
     report = f"""# Evolución de la vivienda en España: precios, territorio y contexto político
+
+**Perspectiva histórica ampliada:**
+[Compra desde 1995 y alquiler desde 2011](block_01_price_history.md).
+Este informe conserva las ventanas iniciales y la comparación reciente.
 
 **Análisis ejecutado con datos reales.** Publicaciones recuperadas el 6 de octubre de 2026.
 Las series anuales de compraventa llegan a 2025; alquileres fiscales e IPVA, a 2024.

@@ -1,0 +1,2 @@
+code,name,first_year,last_year,observed_years,missing_years,first_value,last_value,nominal_change_pct,real_first_year,real_last_year,real_change_pct,precrisis_peak_year,precrisis_peak_value,postcrisis_trough_year,postcrisis_trough_value,peak_to_trough_pct,trough_to_latest_pct,peak_to_latest_pct
+00,España,1995,2025,31,0,683.02500000,2127.57500000,211.49299074,2002,2025,14.13798420,2008,2071.07500000,2014,1459.40000000,-29.53417911,45.78422639,2.72805186

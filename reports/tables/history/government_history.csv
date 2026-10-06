@@ -1,0 +1,185 @@
+metric,code,name,leader,party,start,end,observed_complete_years,first_year,last_year,nominal_change_pct,annualised_pct,real_change_pct
+purchase_valuation,00,España,Felipe González,PSOE,1993-07-09,1996-05-04,1,,,,,
+purchase_valuation,00,España,José María Aznar,PP,1996-05-04,2004-04-17,7,1997.00000000,2003.00000000,84.96100611,10.79326558,
+purchase_valuation,00,España,José Luis Rodríguez Zapatero,PSOE,2004-04-17,2011-12-21,6,2005.00000000,2010.00000000,4.65786485,0.91468620,-6.89231271
+purchase_valuation,00,España,Mariano Rajoy,PP,2011-12-21,2018-06-02,6,2012.00000000,2017.00000000,-3.11688312,-0.63129719,-5.49030924
+purchase_valuation,00,España,Pedro Sánchez,PSOE,2018-06-02,2020-01-13,1,,,,,
+purchase_valuation,00,España,Pedro Sánchez,PSOE + UP,2020-01-13,2023-11-21,2,2021.00000000,2022.00000000,5.03144654,5.03144654,-3.09909765
+purchase_valuation,00,España,Pedro Sánchez,PSOE + Sumar,2023-11-21,,2,2024.00000000,2025.00000000,11.18035143,11.18035143,8.28579996
+rent_ipva,00,España,Felipe González,PSOE,1993-07-09,1996-05-04,0,,,,,
+rent_ipva,00,España,José María Aznar,PP,1996-05-04,2004-04-17,0,,,,,
+rent_ipva,00,España,José Luis Rodríguez Zapatero,PSOE,2004-04-17,2011-12-21,0,,,,,
+rent_ipva,00,España,Mariano Rajoy,PP,2011-12-21,2018-06-02,6,2012.00000000,2017.00000000,0.32463442,0.06484274,-2.13310141
+rent_ipva,00,España,Pedro Sánchez,PSOE,2018-06-02,2020-01-13,1,,,,,
+rent_ipva,00,España,Pedro Sánchez,PSOE + UP,2020-01-13,2023-11-21,2,2021.00000000,2022.00000000,2.65320248,2.65320248,-5.29324049
+rent_ipva,00,España,Pedro Sánchez,PSOE + Sumar,2023-11-21,,1,,,,,
+purchase_valuation,16,País Vasco,José Antonio Ardanza Garro (PNV),PNV,1994-12-30,2009-05-06,14,1995.00000000,2008.00000000,225.72096437,9.50896394,
+purchase_valuation,16,País Vasco,Francisco Javier López Álvarez (PSOE),PSOE,2009-05-06,2012-12-14,2,2010.00000000,2011.00000000,-2.76376007,-2.76376007,-5.77527818
+purchase_valuation,16,País Vasco,Iñigo Urkullu Rentería (PNV),PNV,2012-12-14,2016-11-25,3,2013.00000000,2015.00000000,-3.82185313,-1.92954223,-3.19189917
+purchase_valuation,16,País Vasco,Iñigo Urkullu Rentería (PNV),PNV,2016-11-25,2020-09-03,3,2017.00000000,2019.00000000,0.66614297,0.33251864,-1.67998609
+purchase_valuation,16,País Vasco,Iñigo Urkullu Rentería (PNV),PNV,2020-09-03,2024-06-21,3,2021.00000000,2023.00000000,4.60260071,2.27541284,-6.78735376
+purchase_valuation,16,País Vasco,Imanol Pradales Gil (PNV),PNV,2024-06-21,,1,,,,,
+purchase_valuation,09,Cataluña,Jordi Pujol i Soley (CiU),CiU,1992-04-10,1995-12-20,0,,,,,
+purchase_valuation,09,Cataluña,Jordi Pujol i Soley (CiU),CiU,1995-12-20,1999-11-23,3,1996.00000000,1998.00000000,10.92384724,5.32039083,
+purchase_valuation,09,Cataluña,Jordi Pujol i Soley (CiU),CiU,1999-11-23,2003-12-17,3,2000.00000000,2002.00000000,24.05996109,11.38220733,
+purchase_valuation,09,Cataluña,Pascual Maragall i Mira (PSOE),PSOE,2003-12-17,2006-11-27,2,2004.00000000,2005.00000000,11.53116212,11.53116212,7.89633517
+purchase_valuation,09,Cataluña,José Montilla Aguilera (PSOE),PSOE,2006-11-27,2010-12-24,3,2007.00000000,2009.00000000,-3.93835438,-1.98895694,-7.43348181
+purchase_valuation,09,Cataluña,Artur Mas i Gavarró (CiU),CiU,2010-12-24,2012-12-21,1,,,,,
+purchase_valuation,09,Cataluña,Artur Mas i Gavarró (CiU),CiU,2012-12-21,2016-01-11,3,2013.00000000,2015.00000000,-0.78037576,-0.39095210,-0.13050053
+purchase_valuation,09,Cataluña,Carles Puigdemont i Casamajó (2016-2017) (JxSÍ),JxSÍ,2016-01-11,2017-10-27,0,,,,,
+purchase_valuation,09,Cataluña,"Soraya Sáenz de Santamaría (2017-2018) (PP), por suspensión de la autonomía, en aplicación del art. 155, la Vicepresidenta del Gobierno de España asumió el cargo desde el 28 de octubre de 2017 hasta el 17 de mayo de 2018",Art.155 (PP nacional),2017-10-27,2018-05-15,0,,,,,
+purchase_valuation,09,Cataluña,Joaquim Torra i Plá (2018-2020) (JxCat),JxCat,2018-05-15,2020-09-28,1,,,,,
+purchase_valuation,09,Cataluña,Pere Aragonès i Garcia (ERC),ERC,2021-05-21,2024-08-09,2,2022.00000000,2023.00000000,2.50504391,2.50504391,-0.99226697
+purchase_valuation,09,Cataluña,Salvador Illa Roca (PSC),PSC,2024-08-09,,1,,,,,
+purchase_valuation,12,Galicia,Manuel Fraga Iribarne (PP),PP,1993-12-02,1997-12-04,2,1995.00000000,1996.00000000,0.85888552,0.85888552,
+purchase_valuation,12,Galicia,Manuel Fraga Iribarne (PP),PP,1997-12-04,2001-12-10,3,1998.00000000,2000.00000000,11.22183045,5.46176105,
+purchase_valuation,12,Galicia,Manuel Fraga Iribarne (PP),PP,2001-12-10,2009-04-17,7,2002.00000000,2008.00000000,83.38698721,10.63556361,50.89826413
+purchase_valuation,12,Galicia,Alberto Núñez Feijóo (PP),PP,2009-04-17,2012-11-29,2,2010.00000000,2011.00000000,-4.16194109,-4.16194109,-7.13015593
+purchase_valuation,12,Galicia,Alberto Núñez Feijóo (PP),PP,2012-11-29,2016-11-11,3,2013.00000000,2015.00000000,-2.62375010,-1.32059491,-1.98594873
+purchase_valuation,12,Galicia,Alberto Núñez Feijóo (PP),PP,2016-11-11,2020-09-03,3,2017.00000000,2019.00000000,0.97259063,0.48511861,-1.38068051
+purchase_valuation,12,Galicia,Alberto Núñez-Feijóo (PP),PP,2020-09-03,2022-05-12,1,,,,,
+purchase_valuation,12,Galicia,Alfonso Rueda Valenzuela (PP),PP,2022-05-12,2024-04-12,1,,,,,
+purchase_valuation,12,Galicia,Alfonso Rueda Valenzuela (PP),PP,2024-04-12,,1,,,,,
+purchase_valuation,01,Andalucía,Manuel Chaves González (PSOE),PSOE,1994-07-29,1996-04-12,1,,,,,
+purchase_valuation,01,Andalucía,Manuel Chaves González (PSOE),PSOE,1996-04-12,2000-04-26,3,1997.00000000,1999.00000000,15.18518519,7.32436125,
+purchase_valuation,01,Andalucía,Manuel Chaves González (PSOE),PSOE,2000-04-26,2004-04-23,3,2001.00000000,2003.00000000,37.13637836,17.10524256,
+purchase_valuation,01,Andalucía,Manuel Chaves González (PSOE),PSOE,2004-04-23,2008-04-17,3,2005.00000000,2007.00000000,18.44564348,8.83273564,11.32073232
+purchase_valuation,01,Andalucía,Manuel Chaves González (2008-2009) (PSOE),PSOE,2008-04-17,2009-04-22,0,,,,,
+purchase_valuation,01,Andalucía,José Antonio Griñán Martínez (2009-2012) (PSOE),PSOE,2009-04-22,2012-05-04,2,2010.00000000,2011.00000000,-5.76159674,-5.76159674,-8.68026840
+purchase_valuation,01,Andalucía,José Antonio Griñán Martínez (2012-2013) (PSOE),PSOE,2012-05-04,2013-09-05,0,,,,,
+purchase_valuation,01,Andalucía,Susana Díaz Pacheco (2013-2015) (PSOE),PSOE,2013-09-05,2015-06-12,1,,,,,
+purchase_valuation,01,Andalucía,Susana Díaz Pacheco (PSOE),PSOE,2015-06-12,2019-01-17,3,2016.00000000,2018.00000000,4.33110540,2.14259905,0.64369977
+purchase_valuation,01,Andalucía,Juan Manuel Moreno Bonilla (PP),PP,2019-01-17,2022-07-21,2,2020.00000000,2021.00000000,2.78380819,2.78380819,-0.30004610
+purchase_valuation,01,Andalucía,Juan Manuel Moreno Bonilla (PP),PP,2022-07-21,2026-07-03,3,2023.00000000,2025.00000000,18.86542873,9.02542306,12.64580291
+purchase_valuation,03,Asturias,Antonio Ramón Trevín Lombán (PSOE) (1993-1995),PSOE,1993-06-18,1995-07-14,0,,,,,
+purchase_valuation,03,Asturias,Sergio Marqués Fernández (PP),PP,1995-07-14,1999-07-20,3,1996.00000000,1998.00000000,6.44269218,3.17106774,
+purchase_valuation,03,Asturias,Vicente Alberto Álvarez Areces (PSOE),PSOE,1999-07-20,2003-07-04,3,2000.00000000,2002.00000000,22.30793957,10.59292001,
+purchase_valuation,03,Asturias,Vicente Alberto Álvarez Areces (PSOE),PSOE,2003-07-04,2007-07-11,3,2004.00000000,2006.00000000,22.21058644,10.54889707,14.21248797
+purchase_valuation,03,Asturias,Vicente Alberto Álvarez Areces (PSOE),PSOE,2007-07-11,2011-07-15,3,2008.00000000,2010.00000000,-7.62374280,-3.88743204,-8.99506991
+purchase_valuation,03,Asturias,Francisco Álvarez-Cascos Fernández (FAC),FAC,2011-07-15,2012-05-24,0,,,,,
+purchase_valuation,03,Asturias,Javier Fernández Fernández (PSOE),PSOE,2012-05-24,2015-07-22,2,2013.00000000,2014.00000000,-4.59048035,-4.59048035,-4.44608420
+purchase_valuation,03,Asturias,Javier Fernández Fernández (PSOE),PSOE,2015-07-22,2019-07-16,3,2016.00000000,2018.00000000,-0.26463324,-0.13240427,-3.78961029
+purchase_valuation,03,Asturias,Adrián Barbón Rodríguez (PSOE),PSOE,2019-07-16,2023-07-19,3,2020.00000000,2022.00000000,3.28112021,1.62731926,-7.57282755
+purchase_valuation,03,Asturias,Adrián Barbón Rodríguez (PSOE),PSOE,2023-07-19,,2,2024.00000000,2025.00000000,12.88588001,12.88588001,9.94692555
+purchase_valuation,06,Cantabria,Jaime Blanco García (1990-1991) (PSOE),PSOE,1990-12-10,1995-07-14,0,,,,,
+purchase_valuation,06,Cantabria,José Joaquín Martínez Sieso (PP),PP,1995-07-14,1995-07-23,0,,,,,
+purchase_valuation,06,Cantabria,José Joaquín Martínez Sieso (PP),PP,1995-07-23,2003-06-30,7,1996.00000000,2002.00000000,64.50152577,8.64964752,
+purchase_valuation,06,Cantabria,Miguel Ángel Revilla Roiz (PRC),PRC,2003-06-30,2007-07-02,3,2004.00000000,2006.00000000,26.05246194,12.27308758,17.80293109
+purchase_valuation,06,Cantabria,Miguel Ángel Revilla Roiz (PRC),PRC,2007-07-02,2011-06-24,3,2008.00000000,2010.00000000,-8.33642090,-4.25890167,-9.69716830
+purchase_valuation,06,Cantabria,Juan Ignacio Diego Palacios (PP),PP,2011-06-24,2015-07-06,3,2012.00000000,2014.00000000,-12.80621013,-6.62238498,-13.88721634
+purchase_valuation,06,Cantabria,Miguel Ángel Revilla Roiz (PRC),PRC,2015-07-06,2019-06-28,3,2016.00000000,2018.00000000,-1.14634687,-0.57482556,-4.64016126
+purchase_valuation,06,Cantabria,Miguel Ángel Revilla Roiz (PRC),PRC,2019-06-28,2023-07-03,3,2020.00000000,2022.00000000,5.13079171,2.53330762,-5.91754045
+purchase_valuation,06,Cantabria,María José Sanz de Buruaga (PP),PP,2023-07-03,,2,2024.00000000,2025.00000000,13.95440192,13.95440192,10.98762878
+purchase_valuation,17,La Rioja,José Ignacio Pérez Sáenz (PSOE),PSOE,1991-07-03,1995-07-03,0,,,,,
+purchase_valuation,17,La Rioja,Pedro Sanz Alonso (PP),PP,1995-07-03,1999-07-12,3,1996.00000000,1998.00000000,0.90265919,0.45031567,
+purchase_valuation,17,La Rioja,Pedro Sanz Alonso (PP),PP,1999-07-12,2003-06-30,3,2000.00000000,2002.00000000,31.33901342,14.60323443,
+purchase_valuation,17,La Rioja,Pedro Sanz Alonso (PP),PP,2003-06-30,2007-06-29,3,2004.00000000,2006.00000000,26.97221780,12.68194966,18.66249333
+purchase_valuation,17,La Rioja,Pedro Sanz Alonso (PP),PP,2007-06-29,2011-06-24,3,2008.00000000,2010.00000000,-5.77086681,-2.92830835,-7.16969991
+purchase_valuation,17,La Rioja,Pedro Sanz Alonso (PP),PP,2011-06-24,2015-07-06,3,2012.00000000,2014.00000000,-17.64473238,-9.25019690,-18.66575184
+purchase_valuation,17,La Rioja,José Ignacio Ceniceros González (PP),PP,2015-07-06,2019-08-28,3,2016.00000000,2018.00000000,2.63303386,1.30796309,-0.99435631
+purchase_valuation,17,La Rioja,Concepción Andreu Rodríguez (PSOE),PSOE,2019-08-28,2023-06-28,3,2020.00000000,2022.00000000,4.05615156,2.00791713,-6.87924525
+purchase_valuation,17,La Rioja,Gonzalo Capellán de Miguel (PP),PP,2023-06-28,,2,2024.00000000,2025.00000000,8.34533834,8.34533834,5.52459570
+purchase_valuation,14,Región de Murcia,Mª Antonia Martínez García (PSOE) (1993-1995),PSOE,1993-05-02,1995-07-03,0,,,,,
+purchase_valuation,14,Región de Murcia,Ramón Luis Valcárcel Siso (PP),PP,1995-07-03,1999-07-09,3,1996.00000000,1998.00000000,10.68085354,5.20496829,
+purchase_valuation,14,Región de Murcia,Ramón Luis Valcárcel Siso (PP),PP,1999-07-09,2003-06-27,3,2000.00000000,2002.00000000,35.41158005,16.36648145,
+purchase_valuation,14,Región de Murcia,Ramón Luis Valcárcel Siso (PP),PP,2003-06-27,2007-06-29,3,2004.00000000,2006.00000000,25.58658492,12.06542059,17.36754349
+purchase_valuation,14,Región de Murcia,Ramón Luis Valcárcel Siso (PP),PP,2007-06-29,2011-06-24,3,2008.00000000,2010.00000000,-14.42676820,-7.49419921,-15.69710429
+purchase_valuation,14,Región de Murcia,Ramón Luis Valcárcel Siso (PP) (2011-2014),PP,2011-06-24,2014-04-08,2,2012.00000000,2013.00000000,-8.20025516,-8.20025516,-9.47536801
+purchase_valuation,14,Región de Murcia,Alberto Garre López (PP) (2014-2015),PP,2014-04-08,2015-07-02,0,,,,,
+purchase_valuation,14,Región de Murcia,Pedro Antonio Sánchez López (PP) (2015-2017),PP,2015-07-02,2017-05-02,1,,,,,
+purchase_valuation,14,Región de Murcia,Fernando López Miras (PP) (2017-2019)),PP,2017-05-02,2019-07-26,1,,,,,
+purchase_valuation,14,Región de Murcia,Fernando López Miras (PP),PP,2019-07-26,2023-09-07,3,2020.00000000,2022.00000000,6.49733589,3.19754643,-4.69460818
+purchase_valuation,14,Región de Murcia,Fernando López Miras (PP),PP,2023-09-07,,2,2024.00000000,2025.00000000,9.28514963,9.28514963,6.43993925
+purchase_valuation,10,Comunitat Valenciana,Joan Lerma Blasco (PSOE),PSOE,1991-07-10,1995-07-02,0,,,,,
+purchase_valuation,10,Comunitat Valenciana,Eduardo Zaplana Hernández-Soro (PP),PP,1995-07-02,1999-07-19,3,1996.00000000,1998.00000000,11.00338107,5.35814210,
+purchase_valuation,10,Comunitat Valenciana,Eduardo Zaplana Hernández-Soro (PP) (1999-2002),PP,1999-07-19,2002-07-23,2,2000.00000000,2001.00000000,13.57183621,13.57183621,
+purchase_valuation,10,Comunitat Valenciana,José Luis Olivas Martínez (PP) (2002-2003),PP,2002-07-23,2003-06-19,0,,,,,
+purchase_valuation,10,Comunitat Valenciana,Francisco Enrique Camps Ortiz (PP),PP,2003-06-19,2007-06-26,3,2004.00000000,2006.00000000,29.17935006,13.65709395,20.72517934
+purchase_valuation,10,Comunitat Valenciana,Francisco Enrique Camps Ortiz (PP),PP,2007-06-26,2011-06-17,3,2008.00000000,2010.00000000,-13.01445718,-6.73395965,-14.30575905
+purchase_valuation,10,Comunitat Valenciana,Francisco Enrique Camps Ortiz (PP) (2011),PP,2011-06-17,2011-07-27,0,,,,,
+purchase_valuation,10,Comunitat Valenciana,Alberto Fabra Part (PP) (2011-2015),PP,2011-07-27,2015-06-26,3,2012.00000000,2014.00000000,-7.45283991,-3.79856545,-8.60021584
+purchase_valuation,10,Comunitat Valenciana,Ximo Puig i Ferrer (PSOE),PSOE,2015-06-26,2019-06-14,3,2016.00000000,2018.00000000,2.45192620,1.21853892,-1.16906303
+purchase_valuation,10,Comunitat Valenciana,Ximo Puig i Ferrer (PSOE),PSOE,2019-06-14,2023-07-14,3,2020.00000000,2022.00000000,9.18739635,4.49277312,-2.28724968
+purchase_valuation,10,Comunitat Valenciana,Carlos Arturo Mazón Guixot (PP),PP,2023-07-14,2025-11-28,1,,,,,
+purchase_valuation,10,Comunitat Valenciana,Juan Francisco Pérez Llorca (PP),PP,2025-11-28,,0,,,,,
+purchase_valuation,02,Aragón,José Marco Berges (1993-1995) (PSOE),PSOE,1993-09-16,1995-07-08,0,,,,,
+purchase_valuation,02,Aragón,Santiago Lanzuela Marina (PP),PP,1995-07-08,1999-07-30,3,1996.00000000,1998.00000000,4.78597910,2.36502289,
+purchase_valuation,02,Aragón,Marcelino Iglesias Ricou (PSOE),PSOE,1999-07-30,2003-07-03,3,2000.00000000,2002.00000000,29.23272036,13.68057018,
+purchase_valuation,02,Aragón,Marcelino Iglesias Ricou (PSOE),PSOE,2003-07-03,2007-07-05,3,2004.00000000,2006.00000000,31.63478888,14.73220511,23.01992143
+purchase_valuation,02,Aragón,Marcelino Iglesias Ricou (PSOE),PSOE,2007-07-05,2011-07-13,3,2008.00000000,2010.00000000,-12.92355670,-6.68524055,-14.21620799
+purchase_valuation,02,Aragón,Luisa Fernanda Rudi Úbeda (PP),PP,2011-07-13,2015-07-03,3,2012.00000000,2014.00000000,-15.67281464,-8.17016533,-16.71828143
+purchase_valuation,02,Aragón,Francisco Javier Lambán Montañés (PSOE),PSOE,2015-07-03,2019-08-02,3,2016.00000000,2018.00000000,0.39904567,0.19932418,-3.14938799
+purchase_valuation,02,Aragón,Francisco Javier Lambán Montañés (PSOE),PSOE,2019-08-02,2023-08-10,3,2020.00000000,2022.00000000,6.27896297,3.09168879,-4.89003200
+purchase_valuation,02,Aragón,Jorge Antonio Azcón Navarro (PP),PP,2023-08-10,,2,2024.00000000,2025.00000000,12.08003290,12.08003290,9.16205846
+purchase_valuation,08,Castilla-La Mancha,José Bono Martínez (PSOE),PSOE,1991-07-03,1995-07-02,0,,,,,
+purchase_valuation,08,Castilla-La Mancha,José Bono Martínez (PSOE),PSOE,1995-07-02,1999-07-14,3,1996.00000000,1998.00000000,3.02122106,1.49936998,
+purchase_valuation,08,Castilla-La Mancha,José Bono Martínez (PSOE),PSOE,1999-07-14,2003-06-27,3,2000.00000000,2002.00000000,26.22681091,12.35070579,
+purchase_valuation,08,Castilla-La Mancha,José Bono Martínez (2003-2004) (PSOE),PSOE,2003-06-27,2004-04-28,0,,,,,
+purchase_valuation,08,Castilla-La Mancha,José María Barreda Fontes (2004-2007) (PSOE),PSOE,2004-04-28,2007-06-27,2,2005.00000000,2006.00000000,10.31176518,10.31176518,6.56537855
+purchase_valuation,08,Castilla-La Mancha,José María Barreda Fontes (PSOE),PSOE,2007-06-27,2011-06-21,3,2008.00000000,2010.00000000,-11.33855179,-5.83979173,-12.65473250
+purchase_valuation,08,Castilla-La Mancha,María Dolores de Cospedal García (PP),PP,2011-06-21,2015-07-02,3,2012.00000000,2014.00000000,-16.32840028,-8.52781859,-17.36573929
+purchase_valuation,08,Castilla-La Mancha,Emiliano García-Page Sánchez (PSOE),PSOE,2015-07-02,2019-07-04,3,2016.00000000,2018.00000000,-0.37576862,-0.18806114,-3.89681778
+purchase_valuation,08,Castilla-La Mancha,Emiliano García-Page Sánchez (PSOE),PSOE,2019-07-04,2023-07-06,3,2020.00000000,2022.00000000,4.82794189,2.38551748,-6.18856338
+purchase_valuation,08,Castilla-La Mancha,Emiliano García-Page Sánchez (PSOE),PSOE,2023-07-06,,2,2024.00000000,2025.00000000,10.09867999,10.09867999,7.23228957
+purchase_valuation,05,Canarias,Manuel Antonio Hermoso Rojas (1993-1995) (CC),CC,1993-04-02,1995-07-14,0,,,,,
+purchase_valuation,05,Canarias,Manuel Antonio Hermoso Rojas (CC),CC,1995-07-14,1999-07-16,3,1996.00000000,1998.00000000,18.70515198,8.95189396,
+purchase_valuation,05,Canarias,Román Rodríguez Rodríguez (CC),CC,1999-07-16,2003-07-04,3,2000.00000000,2002.00000000,21.81591846,10.37024892,
+purchase_valuation,05,Canarias,Adán Pablo Martín Menis (CC),CC,2003-07-04,2007-07-12,3,2004.00000000,2006.00000000,20.18078695,9.62699802,12.31552915
+purchase_valuation,05,Canarias,Paulino Rivero Baute (CC),CC,2007-07-12,2011-07-06,3,2008.00000000,2010.00000000,-12.60524115,-6.51483602,-13.90261784
+purchase_valuation,05,Canarias,Paulino Rivero Baute (CC),CC,2011-07-06,2015-07-08,3,2012.00000000,2014.00000000,-6.06966276,-3.08233533,-7.23418695
+purchase_valuation,05,Canarias,Fernando Clavijo Batlle (CC),CC,2015-07-08,2019-07-15,3,2016.00000000,2018.00000000,8.49691324,4.16185158,4.66227421
+purchase_valuation,05,Canarias,Ángel Víctor Torres Pérez (PSOE),PSOE,2019-07-15,2023-07-13,3,2020.00000000,2022.00000000,6.58397263,3.23951406,-4.61707620
+purchase_valuation,05,Canarias,Fernando Clavijo Batlle (CC),CC,2023-07-13,,2,2024.00000000,2025.00000000,11.55499161,11.55499161,8.65068649
+purchase_valuation,15,Navarra,Juan Cruz Alli Aranguren (UPN),UPN,1991-09-20,1995-07-24,0,,,,,
+purchase_valuation,15,Navarra,Javier Otano Cid (PSOE) (1995-1996),PSOE,1995-07-24,1996-09-17,0,,,,,
+purchase_valuation,15,Navarra,Miguel Sanz Sesma (UPN) (1996-1999),UPN,1996-09-17,1999-07-26,2,1997.00000000,1998.00000000,3.01107339,3.01107339,
+purchase_valuation,15,Navarra,Miguel Sanz Sesma (UPN),UPN,1999-07-26,2003-06-27,3,2000.00000000,2002.00000000,19.94032206,9.51726899,
+purchase_valuation,15,Navarra,Miguel Sanz Sesma (UPN),UPN,2003-06-27,2007-08-13,3,2004.00000000,2006.00000000,17.91182308,8.58721061,10.19505811
+purchase_valuation,15,Navarra,Miguel Sanz Sesma (UPN),UPN,2007-08-13,2011-06-27,3,2008.00000000,2010.00000000,-11.50717053,-5.92937256,-12.82084810
+purchase_valuation,15,Navarra,Yolanda Barcina Angulo (UPN),UPN,2011-06-27,2015-07-21,3,2012.00000000,2014.00000000,-4.23819451,-2.14203891,-5.42542478
+purchase_valuation,15,Navarra,Miren Uxue Barkos Berruezo (GBai),GBai,2015-07-21,2019-08-05,3,2016.00000000,2018.00000000,3.40805644,1.68975191,-0.24672559
+purchase_valuation,15,Navarra,María Victoria Chivite Navascués (PSOE),PSOE,2019-08-05,2023-08-16,3,2020.00000000,2022.00000000,7.88670405,3.86852461,-3.45125053
+purchase_valuation,15,Navarra,María Victoria Chivite Navascués (PSOE),PSOE,2023-08-16,,2,2024.00000000,2025.00000000,8.17405757,8.17405757,5.35777418
+purchase_valuation,11,Extremadura,Juan Carlos Rodríguez Ibarra (PSOE),PSOE,1991-07-03,1995-07-14,0,,,,,
+purchase_valuation,11,Extremadura,Juan Carlos Rodríguez Ibarra (PSOE),PSOE,1995-07-14,1999-07-16,3,1996.00000000,1998.00000000,3.65601846,1.81159976,
+purchase_valuation,11,Extremadura,Juan Carlos Rodríguez Ibarra (PSOE),PSOE,1999-07-16,2003-06-23,3,2000.00000000,2002.00000000,22.00677131,10.45667536,
+purchase_valuation,11,Extremadura,Juan Carlos Rodríguez Ibarra (PSOE),PSOE,2003-06-23,2007-06-28,3,2004.00000000,2006.00000000,24.33341024,11.50489238,16.19638310
+purchase_valuation,11,Extremadura,Guillermo Fernández Vara (PSOE),PSOE,2007-06-28,2011-07-07,3,2008.00000000,2010.00000000,-2.54022428,-1.27828217,-3.98701632
+purchase_valuation,11,Extremadura,José Antonio Monago Terraza (PP),PP,2011-07-07,2015-07-02,3,2012.00000000,2014.00000000,-5.93034550,-3.01048794,-7.09659691
+purchase_valuation,11,Extremadura,Guillermo Fernández Vara (PSOE),PSOE,2015-07-02,2019-06-26,3,2016.00000000,2018.00000000,-1.23570056,-0.61977086,-4.72635690
+purchase_valuation,11,Extremadura,Guillermo Fernández Vara (PSOE),PSOE,2019-06-26,2023-07-14,3,2020.00000000,2022.00000000,1.71323142,0.85297785,-8.97594486
+purchase_valuation,11,Extremadura,María Guardiola Martín (PP),PP,2023-07-14,2026-04-22,2,2024.00000000,2025.00000000,3.01917244,3.01917244,0.33709514
+purchase_valuation,04,Illes Balears,Gabriel Cañellas Fons (PP),PP,1991-06-29,1995-06-29,0,,,,,
+purchase_valuation,04,Illes Balears,Gabriel Cañellas Fons (PP) (1995),PP,1995-06-29,1995-07-31,0,,,,,
+purchase_valuation,04,Illes Balears,Cristòfol Soler i Cladera (PP) (1995-1996),PP,1995-07-31,1996-06-17,0,,,,,
+purchase_valuation,04,Illes Balears,Jaime Matas i Palou (PP) (1996-1999),PP,1996-06-17,1999-07-26,2,1997.00000000,1998.00000000,16.47475298,16.47475298,
+purchase_valuation,04,Illes Balears,Francesc Antich i Oliver (PSOE),PSOE,1999-07-26,2003-06-26,3,2000.00000000,2002.00000000,27.19018726,12.77862708,
+purchase_valuation,04,Illes Balears,Jaume Matas i Palou (PP),PP,2003-06-26,2007-07-05,3,2004.00000000,2006.00000000,25.94866950,12.22685485,17.70593137
+purchase_valuation,04,Illes Balears,Francesc Antich i Oliver (PSOE),PSOE,2007-07-05,2011-06-17,3,2008.00000000,2010.00000000,-13.12188087,-6.79156737,-14.41158803
+purchase_valuation,04,Illes Balears,José Ramón Bauzá Díaz (PP),PP,2011-06-17,2015-06-30,3,2012.00000000,2014.00000000,3.05913051,1.51804298,1.78142987
+purchase_valuation,04,Illes Balears,Francesca Lluch Armengol i Socias (PSOE),PSOE,2015-06-30,2019-06-28,3,2016.00000000,2018.00000000,9.15582200,4.47766364,5.29789496
+purchase_valuation,04,Illes Balears,Francesca Lluch Armengol i Socias (PSOE),PSOE,2019-06-28,2023-07-06,3,2020.00000000,2022.00000000,11.84310338,5.75589978,0.08936562
+purchase_valuation,04,Illes Balears,Margarita Prohens Rigo (PP),PP,2023-07-06,,2,2024.00000000,2025.00000000,13.95947301,13.95947301,10.99256784
+purchase_valuation,13,Comunidad de Madrid,Joaquín Leguina Herrán (PSOE),PSOE,1991-07-12,1995-06-29,0,,,,,
+purchase_valuation,13,Comunidad de Madrid,Alberto Ruiz-Gallardón Jiménez (PP),PP,1995-06-29,1999-07-07,3,1996.00000000,1998.00000000,-1.69291612,-0.85007116,
+purchase_valuation,13,Comunidad de Madrid,Alberto Ruiz-Gallardón Jiménez (PP),PP,1999-07-07,2003-11-20,3,2000.00000000,2002.00000000,37.71081448,17.35025116,
+purchase_valuation,13,Comunidad de Madrid,Esperanza Aguirre y Gil de Biedma (PP),PP,2003-11-20,2007-06-19,3,2004.00000000,2006.00000000,20.98932148,9.99514602,13.07114896
+purchase_valuation,13,Comunidad de Madrid,Esperanza Aguirre y Gil de Biedma (PP),PP,2007-06-19,2011-06-15,3,2008.00000000,2010.00000000,-13.21397320,-6.84098176,-14.50231325
+purchase_valuation,13,Comunidad de Madrid,Esperanza Aguirre Gil de Biedma (2011-2012) (PP),PP,2011-06-15,2012-09-26,0,,,,,
+purchase_valuation,13,Comunidad de Madrid,Jaime Ignacio González González (2012-2015) (PP),PP,2012-09-26,2015-06-24,2,2013.00000000,2014.00000000,-0.39676654,-0.39676654,-0.24602347
+purchase_valuation,13,Comunidad de Madrid,María Cristina Cifuentes Cuencas (2015-2018) (PP),PP,2015-06-24,2018-05-18,2,2016.00000000,2017.00000000,5.55177779,5.55177779,3.52671620
+purchase_valuation,13,Comunidad de Madrid,Ángel Garrido García (2018-2019) (PP),PP,2018-05-18,2019-08-16,0,,,,,
+purchase_valuation,13,Comunidad de Madrid,Isabel Natividad Díaz Ayuso (PP),PP,2019-08-16,2021-06-18,1,,,,,
+purchase_valuation,13,Comunidad de Madrid,Isabel Natividad Díaz Ayuso (PP),PP,2021-06-18,2023-06-22,1,,,,,
+purchase_valuation,13,Comunidad de Madrid,Isabel Natividad Díaz Ayuso (PP),PP,2023-06-22,,2,2024.00000000,2025.00000000,13.75407028,13.75407028,10.79251272
+purchase_valuation,07,Castilla y León,Juan José Lucas Giménez (PP),PP,1991-07-05,1995-07-05,0,,,,,
+purchase_valuation,07,Castilla y León,Juan José Lucas Giménez (PP),PP,1995-07-05,1999-07-14,3,1996.00000000,1998.00000000,7.39085732,3.62956013,
+purchase_valuation,07,Castilla y León,Juan José Lucas Giménez (1999-2001) (PP),PP,1999-07-14,2001-03-16,1,,,,,
+purchase_valuation,07,Castilla y León,Juan Vicente Herrera Campo (2001-2003) (PP),PP,2001-03-16,2003-07-02,1,,,,,
+purchase_valuation,07,Castilla y León,Juan Vicente Herrera Campo (PP),PP,2003-07-02,2007-06-28,3,2004.00000000,2006.00000000,22.92805693,10.87292588,14.88300345
+purchase_valuation,07,Castilla y León,Juan Vicente Herrera Campo (PP),PP,2007-06-28,2011-06-24,3,2008.00000000,2010.00000000,-7.41397184,-3.77836618,-8.78841301
+purchase_valuation,07,Castilla y León,Juan Vicente Herrera Campo (PP),PP,2011-06-24,2015-07-03,3,2012.00000000,2014.00000000,-12.80146138,-6.61984225,-13.88252647
+purchase_valuation,07,Castilla y León,Juan Vicente Herrera Campo (PP),PP,2015-07-03,2019-07-11,3,2016.00000000,2018.00000000,-1.59037739,-0.79837571,-5.06849827
+purchase_valuation,07,Castilla y León,Alfonso Fernando Fernández Mañueco (PP),PP,2019-07-11,2022-04-12,2,2020.00000000,2021.00000000,-0.43317434,-0.43317434,-3.42050851
+purchase_valuation,07,Castilla y León,Alfonso Fernando Fernández Mañueco (PP),PP,2022-04-12,2026-06-10,3,2023.00000000,2025.00000000,12.04509540,5.85135587,6.18234308
+purchase_valuation,09,Cataluña,Pere Aragonès (funciones),ERC (funciones),2020-09-28,2021-05-21,0,,,,,

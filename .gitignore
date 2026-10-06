@@ -27,3 +27,6 @@ Thumbs.db
 !/reports/tables/block01/
 
 /reports/figures/block01/*.svg
+
+!/reports/figures/history/
+!/reports/tables/history/
