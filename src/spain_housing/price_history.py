@@ -417,9 +417,6 @@ def run_history(root):
     rn, rr = findings["rent_ipva_nominal_pct"], findings["rent_ipva_real_pct"]
     report = f"""# Bloque 1: perspectiva histórica ampliada
 
-[**Perspectiva nacional más larga con horizonte desde 1950**](block_01_since_1950.md).
-Este informe conserva las series territoriales y el IPVA desde 2011.
-
 La serie de compra por tasación empieza en **1995**, las transacciones por vivienda en **2004**,
 el IPV en **2007** y el alquiler general IPVA en **2011**. Se usan años completos: compra
 hasta **2025** y alquiler hasta **2024**. Los trimestres de 2026 quedan fuera de las medias anuales.

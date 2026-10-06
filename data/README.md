@@ -42,11 +42,3 @@ Metadatos: `source_register.csv` incluye fuentes candidatas para todos los bloqu
 `dataset_manifest.csv` registra los originales reales del bloque 01;
 `government_register.csv` distingue presidencia, gabinete y apoyos desconocidos.
 El registro legal permanece pendiente para el bloque de evaluación de políticas.
-
-
-## Histórico con horizonte desde 1950
-
-`data/snapshots/history1950/` añade compra BIS 1971–2025 y alquiler/IPC INE
-1961–2001 y 2002–2025. Ver su README para bases, proxy madrileño y condiciones de uso.
-Las tablas de cobertura mantienen vacíos los años anteriores. No se enlazan sistemas
-IPC distintos sin un puente verificado ni se mezclan IPC de alquiler e IPVA fiscal.

@@ -183,13 +183,3 @@ Máximo precrisis: máximo observado en 1995–2008; mínimo postcrisis: mínimo
 Las tablas conservan años inicial/final nominales y reales separados, años observados
 y huecos. Los cambios por presidencia usan años completos dentro del intervalo,
 excluyen años de transición y ofrecen variación acumulada y anualizada.
-
-
-## Horizonte solicitado desde 1950
-
-El punto de entrada nacional de largo plazo pasa a `notebooks/01c_prices_since_1950.ipynb`
-y `reports/block_01_since_1950.md`. Cobertura recuperada: alquiler IPC 1961–2001 y
-2002–2025; compra BIS 1971–2025. El proxy de Madrid 1975–1986 se distingue de los datos
-nacionales. Se publican huecos desde 1950 y se rechazan acumulados que cruzan 2001/2002.
-Las comparaciones nacionales coherentes usan ventanas 1987–2001 y 2002–2025, con base,
-periodo y deflactor comunes dentro de cada ventana y escalas nominal/real idénticas.
