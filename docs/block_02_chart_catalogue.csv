@@ -1,0 +1,7 @@
+figure_id,question,chart,period,units
+01_price_population_stock,"¿Crecen juntos precio, población, adultos y parque?",Common-base indexed lines,2001–2025; household inset 2020–2025,index
+02_dwellings_per_resident,¿Se queda atrás el parque respecto a la población?,Two aligned ratio panels,2001–2025,dwellings per 1000 inhabitants/adults
+03_completions_households,¿La construcción acompaña los nuevos hogares?,Supply history and grouped bars,construction 2008–2025; joint 2021–2025,dwellings/households
+04_population_growth_components,¿De dónde procede el crecimiento demográfico?,Signed grouped bars and growth/residual lines,2008–2024,persons per 1000 residents
+05_population_birthplace,¿Qué grupos aportan el cambio poblacional?,Birthplace stocks and annual-change bars,stocks 2001–2025; changes 2002–2025,persons
+06_regional_comparison,¿Es igual la presión en todas las comunidades?,Shared-scale horizontal bar panels,2020–2025,percent change

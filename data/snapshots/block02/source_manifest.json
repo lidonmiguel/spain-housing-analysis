@@ -1,0 +1,144 @@
+{
+  "created_at_utc": "2026-10-06T21:07:54.558289+00:00",
+  "sources": [
+    {
+      "name": "population",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/56934.csv",
+      "units": "personas",
+      "release": "definitivo",
+      "retrieved_at_utc": "2026-10-06T21:00:49.049007+00:00",
+      "raw_sha256": "2a281cdf6f8262a3596d98990e2c7a1af7a3df048aaad875af6ec7b72a51d08b",
+      "snapshot_sha256": "eee909ff505dcddd6016957e1023db6093d9b94fc4f84e2af4fe7cf7e22ed2b3",
+      "snapshot_path": "data/snapshots/block02/population.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "population_provisional",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/59583.csv",
+      "units": "personas",
+      "release": "provisional",
+      "retrieved_at_utc": "2026-10-06T21:02:31.737776+00:00",
+      "raw_sha256": "09965d6393e131eaabb4147cbe0b129009d6e29e04ff029c28745a586414ee85",
+      "snapshot_sha256": "316d8cecf32b1b2ab8d93f32c97f01f332f675a94c82b6614576159e8c75ba1f",
+      "snapshot_path": "data/snapshots/block02/population_provisional.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "birthplace",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/79276.csv",
+      "units": "personas",
+      "release": "definitivo",
+      "retrieved_at_utc": "2026-10-06T21:01:12.756414+00:00",
+      "raw_sha256": "8e0b22a883997b5219caaa95ccc4c131eed0e885edffca7fc66175aa1bb5accf",
+      "snapshot_sha256": "2c67dcca2b65aa0fb6107c1da679ae5c4b3efa56765280ca6e7135ade756334a",
+      "snapshot_path": "data/snapshots/block02/birthplace.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "birthplace_provisional",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/79273.csv",
+      "units": "personas",
+      "release": "provisional",
+      "retrieved_at_utc": "2026-10-06T21:02:31.248997+00:00",
+      "raw_sha256": "5bf76f4878bfa281c99486d317232a8bd6622b7e29160981b3613b2df980058f",
+      "snapshot_sha256": "673a559ebc2bfc12072ee339f98aa863126e730af566128af3a6db464d90f64f",
+      "snapshot_path": "data/snapshots/block02/birthplace_provisional.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "households",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/60135.csv",
+      "units": "hogares",
+      "release": "ECP, puede revisarse",
+      "retrieved_at_utc": "2026-10-06T21:01:12.216214+00:00",
+      "raw_sha256": "e87add00018544a0e979c019fd775ffcb225d2f848db8f54fb9376ddc46b5f2f",
+      "snapshot_sha256": "5c43e5cfa335f175557566125fb8d7cefdb05cb7a4a9526bb85df415ee1ebe38",
+      "snapshot_path": "data/snapshots/block02/households.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "households_regions",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/60131.csv",
+      "units": "hogares",
+      "release": "ECP, puede revisarse",
+      "retrieved_at_utc": "2026-10-06T21:01:12.419306+00:00",
+      "raw_sha256": "aa4d45736b03c3d205fef8b76bbfd3366305dbf83c7b291f212088eb58d43dac",
+      "snapshot_sha256": "72b622b2b173685a7e0b09864dbf472ed24129d66529aef379ce14f77f389a61",
+      "snapshot_path": "data/snapshots/block02/households_regions.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "stock",
+      "url": "https://cdn.mivau.gob.es/portal-web-mivau/Datos_MIVAU/CSV/VDP002_01.csv",
+      "units": "viviendas",
+      "release": "estimación",
+      "retrieved_at_utc": "2026-10-06T21:00:46.226357+00:00",
+      "raw_sha256": "2eda9bafa3f56a5406da5032ab9a10d1de12df9105ff6845e5de9110ff92f7eb",
+      "snapshot_sha256": "2dc464fa38bd4a09a7712b1b080ded5cd04bfe87b7dfb8ff4e8e80de256d8295",
+      "snapshot_path": "data/snapshots/block02/stock.csv.gz",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "name": "construction",
+      "url": "https://cdn.mivau.gob.es/portal-web-mivau/Datos_MIVAU/CSV/VDP005_01.csv",
+      "units": "viviendas",
+      "release": "estimación",
+      "retrieved_at_utc": "2026-10-06T21:01:07.274913+00:00",
+      "raw_sha256": "755ad55f149a47b690e19134239f7aa6faa8c129a89dec572c6d31f561097568",
+      "snapshot_sha256": "b907d6bac9f372db9873434beb8eff7bef322ed9a92308bd51b86663f1076449",
+      "snapshot_path": "data/snapshots/block02/construction.csv.gz",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "name": "natural",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/1416.csv",
+      "units": "personas por 1.000 habitantes",
+      "release": "IDB",
+      "retrieved_at_utc": "2026-10-06T21:01:45.554913+00:00",
+      "raw_sha256": "7164e7a3126f824f5cb07c982fedc81a8b3bdd862c6bd1229a790bc545d9d02d",
+      "snapshot_sha256": "4756d4555d10923468d5867c16146342a53e4d76c8c8bd754b9307fdb7635e40",
+      "snapshot_path": "data/snapshots/block02/natural.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "migration_old",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/5227.csv",
+      "units": "personas por 1.000 habitantes",
+      "release": "2008–2020",
+      "retrieved_at_utc": "2026-10-06T21:01:45.002033+00:00",
+      "raw_sha256": "f7a85b56dc4c1f653cf0de6804e07440110297a852c15fe5162c12b8c8efccd3",
+      "snapshot_sha256": "944aa40c75dd8653fd6eef56fe3a7e744a98042d3014cd45541d2827110f29a4",
+      "snapshot_path": "data/snapshots/block02/migration_old.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "migration_new",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/61769.csv",
+      "units": "personas por 1.000 habitantes",
+      "release": "desde 2021",
+      "retrieved_at_utc": "2026-10-06T21:01:44.649900+00:00",
+      "raw_sha256": "797b693b030c66b961e2eef39f7f88bcee14e5748eab275f60349c08fed0bc6f",
+      "snapshot_sha256": "0c5a76903c27f5fcf160c21c670d45a229ffd1bb77fc26a2a52df48cbde647ef",
+      "snapshot_path": "data/snapshots/block02/migration_new.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    },
+    {
+      "name": "growth",
+      "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/5224.csv",
+      "units": "personas por 1.000 habitantes",
+      "release": "IDB",
+      "retrieved_at_utc": "2026-10-06T21:02:31.035568+00:00",
+      "raw_sha256": "fdeb079e4d67fb0c0775366c650b07f9f2f586cd0d66420741aa8fdd08139cc8",
+      "snapshot_sha256": "87ab9a7eef6980a992b4af390dd86f1d7fca69750aedc99f1911948f8788a8b9",
+      "snapshot_path": "data/snapshots/block02/growth.csv.gz",
+      "license_url": "https://www.ine.es/aviso_legal"
+    }
+  ],
+  "price_source": "data/snapshots/block01/valuations.csv; same annual MIVAU series as notebook 1",
+  "price_snapshot_sha256": "59ba5f9467ee2cbd08dea065100b0e9e8361cedeec6b882b2f386375d17fe60b",
+  "methodology_urls": [
+    "https://cdn.mivau.gob.es/portal-web-mivau/Datos_MIVAU/Info/Readme_VDP002_01.pdf",
+    "https://cdn.mivau.gob.es/portal-web-mivau/Datos_MIVAU/Info/Readme_VDP005_01.pdf",
+    "https://www.ine.es/metodologia/metodologia_idb.pdf"
+  ]
+}

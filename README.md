@@ -7,8 +7,11 @@ tablas territoriales y contexto político. La medida principal es la **tasación
 de vivienda libre en €/m²**. La comparación con los precios generales (IPC) empieza
 en **2002** y los municipios seleccionados en **2005**. Datos recuperados el 6 de octubre de 2026.
 
+**Bloque 2: demografía, construcción y precio**, con seis figuras, datos INE/MIVAU y comparaciones con cobertura explícita.
+
 ## Empieza aquí
 
+- [Demografía: notebook ejecutado](notebooks/02_demographics.ipynb) e [informe](reports/block_02_demographics.md).
 - [Informe completo del precio de compra](reports/block_01_prices.md).
 - [Notebook principal ejecutado: código, gráficas y resultados](notebooks/01_prices.ipynb).
 - [Notebook de cobertura, ciclos y mandatos](notebooks/01b_price_history.ipynb).
@@ -41,6 +44,7 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 python scripts/run_block01.py
+python scripts/run_block02.py
 jupyter lab
 ```
 
@@ -59,7 +63,7 @@ python scripts/check_notebooks.py
 
 `notebooks/`: análisis y resultados; `src/`: cálculos reutilizables; `scripts/`: extracción y ejecución;
 `data/snapshots/`: fuentes congeladas; `reports/`: figuras y tablas; `docs/`: alcance y metodología.
-Los demás bloques siguen pendientes: población y hogares, oferta, propiedad,
+Los bloques 1 y 2 están desarrollados. Siguen pendientes: oferta y tenencia en detalle, propiedad,
 accesibilidad económica, políticas y modelado.
 
 ## Licencias y atribución
