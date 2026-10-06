@@ -209,7 +209,12 @@ def run_history(root):
         fig.text(
             0.01,
             0.006,
-            "Fuentes: INE y MIVAU · medias anuales completas · gobiernos: contexto, no causalidad",
+            (
+                "Fuentes: INE · medias anuales completas"
+                if filename == "03_common_nominal_real.svg"
+                else ("Fuentes: INE y MIVAU · medias anuales completas · "
+                      "gobiernos: contexto, no causalidad")
+            ),
             fontsize=8,
             color="#555",
         )
@@ -240,52 +245,31 @@ def run_history(root):
         style(ax, title, unit)
     save(fig, "02_national_governments.svg")
 
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharey=True)
-    for label, color in [("purchase", BUY), ("rent", RENT)]:
-        title = "Compra (IPV)" if label == "purchase" else "Alquiler (IPVA)"
-        axes[0].plot(compare.index, compare[label + "_nominal"], label=title, color=color, lw=2.4)
-        axes[1].plot(compare.index, compare[label + "_real"], label=title, color=color, lw=2.4)
-    axes[0].plot(compare.index, compare.cpi, "--", label="IPC", color="#777")
-    for ax, title in zip(
-        axes, ["Precios nominales", "Precios ajustados por IPC nacional"], strict=True
-    ):
-        style(ax, f"{title}, {a}–{b}", f"{a} = 100")
-        # Identical geometry: ten index points occupy the same height in both panels.
-        ax.set_ylim(70, 135)
-        ax.set_yticks(np.arange(70, 136, 10))
-        ax.tick_params(axis="y", labelleft=True)
-        ax.set_xlim(a, b + 3)
-        ax.set_xticks([a, 2014, 2017, 2020, b])
-        ax.axhline(100, color="#555", lw=1, ls=":")
-        ax.legend(loc="lower right")
-    for ax, suffix in zip(axes, ["nominal", "real"], strict=True):
-        for label, color, name, offset in [
-            ("purchase", BUY, "Compra", 10),
-            ("rent", RENT, "Alquiler", 0),
-        ]:
-            value = compare.loc[b, label + "_" + suffix]
-            pct = f"{value - 100:+.2f}%".replace(".", ",")
-            ax.annotate(
-                f"{name}: {pct}",
-                (b, value),
-                xytext=(8, offset),
-                textcoords="offset points",
-                color=color,
-                fontsize=9,
-                va="center",
-                bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
-            )
-    inflation_pct = f"{compare.loc[b, 'cpi'] - 100:+.2f}%".replace(".", ",")
-    axes[0].annotate(
-        f"IPC: {inflation_pct}",
-        (b, compare.loc[b, "cpi"]),
-        xytext=(8, -13),
-        textcoords="offset points",
-        color="#666",
-        fontsize=9,
-        va="center",
-        bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
-    )
+    fig, ax = plt.subplots(figsize=(10, 5))
+    for label, color, name, offset in [
+        ("purchase_nominal", BUY, "Compra (IPV)", 10),
+        ("rent_nominal", RENT, "Alquiler (IPVA)", 0),
+        ("cpi", "#777", "Precios generales (IPC)", -13),
+    ]:
+        ax.plot(
+            compare.index, compare[label], label=name, color=color,
+            lw=2.4, ls="--" if label == "cpi" else "-",
+        )
+        value = compare.loc[b, label]
+        pct = f"{value - 100:+.2f}%".replace(".", ",")
+        short_name = "IPC" if label == "cpi" else name.split(" (")[0]
+        ax.annotate(
+            f"{short_name}: {pct}", (b, value), xytext=(8, offset),
+            textcoords="offset points", color=color, fontsize=9, va="center",
+            bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
+        )
+    style(ax, f"Vivienda frente a los precios generales, {a}–{b}", f"{a} = 100")
+    ax.set_ylim(70, 135)
+    ax.set_yticks(np.arange(70, 136, 10))
+    ax.set_xlim(a, b + 3)
+    ax.set_xticks([a, 2014, 2017, 2020, b])
+    ax.axhline(100, color="#555", lw=1, ls=":")
+    ax.legend(loc="lower right")
     save(fig, "03_common_nominal_real.svg")
 
     fig, axes = plt.subplots(2, 1, figsize=(12, 9))
@@ -413,8 +397,8 @@ def run_history(root):
         "national_purchase_cycle": summaries["national"].iloc[0].to_dict(),
     }
     (tables / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2))
-    pn, pr = findings["purchase_ipv_nominal_pct"], findings["purchase_ipv_real_pct"]
-    rn, rr = findings["rent_ipva_nominal_pct"], findings["rent_ipva_real_pct"]
+    pn = findings["purchase_ipv_nominal_pct"]
+    rn = findings["rent_ipva_nominal_pct"]
     report = f"""# Bloque 1: perspectiva histórica ampliada
 
 La serie de compra por tasación empieza en **1995**, las transacciones por vivienda en **2004**,
@@ -438,23 +422,21 @@ La tabla por gobierno excluye años de transición,
 expone la duración y anualiza el cambio; los periodos sin dos años completos quedan sin resultado.
 Se conservan intervalos históricos del Senado; pueden existir interinidades breves no detalladas.
 
-## Ventana común de compra y alquiler: {a}–{b}
+## Vivienda frente a los precios generales: {a}–{b}
 
-| Medida nacional | Cambio nominal | Cambio real |
-| --- | ---: | ---: |
-| Compra, IPV | {pn:+.2f}% | {pr:+.2f}% |
-| Alquiler, IPVA general | {rn:+.2f}% | {rr:+.2f}% |
+![Vivienda frente a los precios generales](figures/history/03_common_nominal_real.svg)
 
-IPC nacional: **{findings["inflation_pct"]:+.2f}%**. Ambos precios usan
-el mismo año inicial y final.
-La ventana reciente 2021–2024 y el desglose por antigüedad de contrato se conservan en el
-[informe inicial](block_01_prices.md). No se comparan porcentajes
-de ventanas distintas.
+La gráfica compara la evolución de los precios de compra y alquiler con la de los precios
+generales, medida por el IPC. Todas las series parten de {a} = 100: un valor de 120
+representa una subida acumulada del 20 %, no un precio en euros.
 
-Ambos paneles usan exactamente la misma escala vertical (70–135), marcas y periodo.
-La línea de 100 representa 2011; las etiquetas indican variaciones acumuladas desde ese año.
+Entre {a} y {b}, la compra aumentó un **{pn:.2f}%**, el alquiler un **{rn:.2f}%**
+y el IPC un **{findings["inflation_pct"]:.2f}%**. En este periodo, la compra subió
+casi lo mismo que los precios generales y el alquiler creció menos.
 
-![Nominal y real](figures/history/03_common_nominal_real.svg)
+El IPC permite comparar la evolución del precio de la vivienda con la de los precios
+en general, pero no indica si los ingresos han crecido al mismo ritmo.
+
 ![Ciclo e inflación](figures/history/04_cycles_inflation_rates.svg)
 
 El IPC disponible en el snapshot comienza en **2002**: las series reales y sus tablas lo indican.

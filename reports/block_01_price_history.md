@@ -21,23 +21,21 @@ La tabla por gobierno excluye años de transición,
 expone la duración y anualiza el cambio; los periodos sin dos años completos quedan sin resultado.
 Se conservan intervalos históricos del Senado; pueden existir interinidades breves no detalladas.
 
-## Ventana común de compra y alquiler: 2011–2024
+## Vivienda frente a los precios generales: 2011–2024
 
-| Medida nacional | Cambio nominal | Cambio real |
-| --- | ---: | ---: |
-| Compra, IPV | +27.91% | +0.37% |
-| Alquiler, IPVA general | +17.33% | -7.93% |
+![Vivienda frente a los precios generales](figures/history/03_common_nominal_real.svg)
 
-IPC nacional: **+27.43%**. Ambos precios usan
-el mismo año inicial y final.
-La ventana reciente 2021–2024 y el desglose por antigüedad de contrato se conservan en el
-[informe inicial](block_01_prices.md). No se comparan porcentajes
-de ventanas distintas.
+La gráfica compara la evolución de los precios de compra y alquiler con la de los precios
+generales, medida por el IPC. Todas las series parten de 2011 = 100: un valor de 120
+representa una subida acumulada del 20 %, no un precio en euros.
 
-Ambos paneles usan exactamente la misma escala vertical (70–135), marcas y periodo.
-La línea de 100 representa 2011; las etiquetas indican variaciones acumuladas desde ese año.
+Entre 2011 y 2024, la compra aumentó un **27.91%**, el alquiler un **17.33%**
+y el IPC un **27.43%**. En este periodo, la compra subió
+casi lo mismo que los precios generales y el alquiler creció menos.
 
-![Nominal y real](figures/history/03_common_nominal_real.svg)
+El IPC permite comparar la evolución del precio de la vivienda con la de los precios
+en general, pero no indica si los ingresos han crecido al mismo ritmo.
+
 ![Ciclo e inflación](figures/history/04_cycles_inflation_rates.svg)
 
 El IPC disponible en el snapshot comienza en **2002**: las series reales y sus tablas lo indican.
@@ -74,3 +72,4 @@ no asignan máximos anteriores a 2008 a series que empiezan después.
 Ejecutar `python scripts/run_price_history.py` desde la raíz. No requiere descargar fuentes.
 La ampliación del IPVA procede de la tabla INE 59056 (general por edificación), sin encadenar
 porcentajes redondeados de notas de prensa ni extrapolar contratos nuevos hacia atrás.
+
