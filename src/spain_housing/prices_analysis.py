@@ -533,11 +533,19 @@ def run_analysis(root, preview_dir=None, vector=False):
     cases = ["Barcelona", "Madrid", "València", "Málaga", "Badalona", "L'Hospitalet de Llobregat"]
     names = [name for name in cases if name in set(municipal.name)]
     names += [name for name in municipal.name.unique() if name not in names][: 6 - len(names)]
-    fig, axes = plt.subplots(2, 3, figsize=(14, 8))
+    fig, axes = plt.subplots(2, 3, figsize=(14, 8), sharex=True, sharey=True)
+    case_values = municipal[municipal.name.isin(names)]
+    price_step = 2000
+    price_ceiling = np.ceil(case_values.value.max() / price_step) * price_step
     for ax, name in zip(axes.flat, names, strict=True):
         data = municipal[municipal.name == name].sort_values("year")
         ax.plot(data.year, data.value, color=BUY, lw=2)
         style(ax, name, "Tasación €/m²")
+        ax.set_xlim(start, stop)
+        ax.set_ylim(0, price_ceiling)
+        ax.set_xticks(range(start, stop + 1, 5))
+        ax.set_yticks(np.arange(0, price_ceiling + price_step, price_step))
+        ax.tick_params(labelbottom=True, labelleft=True)
     save(fig, "15_municipal_cases", f"Casos municipales de compra, {start}–{stop}")
 
     findings = {
