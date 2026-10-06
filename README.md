@@ -3,11 +3,19 @@
 Proyecto de ciencia de datos sobre la vivienda en España, con fuentes oficiales,
 análisis reproducible y una lectura crítica de los discursos políticos.
 
-**Primer bloque realizado:** 24 figuras, tablas de resultados e informes en español.
+**Primer bloque realizado:** 29 figuras, tablas de resultados e informes en español.
 Histórico ampliado: compra desde 1995, alquiler desde 2011 y municipios desde 2005.
 Datos recuperados el **6 de octubre de 2026**. Los demás bloques son trabajo pendiente.
 
 ## Empieza aquí
+
+- [**Perspectiva desde 1950: datos recuperados, huecos y cambios metodológicos**](reports/block_01_since_1950.md).
+- [**Notebook del histórico más largo**](notebooks/01c_prices_since_1950.ipynb).
+
+El horizonte solicitado empieza en 1950. La cobertura verificada llega a **1961 para
+alquiler IPC** y **1971 para compra BIS**; el tramo de compra 1975–1986 representa Madrid.
+El alquiler se conserva separado en 1961–2001 y 2002–2025 por la ruptura del IPC.
+El componente de alquiler del IPC es distinto del IPVA fiscal. Los huecos quedan explícitos.
 
 - [**Empieza por el histórico ampliado:** ciclos, inflación y gobiernos](reports/block_01_price_history.md).
 - [**Notebook histórico con cálculos visibles y gráficas**](notebooks/01b_price_history.ipynb).
@@ -77,10 +85,12 @@ source .venv/bin/activate
 python -m pip install -e ".[dev]"
 python scripts/run_block01.py
 python scripts/run_price_history.py
+python scripts/run_history1950.py
 jupyter lab
 ```
 
-Abrir primero `notebooks/01b_price_history.ipynb`; el análisis reciente está en
+Abrir primero `notebooks/01c_prices_since_1950.ipynb` para el horizonte desde 1950;
+`notebooks/01b_price_history.ipynb` conserva el análisis territorial y del IPVA; el análisis reciente está en
 `notebooks/01_prices.ipynb`. Los snapshots están versionados: no se necesita
 acceso a internet para generar figuras y resultados. El notebook incluye salidas
 ya ejecutadas; genera también imágenes temporales para mostrarlas al volver a ejecutarlo.

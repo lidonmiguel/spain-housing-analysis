@@ -1,0 +1,65 @@
+[
+  {
+    "source_file": "ine_196.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/196.csv",
+    "bytes": 64688,
+    "sha256": "b95adb91b2078a918de924ca12ef5e848b6d3968b565bf793df915a6f84f20ec",
+    "retrieved_at_utc": "2026-10-06T13:04:40.510075+00:00"
+  },
+  {
+    "source_file": "ine_203.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/203.csv",
+    "bytes": 2834,
+    "sha256": "8fdc8aaf55d2e899933b547bee065aff7590df94f48de9f93584eeab1e262608",
+    "retrieved_at_utc": "2026-10-06T13:04:40.118909+00:00"
+  },
+  {
+    "source_file": "ine_268.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/268.csv",
+    "bytes": 64743,
+    "sha256": "edf0cb65f485bf76f6e7bb01bd0cb53601553523df783fb0e4f58c9d599893de",
+    "retrieved_at_utc": "2026-10-06T13:04:40.366881+00:00"
+  },
+  {
+    "source_file": "ine_24079.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/24079.csv",
+    "bytes": 40692,
+    "sha256": "4282660d1b3fddbd4ba07044a5323d335abb339197b7a33c32c10c57e87745ac",
+    "retrieved_at_utc": "2026-10-06T13:04:40.604287+00:00"
+  },
+  {
+    "source_file": "ine_24077.csv",
+    "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/24077.csv",
+    "bytes": 29653,
+    "sha256": "4b145b6df161e9bf3bca3fa6dc298927e922e557250ab67bc54fca3c00c87e75",
+    "retrieved_at_utc": "2026-10-06T13:04:40.270545+00:00"
+  },
+  {
+    "source_file": "bis_nominal.csv",
+    "url": "https://stats.bis.org/api/v1/data/BIS,WS_SPP,1.0/Q.ES.N.628?format=csv",
+    "bytes": 8251,
+    "sha256": "d1fb07611c40140f2d4d9e858cbdcd89a3b52e37de21ea6ddbffe89629a75fe4",
+    "retrieved_at_utc": "2026-10-06T13:04:40.216943+00:00"
+  },
+  {
+    "source_file": "bis_real.csv",
+    "url": "https://stats.bis.org/api/v1/data/BIS,WS_SPP,1.0/Q.ES.R.628?format=csv",
+    "bytes": 8297,
+    "sha256": "480dc1d4cde70cbd850440219e120bab27b9871ed4d2fbaab7ed6b8148dd9d9d",
+    "retrieved_at_utc": "2026-10-06T13:04:49.816722+00:00"
+  },
+  {
+    "source_file": "bis_method.pdf",
+    "url": "https://www.bis.org/statistics/pp_selected_documentation.pdf",
+    "bytes": 339102,
+    "sha256": "930dee047abf352639b960f057f2b3a5054bf6edad93276b2894925e843f7747",
+    "retrieved_at_utc": "2026-10-06T13:04:55.909784+00:00"
+  },
+  {
+    "source_file": "ine_linking.html",
+    "url": "https://www.ine.es/ipc01/enlaces.htm",
+    "bytes": 27372,
+    "sha256": "a7fb0b004d55b37f9560739909055eb867f63da5fed6e405bb0864571075bcc2",
+    "retrieved_at_utc": "2026-10-06T13:09:58.656555+00:00"
+  }
+]

@@ -30,3 +30,6 @@ Thumbs.db
 
 !/reports/figures/history/
 !/reports/tables/history/
+
+!/reports/figures/since1950/
+!/reports/tables/since1950/
