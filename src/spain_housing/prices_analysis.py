@@ -331,10 +331,53 @@ def run_analysis(root, preview_dir=None, vector=False):
     style(ax, f"Tasación nacional de vivienda libre, {first}–{last}", "€/m²")
     save(fig, "01_national_levels", "Precio de compra de vivienda en España desde 2000")
 
-    fig, ax = plt.subplots(figsize=(13, 5))
+    fig, (ax, events_ax) = plt.subplots(
+        2,
+        1,
+        figsize=(13, 6.5),
+        sharex=True,
+        gridspec_kw={"height_ratios": [4, 1.25]},
+    )
     gov_bands(ax, gov, "national", "00", first, last + 1, labels=True)
     ax.plot(p.index + 0.5, p, color=BUY, lw=2.5)
-    style(ax, "Presidencias nacionales y evolución de la tasación", "€/m²")
+    style(ax, "Presidencias nacionales, hitos y evolución de la tasación", "€/m²")
+    ax.set_xticks(range(first, last + 1, 5))
+    ax.tick_params(labelbottom=True)
+    events_ax.set_ylim(0, 1)
+    events_ax.axis("off")
+    # Annual reference markers, aligned with the annual prices at year + 0.5.
+    # Crisis: Banco de España, Informe sobre la crisis financiera 2008–2014.
+    # Sareb: Ley 9/2012 and RD 1559/2012; deduction: Ley 16/2012.
+    # Rates: ECB official interest-rate history; housing: Ley 12/2023.
+    events = [
+        (2008, "Inicio de la crisis\ninmobiliaria", 0.75),
+        (2012, "Creación de Sareb", 0.75),
+        (2013, "Fin de la deducción\npor compra de vivienda", 0.16),
+        (2022, "Inicio de subidas\nde tipos del BCE", 0.75),
+        (2023, "Ley por el derecho\na la vivienda", 0.16),
+    ]
+    for year, label, label_y in events:
+        x = year + 0.5
+        ax.axvline(x, color="#64727d", lw=1, ls="--", alpha=0.7, zorder=1)
+        events_ax.plot([x, x], [label_y + 0.05, 1], color="#64727d", lw=0.8, zorder=1)
+        events_ax.text(
+            x,
+            label_y,
+            f"{year}\n{label}",
+            ha="center",
+            va="top",
+            fontsize=9,
+            zorder=3,
+            bbox={"facecolor": "#fbfcfd", "edgecolor": "none", "pad": 2},
+        )
+    events_ax.text(
+        0,
+        -0.4,
+        "Hitos: BOE · Banco de España · BCE · referencias anuales",
+        transform=events_ax.transAxes,
+        fontsize=8,
+        color="#64727d",
+    )
     save(
         fig,
         "02_national_governments",
