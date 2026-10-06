@@ -1,0 +1,10 @@
+variable,definition,unit,denominator,observation_level,source_id,status
+population_total,Resident population,persons,,territory-period,,planned
+population_18_plus,Resident population aged 18 or older,persons,,territory-period,,planned
+households,Household count according to source definition,households,,territory-period,,planned
+purchase_price,Total dwelling price; retain advertised/transaction/appraised distinction,EUR per dwelling,,territory-period,,planned
+monthly_rent,Monthly rent; retain advertised/contracted distinction,EUR per month,,territory-period,,planned
+annual_net_household_income,Annual net household income,EUR per household per year,,territory-period,,planned
+housing_completions,Dwellings completed in period,dwellings,,territory-period,,planned
+rent_income_ratio,12 × monthly rent / annual net household income × 100,percent,annual_net_household_income,territory-period,,planned aggregate indicator
+price_income_ratio,Total purchase price / annual household income,years of income,annual household income,territory-period,,planned

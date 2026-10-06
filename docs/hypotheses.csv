@@ -1,0 +1,13 @@
+hypothesis_id,claim,blocks,charts,identification_limit,status,finding,evidence_reference
+H01,Household creation outpaces housing completions in high-pressure areas,02/03,C04,Account for existing stock and geography,not_evaluated,,
+H02,Tourist use is associated with higher rents and less residential supply,03/06,C07;C08,Tourism may also follow demand and high prices,not_evaluated,,
+H03,Ownership concentration is associated with higher rents,04,C06;C16;C17,Adjust property/location differences; coverage may be limited,not_evaluated,,
+H04,Rent limits moderate contracted rents,06,C08;C21,Examine existing versus new contracts and counterfactual,not_evaluated,,
+H05,Rent limits reduce or shift long-term supply,03/06,C07;C08;C18;C21,Listing counts are not housing stock,not_evaluated,,
+H06,Licensing delays constrain housing production,03/06,C12,Demand financing and construction capacity confound comparisons,not_evaluated,,
+H07,Arrears and legal risk are associated with rental withdrawal,03/06,C22;C18,Perceived risk and observed incidents differ; motives need evidence,not_evaluated,,
+H08,Population and migration growth increase housing pressure,02,C02;C04;C14,Separate flows households employment and internal/external migration,not_evaluated,,
+H09,Vacant housing could relieve pressure where demand exists,03,C09,Location habitability and mobilisation costs matter,not_evaluated,,
+H10,Social housing coverage improves access for eligible households,03/05,C05;C10,Selection eligibility and local context matter,not_evaluated,,
+H11,Financing and construction costs explain part of price/access changes,03/05,C11;C13,Lag structure and other demand/supply factors,not_evaluated,,
+H12,Affordability deteriorates more for lower-income and younger households,05,C10;C25,Matched household data and survey weights needed,not_evaluated,,

@@ -1,0 +1,14 @@
+source_id,provider,candidate_dataset,provider_url,dataset_url,geography,period_start,period_end,frequency,access_method,license_url,status,limitations
+ine_population,INE,Population by age and territory,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+ine_households,INE,Households and household size,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+ine_income,INE,Household income atlas,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+ine_cpi,INE,Consumer price index,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+ine_housing,INE,Housing census and tenure,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+ine_prices,INE,Housing price indices,https://www.ine.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+housing_prices,Housing ministry,Appraised values and rent statistics,https://www.mivau.gob.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+housing_supply,Housing ministry,Construction stock and social housing,https://www.mivau.gob.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+bde_finance,Banco de España,Mortgage/financing series,https://www.bde.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+registradores_buyers,Registradores,Transactions and buyer categories,https://www.registradores.org/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+notariado_transactions,Notariado,Transaction indicators,https://www.notariado.org/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+eurostat_access,Eurostat,Affordability and tenure,https://ec.europa.eu/eurostat/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified
+boe_policy,BOE,Legal measures,https://www.boe.es/,,,,,,,,candidate,Coverage/download/reuse terms not yet verified

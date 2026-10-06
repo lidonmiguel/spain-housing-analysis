@@ -1,0 +1,27 @@
+chart_id,block,title,visual,purpose,required_inputs
+C00,00,Coverage matrix,Variables × geography × year,Source gaps and comparable windows,Data audit
+C01,01,Prices and income over time,Base-100 indices and constant euros,Relative growth and inflation,Comparable price/rent/income/CPI series
+C02,02,Population and households,Aligned time-series panels,Total population versus adults and households,Population by age and household series
+C03,02,Dwellings per 1000,Maps and time series,Stock relative to inhabitants/adults/households,Stock and denominators
+C04,02/03,Households versus completions,Annual flows and cumulative territorial differences,Supply response to household formation,Household changes and completions
+C05,05,Affordability geography,Maps and distributions,Territorial accessibility,Matched geographic price/rent/income series
+C06,04,Ownership composition,Shares of owners versus dwellings,Concentration and legal personality,Ownership stock with explicit categories
+C07,03,Rental modalities,Time series and local maps,Tourism and displacement from residential use,Comparable long-term/seasonal/room/tourist counts
+C08,06,Policy and outcomes,Aligned treated/comparison panels,Prices and supply after actual implementation,Verified policy dates and comparable outcomes
+C09,03,Vacant and secondary dwellings,Stock shares and maps against household growth,Location and usability of potential stock,Census stock/use and quality information
+C10,05,Burden by income and age,Weighted distributions and group comparisons,Unequal affordability,Matched household expenditure/income microdata and weights
+C11,05,Mortgage and entry scenarios,Payment curves and saving scenarios,Financing versus purchase price,Rates and transparent down-payment/term/cost assumptions
+C12,03,Construction stages,Permits/starts/completions and cohort lags,Supply bottlenecks,Consistent stage definitions and dates
+C13,03,Land and building costs,Indices and lagged comparisons,Cost-related price movements,Land/building/new-housing price series
+C14,02,Migration and employment,Maps and adjusted associations,Demand location and demographic change,Internal/external migration and employment
+C15,04,Buyer composition,Annual shares,Investment and non-resident purchases,Transaction categories with residence status
+C16,04,Owner portfolio distribution,Distribution of holdings and dwelling shares,Local ownership concentration,Portfolio counts and actual coverage
+C17,04,Adjusted rent by owner,Adjusted differences with uncertainty,Differences beyond property composition,Rent/property/owner data
+C18,03,Listing duration and turnover,Distributions and time series,Stock versus speed of absorption,Deduplicated longitudinal listings
+C19,01,Advertised versus contracted,Comparable price trends,Source definition sensitivity,Like-for-like price sources
+C20,01,Housing composition,Surface/location/condition distributions,Changing sample composition,Property attributes
+C21,06,Pre-policy trends and event study,Pre-trends and estimated effects with intervals,Counterfactual plausibility and timing,Feasible evaluation design and enough periods
+C22,06,Risk and legal procedures,Rates and court-duration distributions,Arrears/occupation/security hypotheses,Separate administrative definitions and denominators
+C23,08,Sensitivity comparisons,Estimates across sources/windows/specifications,Robustness of conclusions,Comparable alternative inputs
+C24,07,Model diagnostics,Baseline errors/residuals/cluster profiles,Prediction quality and cluster stability,Validated modelling dataset
+C25,02,Emancipation,Age/territory time series,Adult population versus independent living,Comparable emancipation/cohabitation data

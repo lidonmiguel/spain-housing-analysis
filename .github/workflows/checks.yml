@@ -1,0 +1,26 @@
+name: Project checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install project and notebook tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Lint Python
+        run: ruff check src tests scripts
+      - name: Validate project metadata
+        run: python scripts/check_project.py
+      - name: Test indicator calculations
+        run: python -m unittest discover -s tests -v
+      - name: Validate and execute notebooks
+        run: python scripts/check_notebooks.py
