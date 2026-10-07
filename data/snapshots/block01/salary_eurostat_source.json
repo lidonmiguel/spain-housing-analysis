@@ -1,0 +1,27 @@
+{
+  "source": "Eurostat earn_nt_net",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/earn_nt_net?geo=ES&currency=EUR&ecase=P1_NCH_AW100",
+  "retrieved": "2026-10-07",
+  "snapshot_path": "data/snapshots/block01/salary_eurostat.json",
+  "snapshot_sha256": "5ce83ce3cf150044821aa058d9c73a061de7b9d8a3c521fd7b57c6891c68ccf1",
+  "selection": {
+    "geo": "ES",
+    "currency": "EUR",
+    "ecase": "P1_NCH_AW100",
+    "estruct": [
+      "GRS",
+      "NET"
+    ]
+  },
+  "comparison_window": [
+    2002,
+    2023
+  ],
+  "real_reference_year": 2023,
+  "housing_area_m2": 80,
+  "excluded_years": {
+    "2024": "Flag b (series break) and anomalous annual amounts: GRS 2838, NET 2195.92",
+    "2025": "After the excluded 2024 series break; not chained into this comparison"
+  },
+  "notes": "Fiscal profile, not observed average net pay; EAES is a separate retained source."
+}

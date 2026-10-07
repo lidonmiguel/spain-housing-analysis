@@ -28,5 +28,8 @@ Thumbs.db
 
 /reports/figures/block01/*.svg
 
-!/reports/figures/history/
-!/reports/tables/history/
+!/reports/figures/block02/
+!/reports/tables/block02/
+!/data/raw/block01/
+/data/raw/block01/*
+!/data/raw/block01/ine_eaes_28185.csv
