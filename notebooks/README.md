@@ -1,9 +1,13 @@
 # Notebooks
 
-`01_prices.ipynb`: bloque 1 ejecutado sobre el precio de compra, tasación €/m² desde 2000.
-Incluye código visible para la serie nacional y la comparación con IPC desde 2002.
-`01b_price_history.ipynb`: cobertura territorial, ciclos y periodos de gobierno del mismo bloque.
-Los municipios seleccionados empiezan en 2005. Los demás notebooks siguen pendientes.
+- `00_data_audit.ipynb`: plantilla de auditoría y alcance de las fuentes.
+- `01_prices.ipynb`: bloque 1, compra desde 2000, IPC y salarios bruto/neto;
+  utiliza los generadores de `src/spain_housing/`, con 17 figuras.
+- `01b_price_history.ipynb`: cobertura, ciclos y gobiernos del mismo bloque.
+- `02_demographics.ipynb`: bloque 2 ejecutado, con seis figuras.
+- `03_supply_and_tenure.ipynb` a `08_hypothesis_review.ipynb`: bloques pendientes;
+  sus plantillas no representan análisis completados.
 
 Abrir desde la raíz o desde `notebooks/`; reiniciar el kernel y ejecutar todas las celdas.
-Los snapshots permiten reproducir sin internet. El código reutilizable está en `src/spain_housing/`.
+Los snapshots permiten reproducir sin internet. Para regenerar entregables sin Jupyter:
+`python scripts/run_block01.py` y `python scripts/run_block02.py`.

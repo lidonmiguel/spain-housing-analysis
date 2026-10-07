@@ -70,6 +70,20 @@ anualizadas. Los periodos sin dos años observados no tienen tasa de cambio.
 El gráfico de mandatos sitúa cada periodo por su año central, para que el contexto
 temporal sea visible. No clasifica partidos ni atribuye los cambios a sus políticas.
 
+## 6. Vivienda frente a salarios bruto y neto
+
+Comparación Eurostat y MIVAU, 2002–2023: importes nominales, euros constantes de 2023
+y diferencias de variación anual (2003–2023) en puntos porcentuales.
+El neto corresponde al perfil fiscal de una persona soltera sin hijos al 100 % del
+salario de referencia; no es el neto medio observado de todos los trabajadores.
+2024 se excluye por ruptura y valores anómalos; no se encadena con 2025.
+
+![Vivienda frente a bruto](figures/block01/18_housing_salary_gross_gap.png)
+![Vivienda frente a neto](figures/block01/19_housing_salary_net_gap.png)
+
+Ver [informe salarial y fuentes](block_01_housing_salary.md) para importes,
+fórmula, cobertura e interpretación. El generador reproduce las 17 figuras del bloque.
+
 ## Fuentes y reproducción
 
 - [Notebook principal con código y resultados](../notebooks/01_prices.ipynb).

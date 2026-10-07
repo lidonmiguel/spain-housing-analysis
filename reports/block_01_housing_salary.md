@@ -1,38 +1,48 @@
-# Vivienda y salario medio en España, 2008–2024
+# Vivienda y salarios bruto y neto en España, 2002–2023
 
-La tasación nacional de vivienda libre por m² (MIVAU) se compara con la ganancia
-media bruta anual por trabajador de la EAES del INE (tabla 28185, ambos sexos,
-secciones B–S y todas las nacionalidades). No es salario mediano, neto ni renta
-por habitante. Cambios en la composición del empleo pueden afectar a la media.
+La vivienda es una tasación nacional MIVAU multiplicada por **80 m²**, un supuesto
+fijo de superficie, no el tamaño medio ni el importe de una compraventa.
+Bruto y neto proceden de [Eurostat, earn_nt_net](https://ec.europa.eu/eurostat/databrowser/view/earn_nt_net/default/table?lang=en):
+España, euros, persona soltera sin hijos al 100 % del salario de referencia.
+El neto incorpora impuestos y cotizaciones de ese perfil; no es el neto medio
+observado de todos los trabajadores. No se mezcla esta fuente con INE EAES.
 
-Las dos figuras del notebook `01_prices.ipynb` utilizan base común 2008 = 100,
-el mismo periodo, colores y límites verticales. La segunda divide ambos índices
-nominales por el mismo IPC nacional medio anual, relativo a 2008. No se extrapola
-el salario de 2025. Los valores originales e índices se guardan en
-`reports/tables/block01/housing_salary_comparison.csv`.
+## Importes y cambios acumulados
 
-| Serie | Cambio nominal 2008–2024 | Cambio descontado el IPC |
-|---|---:|---:|
-| Vivienda, tasación €/m² | −7,60 % | −30,78 % |
-| Salario medio bruto anual | +34,99 % | +1,12 % |
+![Importes nominales](figures/block01/16_housing_salary_nominal.png)
+![Euros constantes](figures/block01/17_housing_salary_real.png)
 
-El salario medio bruto anual de 2024 es 29.540,26 €. El cociente vivienda/salario,
-indexado con base 2008 = 100, termina en 68,45 (−31,55 %). Este cociente es idéntico
-en términos nominales y reales porque el deflactor común se cancela.
+Los dos paneles conservan importes en euros y escalas distintas para vivienda y
+salarios. La segunda figura usa euros de 2023, deflactados por el mismo IPC.
+No se normalizan las series a base 100.
 
-La base de 2008 está próxima al máximo del ciclo de vivienda. Estos resultados
-no significan que la vivienda haya bajado desde 2000 ni que la accesibilidad
-haya mejorado en todos los territorios o para todos los hogares. El cociente
-por m² y salario bruto no incluye superficie, impuestos, ahorro, tipos de interés
-ni ingresos conjuntos del hogar. No identifica causas de los precios.
+| Serie | Cambio nominal 2002–2023 | Cambio descontado IPC |
+| --- | ---: | ---: |
+| Vivienda de 80 m² | +61.65 % | +2.41 % |
+| Salario bruto anual | +62.63 % | +3.03 % |
+| Salario neto anual · perfil fiscal | +59.51 % | +1.05 % |
 
-Fuentes: [INE, tabla 28185](https://www.ine.es/jaxiT3/Tabla.htm?t=28185),
-[EAES 2024](https://www.ine.es/dyngs/Prensa/EAES2024.htm), tasación MIVAU e IPC
-nacional del snapshot original del bloque 1. La selección, fecha de recuperación
-y SHA-256 se conservan en `data/snapshots/block01/salary_source.json` y en el
-manifiesto de datasets. El CSV original se conserva en `data/raw/block01/ine_eaes_28185.csv`.
+## Diferencia de variación anual
 
-Reproducción: `python scripts/build_block01_salary_data.py` reconstruye el
-snapshot salarial desde el CSV conservado; `--refresh` vuelve a descargarlo.
-Ejecutar las celdas de la sección 2.1 del notebook regenera las figuras 16 y 17
-y la tabla. El generador original del bloque mantiene sus 13 figuras.
+![Vivienda frente a bruto](figures/block01/18_housing_salary_gross_gap.png)
+![Vivienda frente a neto](figures/block01/19_housing_salary_net_gap.png)
+
+Una barra por año, mismo color y escala: **tasa de vivienda menos tasa salarial**,
+en puntos porcentuales. Cada tasa es (valor actual / valor anterior − 1) × 100.
+Las barras cubren 2003–2023; el primer año solo sirve para calcular la tasa.
+Una barra positiva indica que vivienda sube más o cae menos; una negativa,
+que el salario sube más o cae menos. No es el porcentaje de cambio del cociente.
+
+## Cobertura y reproducción
+
+Se conserva la respuesta original en `data/snapshots/block01/salary_eurostat.json`
+y la política de comparación y huella SHA-256 en `salary_eurostat_source.json`.
+2024 está marcado como ruptura y contiene importes anómalos; se excluye junto a
+2025, sin extrapolar ni encadenar a través de la ruptura. El snapshot EAES y su
+script de normalización se conservan como fuente alternativa, no usada aquí.
+
+`python scripts/run_block01.py` reproduce las cuatro figuras, este informe y las
+tablas `housing_salary_comparison.csv` y `housing_salary_variation_gap.csv`, sin red.
+El notebook utiliza las mismas funciones de `src/spain_housing/salary_analysis.py`.
+La comparación no mide por sí sola accesibilidad: faltan ingresos del hogar,
+gastos, ahorro, financiación y diferencias territoriales; no identifica causas.

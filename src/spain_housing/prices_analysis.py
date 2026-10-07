@@ -462,7 +462,9 @@ def run_analysis(root, preview_dir=None, vector=False):
         ("region", "communities.geojson", "07_regional_maps"),
         ("province", "provinces.geojson", "12_provincial_maps"),
     ]:
-        boundary = json.loads((root / "data/snapshots/block01" / boundary_name).read_text())
+        boundary = json.loads(
+            (root / "data/snapshots/block01" / boundary_name).read_text(encoding="utf-8")
+        )
         frame = values[values.level == level]
         current, growth = {}, {}
         for code in frame.code.unique():
@@ -538,7 +540,9 @@ def run_analysis(root, preview_dir=None, vector=False):
         ["code", "name", "year", "value", "growth_pct", "urban_category", "coastal_category"]
     ].to_csv(tables / "selected_municipalities.csv", index=False)
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-    boundary = json.loads((root / "data/snapshots/block01/provinces.geojson").read_text())
+    boundary = json.loads(
+        (root / "data/snapshots/block01/provinces.geojson").read_text(encoding="utf-8")
+    )
     for ax, col, title, unit in [
         (axes[0], "value", f"Tasación {stop}", "€/m²"),
         (axes[1], "growth_pct", f"Cambio {start}–{stop}", "%"),
@@ -591,6 +595,13 @@ def run_analysis(root, preview_dir=None, vector=False):
         ax.tick_params(labelbottom=True, labelleft=True)
     save(fig, "15_municipal_cases", f"Casos municipales de compra, {start}–{stop}")
 
+    from spain_housing.salary_analysis import run_salary_analysis
+
+    salary_files, salary_panel, _, _, _ = run_salary_analysis(
+        root, purchase=p, cpi=cpi, preview_dir=preview_dir, vector=vector
+    )
+    files.extend(salary_files)
+
     findings = {
         "scope": "purchase_only",
         "main_measure": "free_housing_valuation_eur_m2",
@@ -604,9 +615,12 @@ def run_analysis(root, preview_dir=None, vector=False):
         "general_prices_pct": change(cpi, base, end),
         "purchase_real_pct": change(real_series(p, cpi, end).dropna(), base, end),
         "cycle": cycle.to_dict(),
+        "salary_comparison_window": [int(salary_panel.index.min()), int(salary_panel.index.max())],
         "figure_count": len(files),
     }
-    (tables / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2))
+    (tables / "findings.json").write_text(
+        json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     report = f"""# Bloque 1 · Precio de compra de vivienda en España
 
 ## Alcance y medida principal
@@ -678,6 +692,20 @@ de cada presidencia, excluye años de transición y muestra fechas, cobertura y 
 anualizadas. Los periodos sin dos años observados no tienen tasa de cambio.
 El gráfico de mandatos sitúa cada periodo por su año central, para que el contexto
 temporal sea visible. No clasifica partidos ni atribuye los cambios a sus políticas.
+
+## 6. Vivienda frente a salarios bruto y neto
+
+Comparación Eurostat y MIVAU, 2002–2023: importes nominales, euros constantes de 2023
+y diferencias de variación anual (2003–2023) en puntos porcentuales.
+El neto corresponde al perfil fiscal de una persona soltera sin hijos al 100 % del
+salario de referencia; no es el neto medio observado de todos los trabajadores.
+2024 se excluye por ruptura y valores anómalos; no se encadena con 2025.
+
+![Vivienda frente a bruto](figures/block01/18_housing_salary_gross_gap.png)
+![Vivienda frente a neto](figures/block01/19_housing_salary_net_gap.png)
+
+Ver [informe salarial y fuentes](block_01_housing_salary.md) para importes,
+fórmula, cobertura e interpretación. El generador reproduce las 17 figuras del bloque.
 
 ## Fuentes y reproducción
 

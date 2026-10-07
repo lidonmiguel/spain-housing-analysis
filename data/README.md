@@ -1,7 +1,7 @@
 # Datos y reproducción
 
 `raw/`, `interim/` y `processed/` contienen descargas o trabajo local y están ignorados
-por Git. `snapshots/block01/` contiene las extracciones reales necesarias para
+por Git, salvo el CSV EAES conservado en `raw/block01/`. `snapshots/block01/` contiene las extracciones reales necesarias para
 reproducir el informe sin acceso a internet. No contiene microdatos personales.
 
 ## Corte de fuentes: 6 de octubre de 2026
@@ -21,6 +21,8 @@ fuentes recuperadas; no intervienen en el análisis actual del bloque 1.
 | `municipal_purchase.csv` | Tasación de 30 municipios seleccionados, 2005–2025 |
 | `purchase_transaction_total.csv` | Valor medio por transacción de segunda mano libre, trimestral 2004–2026T2 |
 | `selected_cities.csv` | Selección, grupos descriptivos y coordenadas oficiales verificadas |
+| `salary_eurostat.json`, `salary_eurostat_source.json` | Fuente salarial activa, bruto/neto del perfil fiscal; ventana 2002–2023; snapshot del 7 de octubre de 2026, con huella y exclusiones |
+| `salary.csv`, `salary_source.json` | EAES INE, media bruta 2008–2024; fuente alternativa conservada, no mezclada con Eurostat |
 | `governments.csv` | Presidencias autonómicas y etapas del gobierno nacional desde 1995 |
 | `communities.geojson`, `provinces.geojson` | Geometrías ilustrativas simplificadas, vintage 2014 |
 
@@ -47,3 +49,10 @@ Metadatos: `source_register.csv` incluye fuentes candidatas para todos los bloqu
 `government_register.csv` distingue presidencia, gabinete y apoyos desconocidos.
 El registro legal permanece pendiente para el bloque de evaluación de políticas.
 
+## Bloque 2 y trazabilidad salarial
+
+`snapshots/block02/` conserva CSV comprimidos y su propio `source_manifest.json`.
+`run_block02.py` verifica sus huellas y reproduce las seis figuras demográficas.
+La trazabilidad de Eurostat es independiente del manifiesto histórico de compra:
+`salary_eurostat_source.json` identifica la respuesta congelada y la selección.
+No actualizar datos salariales sin revisar las rupturas y la ventana común.
