@@ -1,0 +1,15 @@
+{
+  "dataset_url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/28185.csv",
+  "table_url": "https://www.ine.es/jaxiT3/Tabla.htm?t=28185",
+  "retrieved_at_utc": "2026-10-07T08:06:03.330292+00:00",
+  "sha256": "d2fa38a6bc4c133e77fc8021efb2bc9d56761f3018cec2a6fa7978083e0886f5",
+  "selection": {
+    "Secciones de la CNAE 2009": "B_S Todas las secciones",
+    "Sexo": "Ambos sexos"
+  },
+  "unit": "EUR brutos por trabajador y año",
+  "coverage": "Asalariados cubiertos por EAES; secciones B–S; España",
+  "period_start": 2008,
+  "period_end": 2024,
+  "notes": "Media, no mediana; todas las nacionalidades; no renta por habitante"
+}
