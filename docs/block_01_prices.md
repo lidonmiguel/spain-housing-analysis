@@ -14,6 +14,10 @@ por vivienda quedan como fuentes originales, sin mezclarse en las figuras princi
 ## Comparaciones y cobertura
 
 - IPC: 2002–2025; dos índices con base común 2002 = 100.
+- Salario medio bruto anual: INE EAES, ambos sexos, secciones B–S, todas las
+  nacionalidades, 2008–2024. Vivienda y salario se indexan con base 2008 = 100;
+  se muestran dos figuras con la misma escala, nominal y deflactada con el mismo
+  IPC nacional medio anual. No se extrapola 2025 ni se confunde media con mediana.
 - Municipios: selección explícita de 30 casos, 2005–2025.
 - Perfiles: muestras fijas con todos los años observados; media no ponderada de índices locales.
 - Mapas: nivel 2025 y variación con extremos fijos; no se rellenan observaciones ausentes.
@@ -29,8 +33,15 @@ El año central en el gráfico de mandatos es una posición visual, no una fecha
 
 ## Entregables
 
-13 figuras y tablas en `reports/figures/block01/` y `reports/tables/block01/`.
+15 figuras y tablas en `reports/figures/block01/` y `reports/tables/block01/`.
 Informe principal: `reports/block_01_prices.md`. Notebooks: `01_prices.ipynb` y
-`01b_price_history.ipynb`. Ambos scripts usan el mismo generador `run_analysis`.
+`01b_price_history.ipynb`. Ambos scripts usan el mismo generador `run_analysis`
+para las 13 figuras originales. Las figuras 16 y 17, y su tabla
+`housing_salary_comparison.csv`, se generan en las celdas salariales de `01_prices.ipynb`.
+Resumen salarial: `reports/block_01_housing_salary.md`. El snapshot salarial se
+reconstruye con `python scripts/build_block01_salary_data.py`; `--refresh` actualiza
+el CSV original y su procedencia. El cociente vivienda/salario es invariante al
+deflactor común y no equivale al esfuerzo de compra de un hogar. La base 2008,
+próxima al máximo inmobiliario, condiciona la lectura del cambio acumulado.
 No se incluyen resultados de alquiler en el bloque 1. Se conservan los snapshots originales
 y su trazabilidad para no destruir fuentes recuperadas.

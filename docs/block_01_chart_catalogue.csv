@@ -12,3 +12,5 @@ B01-10,purchase,10_mandate_comparison,Purchase valuation only,MIVAU valuation; I
 B01-11,purchase,12_provincial_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
 B01-12,purchase,13_municipal_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
 B01-13,purchase,15_municipal_cases,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
+B01-14,purchase_salary,16_housing_salary_nominal,Two indexed series; common base and scale,MIVAU national valuation; INE EAES table 28185,executed
+B01-15,purchase_salary,17_housing_salary_real,Two indexed series deflated by common annual CPI,MIVAU national valuation; INE EAES table 28185; INE national CPI,executed
