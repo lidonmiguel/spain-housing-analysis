@@ -15,7 +15,7 @@ por vivienda quedan como fuentes originales, sin mezclarse en las figuras princi
 
 - IPC: 2002–2025; dos índices con base común 2002 = 100.
 - Salarios bruto y neto: Eurostat `earn_nt_net`, España, euros, persona soltera
-  sin hijos al 100 % del salario de referencia, 2002–2023. Vivienda de referencia
+  sin hijos al 100 % del salario de referencia, 2000–2023. Vivienda de referencia
   de 80 m² y salarios en euros nominales y constantes de 2023, sin base 100.
   Dos gráficas adicionales muestran tasa de vivienda menos tasa salarial en puntos
   porcentuales, 2003–2023, con el mismo color y escala. El neto es un perfil fiscal,
@@ -36,11 +36,10 @@ El año central en el gráfico de mandatos es una posición visual, no una fecha
 
 ## Entregables
 
-17 figuras y tablas en `reports/figures/block01/` y `reports/tables/block01/`.
+23 figuras y tablas en `reports/figures/block01/` y `reports/tables/block01/`.
 Informe principal: `reports/block_01_prices.md`; informe salarial:
-`reports/block_01_housing_salary.md`. Notebooks: `01_prices.ipynb` y
-`01b_price_history.ipynb`. `run_analysis` reproduce el bloque completo y llama
-a `salary_analysis.run_salary_analysis` para las cuatro figuras salariales.
+`reports/block_01_housing_salary.md`. Notebook unificado: `01_prices.ipynb`, con cobertura y mandatos integrados. `run_analysis` reproduce el bloque completo y llama
+a `salary_analysis.run_salary_analysis` para las siete figuras salariales; también integra las tres figuras de `long_history`.
 El notebook reutiliza este módulo. `housing_salary_comparison.csv` guarda importes;
 `housing_salary_variation_gap.csv` guarda diferencias de tasas en puntos porcentuales.
 

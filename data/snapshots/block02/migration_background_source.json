@@ -1,0 +1,10 @@
+{
+  "dataset": "lfsa_pganedm",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_pganedm?lang=EN&geo=ES&sex=T&age=Y15-74&isced11=TOTAL&citizen=TOTAL",
+  "retrieved_at_utc": "2026-10-08T23:02:56.895697+00:00",
+  "snapshot_sha256": "38b795e91478357c631d3d06bd63e40731cda5d36a92b3327f8f12753a2692bf",
+  "units": "thousand persons; multiplied by 1000 for chart",
+  "scope": "Spain; ages 15-74; private households; annual survey estimates",
+  "definition": "foreign-born + native-born with both parents born abroad; citizenship total",
+  "methodology_url": "https://ec.europa.eu/eurostat/statistics-explained/SEPDF/cache/140889.pdf"
+}

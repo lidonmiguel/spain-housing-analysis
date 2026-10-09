@@ -1,0 +1,311 @@
+{
+  "version": "2.0",
+  "class": "dataset",
+  "label": "Population in private households by migration status, citizenship and educational attainment level",
+  "source": "ESTAT",
+  "updated": "2026-09-10T23:00:00+0200",
+  "value": {
+    "35": 6343.3,
+    "36": 6798.9,
+    "37": 7353.0,
+    "38": 7872.0,
+    "39": 8313.4,
+    "5": 7322.6,
+    "6": 7875.8,
+    "7": 8548.9,
+    "8": 9123.3,
+    "9": 9685.1,
+    "10": 29683.9,
+    "11": 29594.0,
+    "12": 29588.3,
+    "13": 29501.8,
+    "14": 29534.4,
+    "20": 979.3,
+    "21": 1076.9,
+    "22": 1195.9,
+    "23": 1251.2,
+    "24": 1371.7,
+    "25": 653.1,
+    "26": 686.7,
+    "27": 703.5,
+    "28": 696.8,
+    "29": 740.5,
+    "30": 326.1,
+    "31": 390.2,
+    "32": 492.4,
+    "33": 554.4,
+    "34": 631.2,
+    "15": 28704.6,
+    "16": 28517.1,
+    "17": 28392.4,
+    "18": 28250.5,
+    "19": 28162.7,
+    "0": 36027.2,
+    "1": 36392.9,
+    "2": 36941.4,
+    "3": 37373.8,
+    "4": 37847.8
+  },
+  "status": {
+    "35": "b",
+    "5": "b",
+    "10": "b",
+    "20": "b",
+    "25": "b",
+    "30": "b",
+    "15": "b",
+    "0": "b"
+  },
+  "id": [
+    "freq",
+    "isced11",
+    "citizen",
+    "mgstatus",
+    "age",
+    "sex",
+    "unit",
+    "geo",
+    "time"
+  ],
+  "size": [
+    1,
+    1,
+    1,
+    9,
+    1,
+    1,
+    1,
+    1,
+    5
+  ],
+  "dimension": {
+    "freq": {
+      "label": "Time frequency",
+      "category": {
+        "index": {
+          "A": 0
+        },
+        "label": {
+          "A": "Annual"
+        }
+      }
+    },
+    "isced11": {
+      "label": "International Standard Classification of Education (ISCED 2011)",
+      "category": {
+        "index": {
+          "TOTAL": 0
+        },
+        "label": {
+          "TOTAL": "All ISCED 2011 levels"
+        }
+      }
+    },
+    "citizen": {
+      "label": "Country of citizenship",
+      "category": {
+        "index": {
+          "TOTAL": 0
+        },
+        "label": {
+          "TOTAL": "Total"
+        }
+      }
+    },
+    "mgstatus": {
+      "label": "Migration status",
+      "category": {
+        "index": {
+          "TOTAL": 0,
+          "FBO_NBO_ABR": 1,
+          "NBO": 2,
+          "NBO_NAT": 3,
+          "NBO_ABR": 4,
+          "NBO_ABR_PAR1": 5,
+          "NBO_ABR_PAR2": 6,
+          "FBO": 7,
+          "UNK": 8
+        },
+        "label": {
+          "TOTAL": "Total",
+          "FBO_NBO_ABR": "Foreign-born or native-born with one or both parents born abroad (first and second generations)",
+          "NBO": "Native-born",
+          "NBO_NAT": "Native-born with both parents native-born",
+          "NBO_ABR": "Native-born with one or both parents born abroad (second generation)",
+          "NBO_ABR_PAR1": "Native-born with one parent born abroad (second generation)",
+          "NBO_ABR_PAR2": "Native-born with both parents born abroad (second generation)",
+          "FBO": "Foreign-born (first generation)",
+          "UNK": "Unknown"
+        }
+      }
+    },
+    "age": {
+      "label": "Age class",
+      "category": {
+        "index": {
+          "Y15-74": 0
+        },
+        "label": {
+          "Y15-74": "From 15 to 74 years"
+        }
+      }
+    },
+    "sex": {
+      "label": "Sex",
+      "category": {
+        "index": {
+          "T": 0
+        },
+        "label": {
+          "T": "Total"
+        }
+      }
+    },
+    "unit": {
+      "label": "Unit of measure",
+      "category": {
+        "index": {
+          "THS_PER": 0
+        },
+        "label": {
+          "THS_PER": "Thousand persons"
+        }
+      }
+    },
+    "geo": {
+      "label": "Geopolitical entity (reporting)",
+      "category": {
+        "index": {
+          "ES": 0
+        },
+        "label": {
+          "ES": "Spain"
+        }
+      }
+    },
+    "time": {
+      "label": "Time",
+      "category": {
+        "index": {
+          "2021": 0,
+          "2022": 1,
+          "2023": 2,
+          "2024": 3,
+          "2025": 4
+        },
+        "label": {
+          "2021": "2021",
+          "2022": "2022",
+          "2023": "2023",
+          "2024": "2024",
+          "2025": "2025"
+        }
+      }
+    }
+  },
+  "extension": {
+    "lang": "EN",
+    "id": "LFSA_PGANEDM",
+    "agencyId": "ESTAT",
+    "version": "1.0",
+    "datastructure": {
+      "id": "LFSA_PGANEDM",
+      "agencyId": "ESTAT",
+      "version": "26.0"
+    },
+    "annotation": [
+      {
+        "type": "CREATED",
+        "date": "2022-11-08T13:39:07+0100"
+      },
+      {
+        "type": "DISSEMINATION_DOI_XML",
+        "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/LFSA_PGANEDM\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/LFSA_PGANEDM</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2022-11-08</dct:issued></adms:Identifier></adms:identifier>"
+      },
+      {
+        "type": "DISSEMINATION_EXPLANATORY_LINK",
+        "title": "text-category",
+        "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf",
+        "text": "Information note"
+      },
+      {
+        "type": "DISSEMINATION_EXPLANATORY_LINK",
+        "title": "text-category",
+        "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+      },
+      {
+        "type": "DISSEMINATION_EXPLANATORY_LINK",
+        "title": "text-category",
+        "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+      },
+      {
+        "type": "DISSEMINATION_OBJECT_TYPE",
+        "title": "DATASET"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_DATA",
+        "date": "2026-09-10T23:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+        "date": "2026-09-10T23:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+        "date": "2026-09-10T23:00:00+0200"
+      },
+      {
+        "type": "ESMS_HTML",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/cache/metadata/en/lfsa_esms.htm"
+      },
+      {
+        "type": "ESMS_SDMX",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/lfsa_esms.sdmx.zip"
+      },
+      {
+        "type": "OBS_COUNT",
+        "title": "710081"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_LATEST",
+        "title": "2025"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_OLDEST",
+        "title": "2021"
+      },
+      {
+        "type": "SOURCE_INSTITUTIONS",
+        "text": "Eurostat"
+      },
+      {
+        "type": "UPDATE_DATA",
+        "date": "2026-09-10T23:00:00+0200"
+      },
+      {
+        "type": "UPDATE_STRUCTURE",
+        "date": "2026-09-10T23:00:00+0200"
+      }
+    ],
+    "status": {
+      "label": {
+        "b": "break in time series"
+      }
+    },
+    "positions-with-no-data": {
+      "freq": [],
+      "isced11": [],
+      "citizen": [],
+      "mgstatus": [
+        8
+      ],
+      "age": [],
+      "sex": [],
+      "unit": [],
+      "geo": [],
+      "time": []
+    }
+  }
+}

@@ -47,10 +47,42 @@ def earnings_series(dataset, code):
     return pd.Series(result).sort_index(), pd.Series(statuses).sort_index()
 
 
+def extend_salary_cpi(root, cpi):
+    """Link annual INE general CPI bases to add 2000 and 2001, without estimates."""
+    if 2000 in cpi.index and 2001 in cpi.index:
+        return cpi
+    folder = Path(root) / "data/snapshots/block01"
+    frames = {}
+    for table in (278, 259):
+        path = folder / f"cpi_historical_{table}.csv"
+        metadata = json.loads(path.with_suffix(".json").read_text())
+        if hashlib.sha256(path.read_bytes()).hexdigest() != metadata["sha256"]:
+            raise ValueError(f"Historical CPI checksum mismatch: {table}")
+        data = pd.read_csv(path, sep=";", dtype=str)
+        data = data[data["Tipo de dato"] == "Media anual"]
+        if table == 259:
+            data = data[data["Grupos COICOP 2001"] == "\u00cdndice general"]
+        data = data.set_index(data.Periodo.astype(int))
+        frames[table] = pd.to_numeric(data.Total.str.replace(",", ".", regex=False))
+    old = frames[278]
+    base2001 = frames[259]
+    # Base 2001 means annual average in 2001 = 100; anchor to the existing 2002 value.
+    index2001 = cpi.loc[2002] * 100 / base2001.loc[2002]
+    extension = pd.Series(
+        {2000: index2001 * old.loc[2000] / old.loc[2001], 2001: index2001}, name=cpi.name
+    )
+    if not np.isfinite(extension).all() or (extension <= 0).any():
+        raise ValueError("Invalid linked historical CPI")
+    result = pd.concat([extension, cpi]).sort_index()
+    if result.index.has_duplicates:
+        raise ValueError("Overlapping CPI years")
+    return result
+
+
 def load_salary_comparison(root, purchase=None, cpi=None):
-    """Validate provenance and the explicitly reviewed 2002–2023 common window."""
+    """Validate provenance and the explicitly reviewed 2000–2023 common window."""
     snapshot = Path(root) / "data/snapshots/block01"
-    raw = (snapshot / "salary_eurostat.json").read_bytes()
+    raw = (snapshot / "salary_eurostat.json").read_bytes().replace(b"\r\n", b"\n")
     policy = json.loads((snapshot / "salary_eurostat_source.json").read_text(encoding="utf-8"))
     if hashlib.sha256(raw).hexdigest() != policy["snapshot_sha256"]:
         raise ValueError("Eurostat salary snapshot checksum mismatch")
@@ -60,6 +92,7 @@ def load_salary_comparison(root, purchase=None, cpi=None):
     if purchase is None or cpi is None:
         values, _, cpi, _ = load_purchase_data(root)
         purchase = series_for(values, level="national")
+    cpi = extend_salary_cpi(root, cpi)
     first, last = policy["comparison_window"]
     panel = (
         pd.concat(
@@ -167,6 +200,110 @@ def run_salary_analysis(root, purchase=None, cpi=None, preview_dir=None, vector=
             fig.tight_layout(rect=(0, 0.065, 1, 0.94))
             save(fig, name)
 
+        # Two separate monetary charts and one full-period percentage comparison.
+        for column, name, title, color, ylabel in [
+            (
+                NET,
+                "20_net_salary_history",
+                "Evoluci\u00f3n del salario neto anual",
+                "#9b626b",
+                "Salario neto anual (\u20ac corrientes)",
+            ),
+            (
+                HOUSING,
+                "21_housing_value_history",
+                "Valor de una vivienda de referencia",
+                "#207b8e",
+                "Vivienda de 80 m\u00b2 (\u20ac corrientes)",
+            ),
+        ]:
+            series = nominal[column]
+            change = (series.iloc[-1] / series.iloc[0] - 1) * 100
+            fig, ax = plt.subplots(figsize=(13, 5.8))
+            ax.plot(series.index, series, color=color, lw=2.6, marker="o", markersize=4)
+            for year in (first, last):
+                value = series.loc[year]
+                ax.annotate(
+                    f"{year}: {value:,.0f} \u20ac".replace(",", "."),
+                    (year, value),
+                    xytext=(0, 12),
+                    textcoords="offset points",
+                    ha="center",
+                    color=color,
+                    fontsize=11,
+                    fontweight="bold",
+                )
+            ax.set(xlabel="A\u00f1o", ylabel=ylabel, ylim=(0, series.max() * 1.2))
+            ax.yaxis.set_major_formatter(money_format)
+            ax.set_xticks(list(range(first, last, 2)) + [last])
+            ax.grid(axis="y", alpha=0.2)
+            ax.spines[["top", "right"]].set_visible(False)
+            fig.suptitle(title, fontsize=17, fontweight="bold")
+            text = f"Espa\u00f1a \u00b7 {first}\u2013{last} \u00b7 Subida total: +{change:.1f} %"
+            fig.text(0.09, 0.84, text.replace(".", ","), color=color, fontsize=12)
+            note = (
+                (
+                    "Eurostat: soltero/a sin hijos, 100 % del salario de referencia. "
+                    "Neto del perfil fiscal, no salario neto medio observado."
+                )
+                if column == NET
+                else (
+                    "MIVAU: tasaci\u00f3n nacional de vivienda libre \u00d7 80 m\u00b2. "
+                    "Superficie fija; no es el precio de una compraventa concreta."
+                )
+            )
+            fig.text(
+                0.09,
+                0.025,
+                note + "\nEuros corrientes, sin descontar inflaci\u00f3n. "
+                "Comparaci\u00f3n hasta 2023 por anomal\u00eda salarial en 2024.",
+                fontsize=9,
+                color="#555555",
+            )
+            fig.tight_layout(rect=(0, 0.12, 1, 0.82))
+            save(fig, name)
+
+        cumulative = (
+            nominal.loc[last, [HOUSING, NET]] / nominal.loc[first, [HOUSING, NET]] - 1
+        ) * 100
+        cumulative.rename("change_pct").to_csv(tables / "housing_net_salary_total_change.csv")
+        fig, ax = plt.subplots(figsize=(11, 5.6))
+        bars = ax.barh(
+            ["Vivienda de 80 m\u00b2", "Salario neto anual"],
+            cumulative,
+            color=["#207b8e", "#9b626b"],
+            height=0.48,
+        )
+        ax.invert_yaxis()
+        ax.bar_label(
+            bars,
+            labels=[f"+{v:.1f} %".replace(".", ",") for v in cumulative],
+            padding=8,
+            fontsize=15,
+            fontweight="bold",
+        )
+        ax.set(xlabel="Subida total durante el periodo (%)", xlim=(0, cumulative.max() * 1.3))
+        ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.0f} %"))
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        ax.grid(axis="x", alpha=0.18)
+        ax.set_axisbelow(True)
+        fig.suptitle(
+            "Cu\u00e1nto han subido la vivienda y el salario neto", fontsize=17, fontweight="bold"
+        )
+        fig.text(0.07, 0.84, f"Espa\u00f1a \u00b7 Mismo periodo: {first}\u2013{last}", fontsize=12)
+        fig.text(
+            0.07,
+            0.025,
+            "Cambio total = (importe final / importe inicial \u2212 1) \u00d7 100. "
+            "No es una tasa anual ni la suma de las subidas anuales.\n"
+            "MIVAU y Eurostat \u00b7 Importes nominales. Neto del perfil fiscal "
+            "de referencia; no media observada de todos los trabajadores.",
+            fontsize=9,
+            color="#555555",
+        )
+        fig.tight_layout(rect=(0, 0.15, 1, 0.8))
+        save(fig, "22_housing_net_salary_total_change")
+
         limit = max(1.0, gaps.abs().max().max() * 1.18)
         for column, name, wage in zip(gaps.columns, NAMES[2:], ["bruto", "neto"], strict=True):
             fig, ax = plt.subplots(figsize=(14, 5))
@@ -216,12 +353,15 @@ observado de todos los trabajadores. No se mezcla esta fuente con INE EAES.
 
 ## Importes y cambios acumulados
 
-![Importes nominales](figures/block01/16_housing_salary_nominal.png)
+![Salario neto](figures/block01/20_net_salary_history.png)
+![Vivienda](figures/block01/21_housing_value_history.png)
+![Subidas totales](figures/block01/22_housing_net_salary_total_change.png)
 ![Euros constantes](figures/block01/17_housing_salary_real.png)
 
-Los dos paneles conservan importes en euros y escalas distintas para vivienda y
-salarios. La segunda figura usa euros de {last}, deflactados por el mismo IPC.
-No se normalizan las series a base 100.
+Las dos primeras figuras muestran por separado el salario neto anual y el valor
+de la vivienda, en euros corrientes. La tercera compara sus subidas totales
+durante el mismo periodo, sin descontar inflación.
+La tabla siguiente conserva también el bruto y los cambios ajustados por IPC.
 
 | Serie | Cambio nominal {first}–{last} | Cambio descontado IPC |
 | --- | ---: | ---: |
@@ -246,7 +386,7 @@ y la política de comparación y huella SHA-256 en `salary_eurostat_source.json`
 2025, sin extrapolar ni encadenar a través de la ruptura. El snapshot EAES y su
 script de normalización se conservan como fuente alternativa, no usada aquí.
 
-`python scripts/run_block01.py` reproduce las cuatro figuras, este informe y las
+`python scripts/run_block01.py` reproduce las siete figuras, este informe y las
 tablas `housing_salary_comparison.csv` y `housing_salary_variation_gap.csv`, sin red.
 El notebook utiliza las mismas funciones de `src/spain_housing/salary_analysis.py`.
 La comparación no mide por sí sola accesibilidad: faltan ingresos del hogar,

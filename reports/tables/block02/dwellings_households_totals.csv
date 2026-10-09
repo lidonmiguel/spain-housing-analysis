@@ -1,0 +1,26 @@
+year,dwellings,households,estimated,source
+2001,21033759.0,14187169.0,False,Censo
+2002,21487307.0,14576821.3,True,Linear interpolation (not INE data)
+2003,21926409.0,14966473.6,True,Linear interpolation (not INE data)
+2004,22417950.0,15356125.9,True,Linear interpolation (not INE data)
+2005,22927382.0,15745778.2,True,Linear interpolation (not INE data)
+2006,23493772.0,16135430.5,True,Linear interpolation (not INE data)
+2007,24034966.0,16525082.8,True,Linear interpolation (not INE data)
+2008,24569715.0,16914735.1,True,Linear interpolation (not INE data)
+2009,24908126.0,17304387.4,True,Linear interpolation (not INE data)
+2010,25106251.0,17694039.7,True,Linear interpolation (not INE data)
+2011,25249053.0,18083692.0,False,Censo
+2012,25469994.0,18168296.0,True,Linear interpolation (not INE data)
+2013,25620669.0,18252900.0,False,ECH
+2014,25763853.0,18328400.0,False,ECH
+2015,25906114.0,18378700.0,False,ECH
+2016,26033976.0,18441400.0,False,ECH
+2017,26170704.0,18503500.0,False,ECH
+2018,26314435.0,18580000.0,False,ECH
+2019,26463070.0,18689800.0,False,ECH
+2020,26623708.0,18539223.0,False,ECP
+2021,26719905.0,18822103.0,False,ECP
+2022,26811833.0,19103050.0,False,ECP
+2023,26902443.0,19314630.0,False,ECP
+2024,27004765.0,19521046.0,False,ECP
+2025,27099556.0,19762059.0,False,ECP

@@ -1,0 +1,10 @@
+{
+  "url": "https://publicaciones.transportes.gob.es/downloadcustom/sample/1029",
+  "source": "Ministerio de Fomento, Boletin Anual 2013, table 1.2, printed page 7",
+  "retrieved_at_utc": "2026-10-08T23:42:12.573794+00:00",
+  "pdf_sha256": "506d4283e23c6d84ad8d4de0bd8df5acbafd606a92fb20bb384e6eaf8756e672",
+  "csv_sha256": "371ee6e5330ea741dc423aa88f480426410dca785f153a88c5265c1fc29839ca",
+  "units": "dwellings",
+  "overlap_validation": "2008-2012 match exactly",
+  "source_discrepancy": "2000 completions: published total 415258 differs by 1000 from published free+protected subtotals 416258. Preserve published national total, do not silently correct."
+}

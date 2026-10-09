@@ -14,7 +14,7 @@
     ]
   },
   "comparison_window": [
-    2002,
+    2000,
     2023
   ],
   "real_reference_year": 2023,
@@ -23,5 +23,13 @@
     "2024": "Flag b (series break) and anomalous annual amounts: GRS 2838, NET 2195.92",
     "2025": "After the excluded 2024 series break; not chained into this comparison"
   },
-  "notes": "Fiscal profile, not observed average net pay; EAES is a separate retained source."
+  "notes": "Fiscal profile, not observed average net pay; EAES is a separate retained source.",
+  "cpi_extension": {
+    "tables": [
+      278,
+      259
+    ],
+    "anchor_year": 2002,
+    "method": "2001 CPI = current 2002 CPI * 100 / base-2001 annual CPI for 2002; 2000 CPI = linked 2001 * base-1992 annual 2000 / annual 2001. Original CPI from 2002 unchanged."
+  }
 }

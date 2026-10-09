@@ -1,0 +1,19 @@
+{
+  "retrieved_at_utc": "2026-10-08T23:25:15.943548+00:00",
+  "sources": [
+    {
+      "path": "households_census_2001_2011.pdf",
+      "url": "https://www.ine.es/prensa/np824.pdf",
+      "extraction": "Page 2 (printed 2): total households and single-person households in 2001 and 2011",
+      "sha256": "585cf512a8040f0471d0dc83b602a99e847e6c6880bf7946dfd5243049b8772a"
+    },
+    {
+      "path": "household_sizes_ech.px",
+      "url": "https://www.ine.es/pcaxisdl/t20/p274/serie/def/p01/l0/01001.px",
+      "extraction": "All nationalities; total household type and single-person type. Reference 1 January y plotted as end of y-1.",
+      "sha256": "6812f38b611148b718b0e24f119c5be8d794d8b62714a9fbd68c64591f4e7de3"
+    }
+  ],
+  "extracted_csv_sha256": "6fb600447630c81d5b80ca9961904a3229acacbc5d1e6f78a00b2021edad6dfa",
+  "missing_years": "Not interpolated; census reference November, surveys reference January next year; sources are not directly equivalent."
+}

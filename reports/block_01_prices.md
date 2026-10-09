@@ -4,8 +4,9 @@
 
 Analizamos la **tasación media de vivienda libre en €/m²**, desde **2000 hasta 2025**.
 Es una medida de valoración, no el precio anunciado ni el precio efectivo de cada compraventa.
-Todas las figuras de este bloque usan esta misma medida. Los importes por vivienda y el IPV
-se conservan como fuentes originales, pero no se mezclan con la tasación.
+Las figuras nacionales y territoriales desde 2000 usan esta medida; el valor por vivienda
+es tasación multiplicada por 80 m². El contexto largo se presenta por separado
+y estima valores con BIS; no es una serie de precios observados de compraventa.
 Se utilizan medias de años completos; los trimestres de 2026 quedan fuera.
 
 ## 1. Evolución nacional desde 2000
@@ -72,7 +73,7 @@ temporal sea visible. No clasifica partidos ni atribuye los cambios a sus polít
 
 ## 6. Vivienda frente a salarios bruto y neto
 
-Comparación Eurostat y MIVAU, 2002–2023: importes nominales, euros constantes de 2023
+Comparación Eurostat y MIVAU, 2000–2023: importes nominales, euros constantes de 2023
 y diferencias de variación anual (2003–2023) en puntos porcentuales.
 El neto corresponde al perfil fiscal de una persona soltera sin hijos al 100 % del
 salario de referencia; no es el neto medio observado de todos los trabajadores.
@@ -82,12 +83,26 @@ salario de referencia; no es el neto medio observado de todos los trabajadores.
 ![Vivienda frente a neto](figures/block01/19_housing_salary_net_gap.png)
 
 Ver [informe salarial y fuentes](block_01_housing_salary.md) para importes,
-fórmula, cobertura e interpretación. El generador reproduce las 17 figuras del bloque.
+fórmula, cobertura e interpretación. El generador reproduce las 23 figuras del bloque.
+
+## Contexto histórico largo
+
+![Remuneración histórica](figures/block01/23_long_compensation_history.png)
+![Vivienda histórica estimada](figures/block01/24_long_housing_history.png)
+![Cambios acumulados](figures/block01/25_long_housing_compensation_change.png)
+
+Periodo 1971–2025: 54 años entre extremos. La vivienda de 80 m² se estima
+anclando el índice nominal BIS a la tasación MIVAU de 2025, no son precios
+observados de cada año. BIS usa el área de Madrid en 1975–1986 y cambia
+metodología. AMECO mide remuneración por asalariado, incluidas cotizaciones
+empresariales, no salario neto. Los euros son nominales; las pesetas se convierten
+al tipo fijo, sin ajustar por inflación. No se usan previsiones ni se completan
+los años anteriores a 1971.
 
 ## Fuentes y reproducción
 
 - [Notebook principal con código y resultados](../notebooks/01_prices.ipynb).
-- [Notebook de cobertura y mandatos](../notebooks/01b_price_history.ipynb).
+- Cobertura y mandatos integrados en el notebook principal.
 - [Tablas descargables](tables/block01/).
 - [Código del análisis](../src/spain_housing/prices_analysis.py).
 - [Fuentes y huellas SHA-256](../data/snapshots/block01/source_manifest.json).

@@ -31,4 +31,4 @@ Saldo natural incluye nacimientos y defunciones de todos los residentes. Saldo m
 
 ## Reproducir
 
-`python scripts/run_block02.py` reproduce sin red las seis figuras y cuatro tablas de análisis. `notebooks/02_demographics.ipynb` incluye código, salidas y explicación por figura. Para actualizar fuentes: `python scripts/build_block02_data.py --refresh`; revisar publicaciones y cobertura antes de regenerar. Los resultados de esta entrega corresponden a los snapshots del 6 de octubre de 2026.
+`python scripts/run_block02.py` reproduce sin red las 13 figuras y cuatro tablas de análisis. `notebooks/02_demographics.ipynb` incluye código, salidas y explicación por figura. Para actualizar fuentes: `python scripts/build_block02_data.py --refresh`; revisar publicaciones y cobertura antes de regenerar. Los resultados de esta entrega corresponden a los snapshots del 6 de octubre de 2026.

@@ -1,79 +1,56 @@
-# Spain Housing Analysis
+# Vivienda en España: precios, ingresos y demografía
 
-Proyecto de ciencia de datos sobre la vivienda en España, con fuentes oficiales y análisis reproducible.
+Análisis descriptivo con fuentes oficiales congeladas y cálculos reproducibles sin red.
 
-**Bloque 1: precio de compra de vivienda desde 2000 hasta 2025**, con 17 figuras,
-tablas territoriales y contexto político. La medida principal es la **tasación media
-de vivienda libre en €/m²**. La comparación con los precios generales (IPC) empieza
-en **2002** y los municipios seleccionados en **2005**. Fuentes de precios recuperadas el 6 de octubre de 2026; snapshot salarial del 7 de octubre.
+## Recorrido de lectura
 
-**Bloque 2: demografía, construcción y precio**, con seis figuras, datos INE/MIVAU y comparaciones con cobertura explícita.
+1. [Precios e ingresos](notebooks/01_prices.ipynb): precio desde 2000, vivienda de 80 m² y salario neto, inflación, ciclo, territorios y contexto histórico. Incluye las tablas de cobertura y mandatos antes separadas en 01b.
+2. [Demografía y vivienda](notebooks/02_demographics.ipynb): población y parque, uso, hogares, construcción y procedencia de llegadas.
+3. [Plan de investigación](docs/research_plan.md): oferta, propiedad, financiación y políticas. Las [plantillas pendientes](notebooks/planned/) no contienen resultados.
 
-## Empieza aquí
+Informes: [precios](reports/block_01_prices.md), [salarios](reports/block_01_housing_salary.md), [demografía](reports/block_02_demographics.md). [Auditoría](notebooks/00_data_audit.ipynb).
 
-- [Demografía: notebook ejecutado](notebooks/02_demographics.ipynb) e [informe](reports/block_02_demographics.md).
-- [Vivienda y salarios: importes y diferencias de variación](reports/block_01_housing_salary.md).
-- [Informe completo del precio de compra](reports/block_01_prices.md).
-- [Notebook principal ejecutado: código, gráficas y resultados](notebooks/01_prices.ipynb).
-- [Notebook de cobertura, ciclos y mandatos](notebooks/01b_price_history.ipynb).
-- [Figuras](reports/figures/block01/) y [tablas descargables](reports/tables/block01/).
-- [Fuentes originales y SHA-256](data/snapshots/block01/source_manifest.json).
+## Medidas y cobertura
 
-![Precio de compra nacional desde 2000](reports/figures/block01/01_national_levels.png)
+| Comparación | Periodo | Medida |
+| --- | --- | --- |
+| Precio nacional | 2000–2025 | Tasación MIVAU en euros/m²; no precio de compraventa |
+| Vivienda e ingresos | 2000–2023 | Tasación × 80 m² y salario neto Eurostat de un perfil fiscal |
+| Contexto largo | 1971–2025 | Vivienda estimada con BIS, anclada a MIVAU 2025; remuneración AMECO con cotizaciones empresariales |
+| Parque y población | 2001–2025 | Stocks nacionales; viviendas principales y no principales |
+| Construcción | 2000–2025 | Viviendas iniciadas y terminadas, no compras |
+| Procedencia de llegadas | 2008–2024 | Movimientos por residencia anterior, no origen de nacimiento |
 
-## Qué analiza el bloque 1
-
-| Parte | Medida y periodo |
-| --- | --- |
-| Evolución nacional | Tasación €/m², 2000–2025; cambios anuales y ciclo |
-| Salarios bruto y neto | Eurostat, perfil fiscal, 2002–2023; diferencias de variación 2003–2023 |
-| Precios generales | Tasación e IPC, misma base 2002 = 100, 2002–2025 |
-| Comunidades y provincias | Nivel 2025, cambio 2000–2025, cobertura territorial |
-| Municipios y perfiles | 30 casos seleccionados, 2005–2025; muestras fijas |
-| Gobiernos | Evolución de la compra durante presidencias; contexto, sin atribución causal |
-
-Tasación, precio de una transacción e índice IPV tienen definiciones distintas.
-Las fuentes originales se conservan, pero este bloque usa la tasación de forma consistente.
-Comparar con el IPC no mide accesibilidad económica: para ello se necesitan ingresos
-y condiciones de financiación. Los periodos políticos no constituyen un ranking de gestión.
+Los euros históricos no se ajustan por inflación salvo indicación. BIS usa el área de Madrid en 1975–1986. Origen migratorio no determina nacionalidad. Parque total no equivale a oferta disponible. Las interpolaciones de hogares se marcan. Las comparaciones no identifican causas de los precios.
 
 ## Reproducir
 
-Python 3.11 o posterior. Desde la raíz:
+Python 3.11 o posterior, desde la raíz:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+```
+
+Activa `.venv\Scripts\Activate.ps1` en PowerShell o `source .venv/bin/activate` en Linux/macOS. Después:
+
+```bash
 python -m pip install -e ".[dev]"
 python scripts/run_block01.py
 python scripts/run_block02.py
 jupyter lab
 ```
 
-En Windows PowerShell, activar con `.venv\Scripts\Activate.ps1`.
-`run_price_history.py` reproduce el mismo bloque de compra: hay un único generador.
-Los snapshots están versionados y el análisis no necesita descargar datos.
-`run_block01.py` reproduce las 17 figuras, tablas e informes del bloque 1;
-el notebook utiliza los mismos módulos de cálculo y generación.
+Los generadores reproducen **23 figuras del bloque 1 y 13 del bloque 2**, tablas e informes. Los notebooks muestran las mismas figuras.
 
 ```bash
 ruff check src scripts tests
 python scripts/check_project.py
 python -m unittest discover -s tests -v
-python scripts/check_notebooks.py
+python scripts/check_notebooks.py --save
 ```
 
-## Organización y siguientes bloques
+`--save` guarda las salidas; sin esa opción se comprueba en memoria. GitHub Actions ejecuta las verificaciones. [Mapa del repositorio](docs/repository_structure.md).
 
-El [mapa del repositorio](docs/repository_structure.md) describe responsabilidades,
-fuentes activas, scripts y rutas de salida.
+## Licencias
 
-`notebooks/`: análisis y resultados; `src/`: cálculos reutilizables; `scripts/`: extracción y ejecución;
-`data/snapshots/`: fuentes congeladas; `reports/`: figuras y tablas; `docs/`: alcance y metodología.
-Los bloques 1 y 2 están desarrollados. Siguen pendientes: oferta y tenencia en detalle, propiedad,
-accesibilidad económica, políticas y modelado.
-
-## Licencias y atribución
-
-Código: [MIT](LICENSE). Los datos externos conservan sus condiciones originales.
-Geometrías: [atribuciones y licencia de terceros](data/snapshots/block01/THIRD_PARTY_NOTICES.md).
+Código: [MIT](LICENSE). Los datos externos conservan sus condiciones originales. Geometrías: [atribuciones](data/snapshots/block01/THIRD_PARTY_NOTICES.md).

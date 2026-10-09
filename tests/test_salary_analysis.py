@@ -32,7 +32,7 @@ class SalaryAnalysisTests(unittest.TestCase):
 
     def test_common_window_and_deflation_preserve_housing_wage_ratio(self):
         panel, nominal, real = load_salary_comparison(ROOT)
-        self.assertEqual(panel.index.tolist(), list(range(2002, 2024)))
+        self.assertEqual(panel.index.tolist(), list(range(2000, 2024)))
         self.assertEqual(list(nominal.columns), [HOUSING, GROSS, NET])
         np.testing.assert_allclose(real.iloc[-1], nominal.iloc[-1])
         for wage in [GROSS, NET]:
@@ -56,7 +56,7 @@ class SalaryAnalysisTests(unittest.TestCase):
         actual = pd.read_csv(
             ROOT / "reports/tables/block01/housing_salary_variation_gap.csv", index_col="year"
         )
-        self.assertEqual(actual.index.tolist(), list(range(2003, 2024)))
+        self.assertEqual(actual.index.tolist(), list(range(2001, 2024)))
         self.assertEqual(list(actual.columns), list(expected.columns))
         np.testing.assert_allclose(actual, expected, atol=1e-8)
 

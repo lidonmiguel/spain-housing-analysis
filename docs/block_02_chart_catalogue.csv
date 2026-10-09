@@ -1,7 +1,14 @@
-figure_id,question,chart,period,units
-01_price_population_stock,"¿Crecen juntos precio, población, adultos y parque?",Common-base indexed lines,2001–2025; household inset 2020–2025,index
-02_dwellings_per_resident,¿Se queda atrás el parque respecto a la población?,Two aligned ratio panels,2001–2025,dwellings per 1000 inhabitants/adults
-03_completions_households,¿La construcción acompaña los nuevos hogares?,Supply history and grouped bars,construction 2008–2025; joint 2021–2025,dwellings/households
-04_population_growth_components,¿De dónde procede el crecimiento demográfico?,Signed grouped bars and growth/residual lines,2008–2024,persons per 1000 residents
-05_population_birthplace,¿Qué grupos aportan el cambio poblacional?,Birthplace stocks and annual-change bars,stocks 2001–2025; changes 2002–2025,persons
-06_regional_comparison,¿Es igual la presión en todas las comunidades?,Shared-scale horizontal bar panels,2020–2025,percent change
+figure_id,section,title,status
+B02-01,analysis,01_price_population_stock,executed
+B02-02,analysis,02_dwellings_per_resident,executed
+B02-03,analysis,02_ratios_table,executed
+B02-04,analysis,03_construction,executed
+B02-05,analysis,04_population_growth_components,executed
+B02-06,analysis,05_population_birthplace,executed
+B02-07,analysis,06_regional_comparison,executed
+B02-08,analysis,07_migration_background,executed
+B02-09,analysis,08_single_person_households,executed
+B02-10,analysis,09_single_person_households_share,executed
+B02-11,analysis,10_dwellings_households_totals,executed
+B02-12,analysis,11_population_dwelling_use,executed
+B02-13,analysis,12_immigration_provenance,executed

@@ -33,3 +33,5 @@ Thumbs.db
 !/data/raw/block01/
 /data/raw/block01/*
 !/data/raw/block01/ine_eaes_28185.csv
+
+/tmp/

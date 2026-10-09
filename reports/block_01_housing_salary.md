@@ -1,4 +1,4 @@
-# Vivienda y salarios bruto y neto en España, 2002–2023
+# Vivienda y salarios bruto y neto en España, 2000–2023
 
 La vivienda es una tasación nacional MIVAU multiplicada por **80 m²**, un supuesto
 fijo de superficie, no el tamaño medio ni el importe de una compraventa.
@@ -9,18 +9,21 @@ observado de todos los trabajadores. No se mezcla esta fuente con INE EAES.
 
 ## Importes y cambios acumulados
 
-![Importes nominales](figures/block01/16_housing_salary_nominal.png)
+![Salario neto](figures/block01/20_net_salary_history.png)
+![Vivienda](figures/block01/21_housing_value_history.png)
+![Subidas totales](figures/block01/22_housing_net_salary_total_change.png)
 ![Euros constantes](figures/block01/17_housing_salary_real.png)
 
-Los dos paneles conservan importes en euros y escalas distintas para vivienda y
-salarios. La segunda figura usa euros de 2023, deflactados por el mismo IPC.
-No se normalizan las series a base 100.
+Las dos primeras figuras muestran por separado el salario neto anual y el valor
+de la vivienda, en euros corrientes. La tercera compara sus subidas totales
+durante el mismo periodo, sin descontar inflación.
+La tabla siguiente conserva también el bruto y los cambios ajustados por IPC.
 
-| Serie | Cambio nominal 2002–2023 | Cambio descontado IPC |
+| Serie | Cambio nominal 2000–2023 | Cambio descontado IPC |
 | --- | ---: | ---: |
-| Vivienda de 80 m² | +61.65 % | +2.41 % |
-| Salario bruto anual | +62.63 % | +3.03 % |
-| Salario neto anual · perfil fiscal | +59.51 % | +1.05 % |
+| Vivienda de 80 m² | +105.52 % | +21.40 % |
+| Salario bruto anual | +74.66 % | +3.17 % |
+| Salario neto anual · perfil fiscal | +69.99 % | +0.41 % |
 
 ## Diferencia de variación anual
 
@@ -29,7 +32,7 @@ No se normalizan las series a base 100.
 
 Una barra por año, mismo color y escala: **tasa de vivienda menos tasa salarial**,
 en puntos porcentuales. Cada tasa es (valor actual / valor anterior − 1) × 100.
-Las barras cubren 2003–2023; el primer año solo sirve para calcular la tasa.
+Las barras cubren 2001–2023; el primer año solo sirve para calcular la tasa.
 Una barra positiva indica que vivienda sube más o cae menos; una negativa,
 que el salario sube más o cae menos. No es el porcentaje de cambio del cociente.
 
@@ -41,7 +44,7 @@ y la política de comparación y huella SHA-256 en `salary_eurostat_source.json`
 2025, sin extrapolar ni encadenar a través de la ruptura. El snapshot EAES y su
 script de normalización se conservan como fuente alternativa, no usada aquí.
 
-`python scripts/run_block01.py` reproduce las cuatro figuras, este informe y las
+`python scripts/run_block01.py` reproduce las siete figuras, este informe y las
 tablas `housing_salary_comparison.csv` y `housing_salary_variation_gap.csv`, sin red.
 El notebook utiliza las mismas funciones de `src/spain_housing/salary_analysis.py`.
 La comparación no mide por sí sola accesibilidad: faltan ingresos del hogar,

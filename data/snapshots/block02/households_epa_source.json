@@ -1,0 +1,9 @@
+{
+  "source": "INE EPA table 65269",
+  "url": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/65269.csv",
+  "retrieved_at_utc": "2026-10-08T23:28:12.898287+00:00",
+  "sha256": "2a74c0461da8d0ca9040defc8a2e99feac5e63ac3890d086452bc7402cd6f592",
+  "units": "thousands of households; converted to households",
+  "selection": "Total number of active members; total household size and one person; fourth quarter per year 2002-2025",
+  "breaks_note": "EPA methodological and population-base changes; no claim of homogeneous series. Census November 2001 shown separately."
+}

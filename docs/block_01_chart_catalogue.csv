@@ -1,18 +1,24 @@
-figure_id,section,title,visual,inputs,status
-B01-01,purchase,01_national_levels,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-02,purchase,02_national_governments,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-03,purchase,03_indexed_comparison,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-04,purchase,04_annual_changes,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-05,purchase,05_purchase_cycle,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-06,purchase,06_territorial_profiles,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-07,purchase,07_regional_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-08,purchase,08_regional_heatmap,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-09,purchase,09_regional_governments_purchase,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-10,purchase,10_mandate_comparison,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-11,purchase,12_provincial_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-12,purchase,13_municipal_maps,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-13,purchase,15_municipal_cases,Purchase valuation only,MIVAU valuation; INE CPI; verified governments where relevant,executed
-B01-14,purchase_salary,16_housing_salary_nominal,Euro amounts; housing and gross/net wage panels,MIVAU valuation x 80 m2; Eurostat earn_nt_net fiscal profile,executed
-B01-15,purchase_salary,17_housing_salary_real,Euro amounts deflated to 2023; two panels,MIVAU valuation x 80 m2; Eurostat earn_nt_net; INE CPI,executed
-B01-16,purchase_salary,18_housing_salary_gross_gap,Single-colour bars; housing annual rate minus gross wage rate (pp),MIVAU valuation; Eurostat GRS; 2003-2023,executed
-B01-17,purchase_salary,19_housing_salary_net_gap,Single-colour bars; housing annual rate minus net wage rate (pp),MIVAU valuation; Eurostat NET fiscal profile; 2003-2023,executed
+figure_id,section,title,status
+B01-01,purchase,01_national_levels,executed
+B01-02,purchase,02_national_governments,executed
+B01-03,purchase,03_indexed_comparison,executed
+B01-04,purchase,04_annual_changes,executed
+B01-05,purchase,05_purchase_cycle,executed
+B01-06,purchase,06_territorial_profiles,executed
+B01-07,purchase,07_regional_maps,executed
+B01-08,purchase,08_regional_heatmap,executed
+B01-09,purchase,09_regional_governments_purchase,executed
+B01-10,purchase,10_mandate_comparison,executed
+B01-11,purchase,12_provincial_maps,executed
+B01-12,purchase,13_municipal_maps,executed
+B01-13,purchase,15_municipal_cases,executed
+B01-14,purchase_salary,16_housing_salary_nominal,executed
+B01-15,purchase_salary,17_housing_salary_real,executed
+B01-16,purchase_salary,18_housing_salary_gross_gap,executed
+B01-17,purchase_salary,19_housing_salary_net_gap,executed
+B01-18,analysis,20_net_salary_history,executed
+B01-19,analysis,21_housing_value_history,executed
+B01-20,analysis,22_housing_net_salary_total_change,executed
+B01-21,analysis,23_long_compensation_history,executed
+B01-22,analysis,24_long_housing_history,executed
+B01-23,analysis,25_long_housing_compensation_change,executed

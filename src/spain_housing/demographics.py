@@ -7,7 +7,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.ticker import MaxNLocator
+from matplotlib.ticker import FuncFormatter, MaxNLocator
+
+from .construction_history import load_construction_history
 
 LABELS = {
     "price": "Tasación de vivienda libre",
@@ -20,7 +22,7 @@ COLORS = ["#c25138", "#24688d", "#79539b", "#258477", "#c29324"]
 FIGURES = [
     "01_price_population_stock",
     "02_dwellings_per_resident",
-    "03_completions_households",
+    "03_construction",
     "04_population_growth_components",
     "05_population_birthplace",
     "06_regional_comparison",
@@ -143,7 +145,7 @@ def load_panels(root):
             pop,
             national_stock,
             hh,
-            construction_series(read_source(root, "construction")),
+            load_construction_history(root),
         ],
         axis=1,
     ).sort_index()
@@ -256,7 +258,7 @@ def figure_style():
 
 def finish(fig, title, note):
     for ax in fig.axes:
-        if title[:2] != "06":
+        if not title.startswith("La presión"):
             ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     fig.suptitle(title, fontsize=17, fontweight="bold", x=0.07, ha="left")
     fig.text(0.07, 0.025, note, fontsize=9, color="#555555", va="bottom")
@@ -267,38 +269,55 @@ def finish(fig, title, note):
 def make_figure(number, panel, birth, components, regional):
     figure_style()
     if number == 1:
-        fig, axes = plt.subplots(2, 1, figsize=(12, 9))
-        cols = ["price", "population", "adults", "dwellings"]
-        indexed = common_index(panel[cols])
-        for c, color in zip(cols, COLORS):
-            axes[0].plot(indexed.index, indexed[c], label=LABELS[c], color=color, lw=2.4)
-        axes[0].set(
-            ylabel=f"Índice · {indexed.index[0]} = 100",
-            title="Crecimiento acumulado con una misma base",
-        )
-        axes[0].legend(ncol=2, frameon=False)
-        recent = common_index(panel[cols + ["households"]])
-        for c, color in zip(cols + ["households"], COLORS):
-            axes[1].plot(recent.index, recent[c], label=LABELS[c], color=color, lw=2.4)
-        axes[1].set(
-            ylabel=f"Índice · {recent.index[0]} = 100",
+        fig, ax = plt.subplots(figsize=(12, 6.5))
+        counts = panel[["population", "dwellings"]].dropna()
+        for column, color, label in [
+            ("population", COLORS[1], "Población total (habitantes)"),
+            ("dwellings", COLORS[3], "Viviendas totales"),
+        ]:
+            ax.plot(
+                counts.index,
+                counts[column],
+                color=color,
+                lw=2.6,
+                marker="o",
+                markersize=3.5,
+                label=label,
+            )
+            for year in [counts.index[0], counts.index[-1]]:
+                value = counts.loc[year, column]
+                ax.annotate(
+                    f"{value:,.0f}".replace(",", "."),
+                    (year, value),
+                    xytext=(0, 12),
+                    textcoords="offset points",
+                    ha="center",
+                    color=color,
+                    fontsize=10,
+                )
+        ax.set(
             xlabel="Año",
-            title="Detalle reciente, incluyendo hogares",
+            ylabel="Número de habitantes / viviendas",
+            ylim=(0, counts.max().max() * 1.12),
         )
-        axes[1].legend(ncol=3, frameon=False, fontsize=9)
+        ax.yaxis.set_major_formatter(
+            FuncFormatter(lambda value, _: f"{value:,.0f}".replace(",", "."))
+        )
+        ax.legend(frameon=False, loc="lower right")
         return finish(
             fig,
-            "01 · ¿Crecen al mismo ritmo el precio, la población y las viviendas?",
-            "España · MIVAU e INE. Stocks al cierre del año; precio nominal medio anual.\n"
-            "Población de cierre de 2025 provisional. Cada panel tiene una base "
-            "común; no comparar sus niveles entre paneles.",
+            "Población y viviendas totales en España",
+            "Fuentes: INE (población) y MIVAU (parque de viviendas). Datos al "
+            "cierre de cada año; población de 2025 provisional.\n"
+            "Viviendas totales: ocupadas, secundarias y vacías; no equiva"
+            "le a viviendas en venta o alquiler.",
         )
     if number == 2:
         fig, axes = plt.subplots(2, 1, figsize=(12, 7), sharex=True)
         for ax, c, label, color in zip(
             axes,
             ["dwellings_per_1000_residents", "dwellings_per_1000_adults"],
-            ["Por 1.000 habitantes", "Por 1.000 adultos (18+)"],
+            ["Por mil habitantes", "Por mil adultos"],
             COLORS[1:3],
         ):
             ax.plot(panel.index, panel[c], color=color, lw=2.5)
@@ -306,47 +325,37 @@ def make_figure(number, panel, birth, components, regional):
         axes[1].set_xlabel("Año")
         return finish(
             fig,
-            "02 · Parque de viviendas en relación con la población",
-            "España · MIVAU e INE · 2001–2025. Incluye viviendas ocupadas, secundarias y vacías.\n"
-            "No mide viviendas disponibles en el mercado. Población de cierre de 2025 provisional.",
+            "Parque de viviendas en relación con la población",
+            'España · MIVAU e INE · 2001–2025. Incluye viviendas ocupadas, '
+            'secundarias y vacÃ\xadas.\n'
+            'No mide viviendas disponibles en el mercado. Población de cierre de '
+            '2025 provisional.',
         )
     if number == 3:
-        fig, axes = plt.subplots(2, 1, figsize=(12, 9))
+        fig, ax = plt.subplots(figsize=(15, 6.5))
         supply = panel.dropna(subset=["completions", "starts"])
-        axes[0].bar(supply.index, supply.completions / 1000, color=COLORS[3], label="Terminadas")
-        axes[0].plot(
-            supply.index, supply.starts / 1000, color=COLORS[1], marker="o", label="Iniciadas"
+        ax.bar(supply.index, supply.completions, color=COLORS[3], label="Viviendas terminadas")
+        ax.plot(
+            supply.index,
+            supply.starts,
+            color=COLORS[1],
+            marker="o",
+            markersize=4,
+            lw=2,
+            label="Viviendas iniciadas",
         )
-        axes[0].set(ylabel="Miles de viviendas", title="Construcción · 2008–2025")
-        axes[0].legend(frameon=False)
-        joint = panel.dropna(subset=["net_household_formation", "completions"])
-        axes[1].bar(
-            joint.index - 0.2,
-            joint.completions / 1000,
-            width=0.4,
-            color=COLORS[3],
-            label="Viviendas terminadas",
-        )
-        axes[1].bar(
-            joint.index + 0.2,
-            joint.net_household_formation / 1000,
-            width=0.4,
-            color=COLORS[4],
-            label="Aumento neto de hogares",
-        )
-        axes[1].set(
-            ylabel="Miles de viviendas / hogares",
-            xlabel="Año",
-            title="Comparación anual con hogares observados · 2021–2025",
-        )
-        axes[1].legend(frameon=False)
+        ax.set(ylabel="Número de viviendas", xlabel="Año", ylim=(0, None))
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}".replace(",", ".")))
+        ax.set_xticks(range(2000, 2026, 2))
+        ax.legend(frameon=False)
         return finish(
             fig,
-            "03 · ¿Acompaña la construcción a la creación de hogares?",
-            "España · MIVAU (libres + protegidas) e INE ECP (hogares). Variación de "
-            "hogares: enero siguiente menos enero actual.\n"
-            "La diferencia no es un déficit exacto: no incluye rehabilitación, "
-            "bajas, ocupación de vacías ni distribución territorial.",
+            "Construcción de viviendas en España",
+            "Fomento / MIVAU · 2000–2025 · Libres + protegidas. Iniciadas"
+            " no equivale a terminadas.\n"
+            "Boletín 2013 y serie actual: coincidencia exacta en 2008–2012. En"
+            " 2000 se conserva el total publicado, con discrepancia de 1.000 e"
+            "n subtotales.",
         )
     if number == 4:
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -355,14 +364,14 @@ def make_figure(number, panel, birth, components, regional):
             components.natural_per_1000,
             0.4,
             color=COLORS[0],
-            label="Saldo natural: nacimientos − defunciones",
+            label="Saldo natural: nacimientos âˆ’ defunciones",
         )
         ax.bar(
             components.index + 0.2,
             components.migration_per_1000,
             0.4,
             color=COLORS[1],
-            label="Saldo migratorio: entradas − salidas",
+            label="Saldo migratorio: entradas âˆ’ salidas",
         )
         ax.plot(
             components.index,
@@ -385,7 +394,7 @@ def make_figure(number, panel, birth, components, regional):
         ax.legend(frameon=False, fontsize=9, ncol=2)
         return finish(
             fig,
-            "04 · ¿De dónde procede el crecimiento demográfico?",
+            "¿De dónde procede el crecimiento demográfico?",
             "España · INE IDB · 2008–2024. Cambio de estadística migratoria en 2021 "
             "(línea discontinua).\n"
             "Saldo natural incluye a todos los residentes. Las diferencias entre "
@@ -423,8 +432,9 @@ def make_figure(number, panel, birth, components, regional):
         axes[1].legend(frameon=False, fontsize=9)
         return finish(
             fig,
-            "05 · ¿Qué grupos explican el cambio de población residente?",
-            "España · INE ECP. Cierre de año: 1 de enero siguiente; cierre de 2025 provisional.\n"
+            "¿Qué grupos explican el cambio de población residente?",
+            'España · INE ECP. Cierre de año: 1 de enero siguiente; cierre de '
+            '2025 provisional.\n'
             "Lugar de nacimiento ≠ nacionalidad. Los cambios de estos grupos no "
             "equivalen al saldo migratorio.",
         )
@@ -442,7 +452,7 @@ def make_figure(number, panel, birth, components, regional):
             ax.set(title=label, xlabel="Cambio acumulado (%)")
         return finish(
             fig,
-            "06 · La presión no se distribuye igual en todas las comunidades",
+            "La presión no se distribuye igual en todas las comunidades",
             "INE ECP y MIVAU · Cambio 2020–2025 · 17 comunidades, mismos extremos y "
             "misma escala porcentual.\n"
             "Stocks al cierre del año; precio medio anual. Ceuta/Melilla excluidas: "
@@ -491,8 +501,86 @@ def run_analysis(root):
         fig = make_figure(number, *panels)
         fig.savefig(figure_dir / f"{name}.png", dpi=150)
         plt.close(fig)
+    from .demographic_publication import publish_demographics
+
+    additional = publish_demographics(root, panels)
+    from .demographic_publication import publish_demographics
+
+    additional = publish_demographics(root, panels)
     result = findings(*panels[:3])
+    result["figure_count"] = len(FIGURES) + len(additional)
+    result["figure_count"] = len(FIGURES) + len(additional)
     (table_dir / "findings.json").write_text(
-        json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     return panels, result
+
+
+def population_dwelling_use_figure(panel, root):
+    """Compare population with the official stock classified by dwelling use."""
+    figure_style()
+    stock = read_source(root, "stock")
+    stock["year"] = stock["A\u00f1o"].astype(int)
+    stock["value"] = numeric(stock["Valor"])
+    categories = {
+        "Viviendas_Totales": "dwellings",
+        "Vivienda_Principal": "principal_dwellings",
+        "Vivienda_No_Principal": "non_principal_dwellings",
+    }
+    selected = stock[stock.Tipo_Vivienda.isin(categories)]
+    if selected.value.isna().any():
+        raise ValueError("Missing dwelling-use observations")
+    if not selected.groupby(["year", "Tipo_Vivienda"]).size().eq(51).all():
+        raise ValueError("Incomplete territorial coverage for dwelling use")
+    counts = selected.groupby(["year", "Tipo_Vivienda"]).value.sum().unstack()
+    counts = counts.rename(columns=categories)
+    if not np.allclose(
+        counts.dwellings,
+        counts.principal_dwellings + counts.non_principal_dwellings,
+        rtol=0,
+        atol=2,
+    ):
+        raise ValueError("Dwelling-use components do not match the total")
+    counts = counts.join(panel.population, how="inner").dropna()
+    if not np.array_equal(counts.dwellings, panel.loc[counts.index, "dwellings"]):
+        raise ValueError("Dwelling totals disagree with the first figure")
+    directory = Path(root) / "reports/tables/block02"
+    directory.mkdir(parents=True, exist_ok=True)
+    counts.to_csv(directory / "population_dwelling_use.csv")
+    fig, ax = plt.subplots(figsize=(14, 7))
+    series = [
+        ("population", COLORS[1], "Poblaci\u00f3n total (habitantes)"),
+        ("dwellings", COLORS[3], "Viviendas totales"),
+        ("principal_dwellings", COLORS[0], "Viviendas principales"),
+        ("non_principal_dwellings", COLORS[2], "Viviendas no principales"),
+    ]
+    for column, color, label in series:
+        ax.plot(
+            counts.index, counts[column], color=color, lw=2.5, marker="o", markersize=3, label=label
+        )
+        for year in (counts.index.min(), counts.index.max()):
+            value = counts.loc[year, column]
+            ax.annotate(
+                f"{value:,.0f}".replace(",", "."),
+                (year, value),
+                xytext=(0, 10),
+                textcoords="offset points",
+                ha="center",
+                color=color,
+                fontsize=9,
+            )
+    ax.set(
+        xlabel="A\u00f1o",
+        ylabel="N\u00famero de habitantes / viviendas",
+        ylim=(0, counts.max().max() * 1.12),
+    )
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:,.0f}".replace(",", ".")))
+    ax.legend(frameon=False, loc="upper left")
+    return finish(
+        fig,
+        "Poblaci\u00f3n y viviendas por uso en Espa\u00f1a",
+        "INE y MIVAU \u00b7 2001\u20132025 "
+        "\u00b7 Cierre de a\u00f1o; poblaci\u00f3n de 2025 provisional.\n"
+        "Principales: residencia habitual. No principales: otros usos y viviendas vac\u00edas.\n"
+        "Esta clasificaci\u00f3n no mide habitabilidad ni disponibilidad para compra o alquiler.",
+    )

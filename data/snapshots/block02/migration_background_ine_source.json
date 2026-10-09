@@ -1,0 +1,18 @@
+{
+  "source": "INE Encuesta Continua de Hogares; reference 1 January",
+  "retrieved_at_utc": "2026-10-08T23:07:19.013167+00:00",
+  "scope": "All ages, residents in family dwellings, 2014-2020",
+  "unit": "thousand persons, converted to persons",
+  "sources": [
+    {
+      "filename": "migration_background_ine.px",
+      "url": "https://www.ine.es/pcaxisdl/t20/p274/serie/def/p04/l0/02011.px",
+      "sha256": "e6ce59e81a968f2a24e8b63ee659dc35d34c12e2d085f70b423f356602b6a822"
+    },
+    {
+      "filename": "migration_children_ine.px",
+      "url": "https://www.ine.es/pcaxisdl/t20/p274/serie/def/p04/l0/02003.px",
+      "sha256": "fa78a9fb1a557d801795a0597c1c09c4c2fda944b8e19b2a8330163ce97f8024"
+    }
+  ]
+}

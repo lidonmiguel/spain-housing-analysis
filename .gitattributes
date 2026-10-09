@@ -1,0 +1,17 @@
+* text=auto
+.gitignore text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.ipynb text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.csv text eol=lf
+*.px text eol=lf
+*.png binary
+*.pdf binary
+*.zip binary
+*.gz binary
+# Frozen source bytes must survive checkout unchanged for SHA-256 validation.
+data/snapshots/** -text
+data/raw/** -text
